@@ -1,5 +1,7 @@
 # Backend
 
+## Set up prisma-multi-tenant
+
 ### 1) set enviroment variables
 
 create .env file:
@@ -44,13 +46,22 @@ check if prisma-multi-tenant is installed correctly:
 npx prisma-multi-tenant list
 ```
 
-## 2. Create the tenant
+## Create a tenant
 
 https://github.com/Errorname/prisma-multi-tenant/blob/master/docs/Complete_Documentation.md#createtenanttenant--name-string-provider-string-url-string--options-any-promiseprismaclient
 
--- create tenant cli
+### create
 
--- delete tenant cli
+```
+npx prisma-multi-tenant new
+```
+```
+{
+  name: 'voicestory'.
+  provider: 'postgresql',
+  url: 'postgresql://digital@localhost:5432/voicestory?schema=voicestory'
+}
+```
 
 -- seed data
 
