@@ -4,27 +4,34 @@ import { PrismaClient } from '@prisma/client'
 import { MultiTenant } from 'prisma-multi-tenant'
 
 export const createTenant = async (req: any, res: any, next: any) => {
-  
   const name = req.body.tenantName
   const username = req.body.username
   const fullname = req.body.fullname
   const description = req.body.description
   const image = req.body.image
   const email = req.body.email
+
   try {
     // Create new tenant
-    await run(
-      `prisma-multi-tenant new --name=${name} --provider=postgresql
-      --url=${process.env.DATABASE_URL}?schema=${name}`
-    )
-    await run(`prisma-multi-tenant env ${name} -- prisma2 migrate save --experimental`)
-    await run(`prisma-multi-tenant migrate ${name} up -- --auto-approve`)
+    /* const multiTenant = new MultiTenant<PrismaClient>() */
+    /* const prisma = await multiTenant.createTenant({ */
+    /*   name: req.body.tenantName, */
+    /*   provider: 'postgresql', */
+    /*   url: `postgresql://${process.env.DATABASE_URL}?schema=${name}`, */
+    /* }) */
+    /* await run( */
+    /*   `npx prisma-multi-tenant new --name=${name} --provider=postgresql */
+    /*   --url=${process.env['DATABASE_URL']}?schema=${name}`, */
+    /* ) */
+    /* await run( */
+    /*   `npx prisma-multi-tenant env ${name} -- prisma2 migrate save --experimental`, */
+    /* ) */
+    /* await run(`npx prisma-multi-tenant migrate ${name} up -- --auto-approve`) */
   } catch (err) {}
 
   try {
-    const multiTenant = new MultiTenant<PrismaClient>();
+    const multiTenant = new MultiTenant<PrismaClient>()
     const prisma = await multiTenant.get(name)
-
 
     await prisma.user.create({
       data: {
@@ -42,30 +49,31 @@ export const createTenant = async (req: any, res: any, next: any) => {
               title: 'Admin',
               roleSettings:
                 'manage_community,manage_channel,manage_role,chat_permission,upload_image,post_links,delete_message',
-              color: '#9B59B6'
+              color: '#9B59B6',
             },
             {
               title: 'Manager',
               roleSettings:
                 'manage_community,manage_channel,chat_permission,upload_image,post_links,delete_message',
-              color: '#3398DB'
+              color: '#3398DB',
             },
             {
               title: 'Member',
               roleSettings:
                 'manage_community,manage_channel,chat_permission,upload_image,post_links',
-              color: '#2FCC71'
-            }
-          ]
-        }
-      }
+              color: '#2FCC71',
+            },
+          ],
+        },
+      },
     })
 
     await prisma.community.create({
       data: {
         name: 'General',
         url: 'general',
-        image: 'http://ec2-3-20-204-242.us-east-2.compute.amazonaws.com:3000/favicon.svg',
+        image:
+          'http://ec2-3-20-204-242.us-east-2.compute.amazonaws.com:3000/favicon.svg',
         description,
         channels: {
           create: [
@@ -74,12 +82,12 @@ export const createTenant = async (req: any, res: any, next: any) => {
               description: 'Talk on a general topic',
               url: `general/general`,
               author: { connect: { username } },
-            }
-          ]
+            },
+          ],
         },
         author: { connect: { username } },
-        members: { connect: { username } }
-      }
+        members: { connect: { username } },
+      },
     })
 
     await prisma.community.create({
@@ -95,12 +103,12 @@ export const createTenant = async (req: any, res: any, next: any) => {
               description: 'Talk on a general topic',
               url: `direct/general`,
               author: { connect: { username } },
-            }
-          ]
+            },
+          ],
         },
         author: { connect: { username } },
-        members: { connect: { username } }
-      }
+        members: { connect: { username } },
+      },
     })
 
     await multiTenant.disconnect()

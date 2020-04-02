@@ -1,50 +1,55 @@
 const dotenv = require('dotenv')
-dotenv.config({ path: `../.env.${process.env.NODE_ENV}` })
+/* dotenv.config({ path: `../.env.${process.env.NODE_ENV}` }) */
+dotenv.config({ path: `./.env` })
+
+import { GraphQLServer, PubSub } from 'graphql-yoga'
+import { MultiTenant } from 'prisma-multi-tenant'
+import { PrismaClient } from '@prisma/client'
 import { nexusPrismaPlugin } from 'nexus-prisma'
 import { makeSchema } from 'nexus'
-import { GraphQLServer, PubSub } from 'graphql-yoga'
-import { join } from 'path'
-import * as allTypes from './resolvers'
-import { Context, Token } from './types'
-import SocialConfig from './passport'
-import RegisterCompany from './registerCompany'
-import { permissions } from './permissions'
 import { applyMiddleware } from 'graphql-middleware'
-import * as compression from 'compression' // compresses requests
-import * as bodyParser from 'body-parser'
-import { PrismaClient } from '@prisma/client';
-import { MultiTenant } from 'prisma-multi-tenant'
+import { join } from 'path'
+
+import * as allTypes from './resolvers'
+import { permissions } from './permissions'
+import { Context, Token } from './types'
+
+import RegisterCompany from './registerCompany'
+import SocialConfig from './passport'
 import { verify } from 'jsonwebtoken'
 
-const multiTenant = new MultiTenant<PrismaClient>();
+import * as compression from 'compression' // compresses requests
+import * as bodyParser from 'body-parser'
+
+const multiTenant = new MultiTenant<PrismaClient>()
 
 const cors = require('cors')
 
 let prismas = new Map()
 const pubsub = new PubSub()
 
-const nexusPrisma = nexusPrismaPlugin();
+const nexusPrisma = nexusPrismaPlugin()
 
 const baseSchema = makeSchema({
   types: [allTypes],
   plugins: [nexusPrisma],
   outputs: {
     typegen: join(__dirname, '../generated/nexus-typegen.ts'),
-    schema: join(__dirname, '/schema.graphql')
+    schema: join(__dirname, '/schema.graphql'),
   },
   typegenAutoConfig: {
     sources: [
       {
-        source: "@prisma/client",
-        alias: "prisma"
+        source: '@prisma/client',
+        alias: 'prisma',
       },
       {
         source: join(__dirname, 'types.ts'),
-        alias: 'ctx'
-      }
+        alias: 'ctx',
+      },
     ],
-    contextType: 'ctx.Context'
-  }
+    contextType: 'ctx.Context',
+  },
 })
 
 const schema = applyMiddleware(baseSchema, permissions)
@@ -52,7 +57,7 @@ const schema = applyMiddleware(baseSchema, permissions)
 const server = new GraphQLServer({
   schema,
   // typeDefs: `scalar Upload`,
-  context: async ctx => {
+  context: async (ctx) => {
     if (ctx.request) {
       const name = String(ctx.request.headers['voicestory-tenant'])
 
@@ -61,7 +66,7 @@ const server = new GraphQLServer({
         if (prismas.get(name)) {
           if (prismas.get(name) === '1') {
             while (prismas.get(name) === '1') {
-              await new Promise(r => setTimeout(r, 1000))
+              await new Promise((r) => setTimeout(r, 1000))
             }
             console.log(`${name} is new ${prismas.get(name)}`)
           } else {
@@ -77,13 +82,13 @@ const server = new GraphQLServer({
         return {
           ...ctx,
           prisma,
-          pubsub
+          pubsub,
         }
       } catch (err) {
         console.log(name, 'NO1')
         return {
           ...ctx,
-          pubsub
+          pubsub,
         }
       }
     } else {
@@ -94,7 +99,7 @@ const server = new GraphQLServer({
         if (prismas.get(name)) {
           if (prismas.get(name) === '1') {
             while (prismas.get(name) === '1') {
-              await new Promise(r => setTimeout(r, 1000))
+              await new Promise((r) => setTimeout(r, 1000))
             }
             console.log(`${name} is new ${prismas.get(name)}`)
           } else {
@@ -109,17 +114,17 @@ const server = new GraphQLServer({
         return {
           ...ctx,
           prisma,
-          pubsub
+          pubsub,
         }
       } catch (err) {
         console.log(name, 'NO')
         return {
           ...ctx,
-          pubsub
+          pubsub,
         }
       }
     }
-  }
+  },
 })
 
 // enable cors
@@ -127,7 +132,7 @@ var corsOption = {
   origin: true,
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
-  exposedHeaders: ['x-auth-token']
+  exposedHeaders: ['x-auth-token'],
 }
 
 server.express.use('/*', cors(corsOption))
@@ -135,10 +140,9 @@ server.express.use(compression())
 server.express.use(bodyParser.json({ type: 'application/json' }))
 server.express.use(bodyParser.urlencoded({ extended: true }))
 server.express.use(bodyParser.text({ type: 'text/html' }))
+server.express.use('/register', RegisterCompany)
 
 SocialConfig.configure(server)
-
-server.express.use('/register', RegisterCompany)
 
 ////////// ----------- //////////
 server.start(
@@ -147,17 +151,20 @@ server.start(
     playground: '/graphql',
     cors: {
       credentials: true,
-      origin: process.env.FRONTEND_URL
+      origin: process.env.FRONTEND_URL,
     },
     subscriptions: {
       onConnect: async (
         { token }: { token: string },
         ws: Object,
-        context: Context
+        context: Context,
       ) => {
         if (token) {
           try {
-            const verifiedToken = verify(token, process.env['APP_SECRET']) as Token
+            const verifiedToken = verify(
+              token,
+              process.env['APP_SECRET'],
+            ) as Token
             const userId = verifiedToken && verifiedToken.userId
             const tenant = verifiedToken && verifiedToken.tenant
             if (userId && tenant) {
@@ -172,7 +179,7 @@ server.start(
               }
             }
           } catch (error) {
-            return;
+            return
           }
         }
       },
@@ -181,7 +188,10 @@ server.start(
           try {
             let token = context.request.headers.cookie
             token = token.slice(token.lastIndexOf('token=') + 6)
-            const verifiedToken = verify(token, process.env['APP_SECRET']) as Token
+            const verifiedToken = verify(
+              token,
+              process.env['APP_SECRET'],
+            ) as Token
             const userId = verifiedToken && verifiedToken.userId
             const tenant = verifiedToken && verifiedToken.tenant
             if (userId && tenant) {
@@ -196,13 +206,13 @@ server.start(
               }
             }
           } catch (error) {
-            return;
+            return
           }
         }
-      }
-    }
+      },
+    },
   },
-  () => console.log(`🚀 Server ready`)
+  () => console.log(`🚀 Server ready`),
 )
 
 process.on('exit', async () => {
