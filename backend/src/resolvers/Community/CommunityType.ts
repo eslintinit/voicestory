@@ -11,7 +11,5 @@ export const Community = objectType({
     t.model.description()
     t.model.author()
     t.model.members({ pagination: false })
-    t.model.channels({ pagination: false })
-    t.model.notifications({ pagination: false })
   },
 })

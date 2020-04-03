@@ -1,11 +1,11 @@
-import styled from 'styled-components';
-import { ToastContainer } from 'react-toastify';
+import styled from 'styled-components'
+import { ToastContainer } from 'react-toastify'
 
 export const WrappedToastContainer = ({ className, ...rest }) => (
   <div className={className}>
     <ToastContainer {...rest} />
   </div>
-);
+)
 
 export default styled(WrappedToastContainer).attrs({
   // custom props
@@ -44,4 +44,4 @@ export default styled(WrappedToastContainer).attrs({
     visibility: hidden;
     // background: white;
   }
-`;
+`

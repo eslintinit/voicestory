@@ -1,14 +1,14 @@
-import { useRouter } from 'next/router';
-import { useKeyboardShortcut } from 'hooks';
+import { useRouter } from 'next/router'
+import { useKeyboardShortcut } from 'hooks'
 
-import { COMPANY_NAME } from 'utils/config';
+import { COMPANY_NAME } from 'utils/config'
 
-import closeSVG from 'public/icons/close.svg';
-import * as S from './Tab.styled';
+import closeSVG from 'public/icons/close.svg'
+import * as S from './Tab.styled'
 
 const Tab = ({ community, active, nextActive, index }) => {
-  const router = useRouter();
-  const { community: selectedCommunity } = router.query;
+  const router = useRouter()
+  const { community: selectedCommunity } = router.query
 
   const onChangeTab = () => {
     if (community.url !== selectedCommunity)
@@ -16,12 +16,12 @@ const Tab = ({ community, active, nextActive, index }) => {
         '/[company]/[community]/[channel]',
         `/${COMPANY_NAME()}/${community.url}/general`,
         { shallow: true }
-      );
-  };
+      )
+  }
 
   useKeyboardShortcut({
     [index + 1]: onChangeTab,
-  });
+  })
 
   return (
     <S.Tab active={active} onClick={onChangeTab} key={community.id}>
@@ -48,7 +48,7 @@ const Tab = ({ community, active, nextActive, index }) => {
         </S.UnsubscribeIconWrapper>
       </S.TabContent>
     </S.Tab>
-  );
-};
+  )
+}
 
-export default Tab;
+export default Tab

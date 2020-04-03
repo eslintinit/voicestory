@@ -1,39 +1,39 @@
-import { useContext, useState } from 'react';
-import { UserContext } from 'context/UserContext';
-import { useRouter } from 'next/router';
-import { useMutation } from '@apollo/react-hooks';
-import { useEscapeToClose } from 'hooks';
-import { Formik, Form, Field } from 'formik';
-import * as yup from 'yup';
+import { useContext, useState } from 'react'
+import { UserContext } from 'context/UserContext'
+import { useRouter } from 'next/router'
+import { useMutation } from '@apollo/react-hooks'
+import { useEscapeToClose } from 'hooks'
+import { Formik, Form, Field } from 'formik'
+import * as yup from 'yup'
 
-import withAuth from 'utils/apollo/withAuth';
-import { awsUrl } from 'utils/helper';
-import { GET_COMMUNITIES, CREATE_COMMUNITY } from 'apis/Community';
-import { UPLOAD_FILE } from 'apis/File';
-import { COMPANY_NAME } from 'utils/config';
+import withAuth from 'utils/apollo/withAuth'
+import { awsUrl } from 'utils/helper'
+import { GET_COMMUNITIES, CREATE_COMMUNITY } from 'apis/Community'
+import { UPLOAD_FILE } from 'apis/File'
+import { COMPANY_NAME } from 'utils/config'
 
-import { ButtonPrimary } from 'components/UI/Button/Button';
-import { Input, FileInput } from 'components/UI/Input';
-import { BackIcon } from 'components/UI/Icons';
+import { ButtonPrimary } from 'components/UI/Button/Button'
+import { Input, FileInput } from 'components/UI/Input'
+import { BackIcon } from 'components/UI/Icons'
 
-import * as S from './CommunityCreate.styled';
+import * as S from './CommunityCreate.styled'
 
 const CreateCommunity = () => {
-  const [communityImage, setCommunityImage] = useState(null);
-  const { getMe } = useContext(UserContext);
-  const [uploadFile] = useMutation(UPLOAD_FILE);
+  const [communityImage, setCommunityImage] = useState(null)
+  const { getMe } = useContext(UserContext)
+  const [uploadFile] = useMutation(UPLOAD_FILE)
   const [createCommunity] = useMutation(CREATE_COMMUNITY, {
     update(cache, { data: { createCommunity: community } }) {
-      const { communities } = cache.readQuery({ query: GET_COMMUNITIES });
+      const { communities } = cache.readQuery({ query: GET_COMMUNITIES })
       cache.writeQuery({
         query: GET_COMMUNITIES,
         data: { communities: communities.concat([community]) },
-      });
+      })
     },
-  });
+  })
 
-  const router = useRouter();
-  useEscapeToClose(router.back);
+  const router = useRouter()
+  useEscapeToClose(router.back)
 
   const initialValues = {
     name: '',
@@ -41,7 +41,7 @@ const CreateCommunity = () => {
     image: '',
     url: '',
     isPrivate: false,
-  };
+  }
 
   const validationSchema = yup.object().shape({
     name: yup
@@ -55,28 +55,29 @@ const CreateCommunity = () => {
     //   .matches(/^([a-zA-Z0-9.-]+)$/, 'Must not contain special characters')
     //   .required('Url is required'),
     // image: yup.string().required('Image is required'),
-  });
+  })
 
   const handleImageInput = async e => {
     if (e.target.validity.valid) {
-      const file = e.target.files[0];
+      const file = e.target.files[0]
 
-      setCommunityImage(file);
+      setCommunityImage(file)
     }
-  };
+  }
 
   const onSubmit = async (values, { setSubmitting, setErrors }) => {
-    let image = 'http://ec2-3-20-204-242.us-east-2.compute.amazonaws.com:3000/favicon.svg';
+    let image =
+      'http://ec2-3-20-204-242.us-east-2.compute.amazonaws.com:3000/favicon.svg'
 
-    const url = values.name.toLowerCase().replace(' ', '-');
+    const url = values.name.toLowerCase().replace(' ', '-')
 
     if (communityImage) {
       const {
         data: {
           uploadFile: { Key },
         },
-      } = await uploadFile({ variables: { file: communityImage } });
-      image = `${awsUrl}${Key}`;
+      } = await uploadFile({ variables: { file: communityImage } })
+      image = `${awsUrl}${Key}`
     }
 
     const { data } = await createCommunity({
@@ -86,23 +87,23 @@ const CreateCommunity = () => {
         image,
       },
       errorPolicy: 'all',
-    });
+    })
 
-    setSubmitting(false);
+    setSubmitting(false)
     if (!data) {
-      setErrors({ name: 'Community with this name or url already exists' });
+      setErrors({ name: 'Community with this name or url already exists' })
     } else {
-      await getMe();
+      await getMe()
       const {
         createCommunity: { url: communityUrl },
-      } = data;
+      } = data
       router.push(
         `/[company]/[community]/[channel]`,
         `/${COMPANY_NAME()}/${communityUrl}/general`,
         { shallow: true }
-      );
+      )
     }
-  };
+  }
 
   return (
     <S.Container>
@@ -175,7 +176,7 @@ const CreateCommunity = () => {
         </Formik>
       </S.Body>
     </S.Container>
-  );
-};
+  )
+}
 
-export default withAuth(CreateCommunity);
+export default withAuth(CreateCommunity)

@@ -3,7 +3,6 @@ const dotenv = require('dotenv')
 dotenv.config({ path: `./.env` })
 
 import { GraphQLServer, PubSub } from 'graphql-yoga'
-import { MultiTenant } from 'prisma-multi-tenant'
 import { PrismaClient } from '@prisma/client'
 import { nexusPrismaPlugin } from 'nexus-prisma'
 import { makeSchema } from 'nexus'
@@ -14,18 +13,17 @@ import * as allTypes from './resolvers'
 import { permissions } from './permissions'
 import { Context, Token } from './types'
 
-import RegisterCompany from './registerCompany'
 import SocialConfig from './passport'
 import { verify } from 'jsonwebtoken'
 
 import * as compression from 'compression' // compresses requests
 import * as bodyParser from 'body-parser'
 
-const multiTenant = new MultiTenant<PrismaClient>()
+/* const multiTenant = new MultiTenant<PrismaClient>() */
+const prisma = new PrismaClient()
 
 const cors = require('cors')
 
-let prismas = new Map()
 const pubsub = new PubSub()
 
 const nexusPrisma = nexusPrismaPlugin()
@@ -52,33 +50,15 @@ const baseSchema = makeSchema({
   },
 })
 
-const schema = applyMiddleware(baseSchema, permissions)
+/* const schema = applyMiddleware(baseSchema, permissions) */
+const schema = baseSchema
 
 const server = new GraphQLServer({
   schema,
   // typeDefs: `scalar Upload`,
   context: async (ctx) => {
     if (ctx.request) {
-      const name = String(ctx.request.headers['voicestory-tenant'])
-
       try {
-        let prisma
-        if (prismas.get(name)) {
-          if (prismas.get(name) === '1') {
-            while (prismas.get(name) === '1') {
-              await new Promise((r) => setTimeout(r, 1000))
-            }
-            console.log(`${name} is new ${prismas.get(name)}`)
-          } else {
-            console.log(`${name} is already ${prismas.get(name)}`)
-          }
-          prisma = await multiTenant.get(name)
-        } else {
-          prismas.set(name, '1')
-          prisma = await multiTenant.get(name)
-          prismas.set(name, '2')
-        }
-
         return {
           ...ctx,
           prisma,
@@ -92,25 +72,7 @@ const server = new GraphQLServer({
         }
       }
     } else {
-      const name = ctx.connection.variables.tenant
-
       try {
-        let prisma
-        if (prismas.get(name)) {
-          if (prismas.get(name) === '1') {
-            while (prismas.get(name) === '1') {
-              await new Promise((r) => setTimeout(r, 1000))
-            }
-            console.log(`${name} is new ${prismas.get(name)}`)
-          } else {
-            console.log(`${name} is already ${prismas.get(name)}`)
-          }
-          prisma = await multiTenant.get(name)
-        } else {
-          prismas.set(name, '1')
-          prisma = await multiTenant.get(name)
-          prismas.set(name, '2')
-        }
         return {
           ...ctx,
           prisma,
@@ -140,11 +102,9 @@ server.express.use(compression())
 server.express.use(bodyParser.json({ type: 'application/json' }))
 server.express.use(bodyParser.urlencoded({ extended: true }))
 server.express.use(bodyParser.text({ type: 'text/html' }))
-server.express.use('/register', RegisterCompany)
 
 SocialConfig.configure(server)
 
-////////// ----------- //////////
 server.start(
   {
     endpoint: '/graphql',
@@ -168,7 +128,6 @@ server.start(
             const userId = verifiedToken && verifiedToken.userId
             const tenant = verifiedToken && verifiedToken.tenant
             if (userId && tenant) {
-              const prisma = await multiTenant.get(tenant)
               if (prisma.user) {
                 const user = await prisma.user.update({
                   where: { id: userId },
@@ -195,7 +154,6 @@ server.start(
             const userId = verifiedToken && verifiedToken.userId
             const tenant = verifiedToken && verifiedToken.tenant
             if (userId && tenant) {
-              const prisma = await multiTenant.get(tenant)
               if (prisma.user) {
                 const user = await prisma.user.update({
                   where: { id: userId },
@@ -212,9 +170,12 @@ server.start(
       },
     },
   },
-  () => console.log(`🚀 Server ready`),
+  () =>
+    console.log(
+      `🚀 Server ready at: http://localhost:4000/graphql\n⭐️ See sample queries: http://pris.ly/e/ts/graphql-auth#using-the-graphql-api`,
+    ),
 )
 
 process.on('exit', async () => {
-  await multiTenant.disconnect()
+  /* await multiTenant.disconnect() */
 })

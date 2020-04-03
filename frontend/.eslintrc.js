@@ -21,12 +21,14 @@ module.exports = {
     'react/react-in-jsx-scope': 0, // Next.js provides react by default
     'react/prop-types': 0, //
     'react/jsx-filename-extension': 0, //
+    'import/prefer-default-export': 0, //
+    'react/jsx-props-no-spreading': 0, //
 
-    // 'react/jsx-props-no-spreading': 0,
+    // Not sure about next:
+    'react/jsx-curly-newline': 0,
+
     // 'implicit-arrow-linebreak': 0,
     // 'function-paren-newline': 0,
-    // 'import/prefer-default-export': 0,
-    // 'react/jsx-curly-newline': 0,
     // 'operator-linebreak': 0,
     // 'no-console': 0,
     // 'no-plusplus': 0,

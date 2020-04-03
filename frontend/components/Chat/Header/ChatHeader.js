@@ -1,68 +1,74 @@
-import { useEffect, useContext } from 'react';
-import { useRouter } from 'next/router';
-import { useLazyQuery } from '@apollo/react-hooks';
-import { useKeyboardShortcut } from 'hooks';
+import { useEffect, useContext } from 'react'
+import { useRouter } from 'next/router'
+import { useLazyQuery } from '@apollo/react-hooks'
+import { useKeyboardShortcut } from 'hooks'
 
-import { UserContext } from 'context/UserContext';
-import { AppContext } from 'context';
-import { COMPANY_NAME } from 'utils/config';
-import { GET_CHANNEL } from 'apis/Channel';
+import { UserContext } from 'context/UserContext'
+import { AppContext } from 'context'
+import { COMPANY_NAME } from 'utils/config'
+import { GET_CHANNEL } from 'apis/Channel'
 
-import Topic from './Topic/Topic';
-import Search from './Search/Search';
-import More from './More';
-import Members from './Members';
-import Channels from './Channels/Channels';
+import Topic from './Topic/Topic'
+import Search from './Search/Search'
+import More from './More'
+import Members from './Members'
+import Channels from './Channels/Channels'
 
-import ChatHeaderDirect from './ChatHeaderDirect';
-import ChatHeaderPlaceholder from './ChatHeader.placeholder';
-import * as S from './ChatHeader.styled';
+import ChatHeaderDirect from './ChatHeaderDirect'
+import ChatHeaderPlaceholder from './ChatHeader.placeholder'
+import * as S from './ChatHeader.styled'
 
 const ChatHeader = () => {
   const {
     query: { community: communityUrl, channel: channelUrl },
     push,
-  } = useRouter();
-  const { user } = useContext(UserContext);
-  const { channelLoaded, setChannelLoaded } = useContext(AppContext);
+  } = useRouter()
+  const { user } = useContext(UserContext)
+  const { channelLoaded, setChannelLoaded } = useContext(AppContext)
   const [
     getChannel,
     { data: { channel = { community: { members: [] } } } = {}, loading },
   ] = useLazyQuery(GET_CHANNEL, {
     onCompleted: () => {
       if (!channelLoaded) {
-        setChannelLoaded(true);
+        setChannelLoaded(true)
       }
     },
-  });
+  })
 
   useEffect(() => {
-    getChannel({ variables: { url: `${communityUrl}/${channelUrl}` } });
-  }, [communityUrl, channelUrl]);
+    getChannel({ variables: { url: `${communityUrl}/${channelUrl}` } })
+  }, [communityUrl, channelUrl])
 
   useKeyboardShortcut({
     n: () =>
-      push(`/[company]/[community]/new-channel`, `/${COMPANY_NAME()}/${communityUrl}/new-channel`, {
-        shallow: true,
-      }),
-  });
+      push(
+        `/[company]/[community]/new-channel`,
+        `/${COMPANY_NAME()}/${communityUrl}/new-channel`,
+        {
+          shallow: true,
+        }
+      ),
+  })
 
   const onChangeTopic = () => {
-    getChannel({ variables: { url: `${communityUrl}/${channelUrl}` } });
-  };
+    getChannel({ variables: { url: `${communityUrl}/${channelUrl}` } })
+  }
 
   if (loading) {
-    return <ChatHeaderPlaceholder />;
+    return <ChatHeaderPlaceholder />
   }
 
   if (communityUrl === 'direct') {
     if (!user) {
-      return <ChatHeaderPlaceholder />;
+      return <ChatHeaderPlaceholder />
     }
-    const channelUsernames = channelUrl.replace('direct/', '').split('-');
+    const channelUsernames = channelUrl.replace('direct/', '').split('-')
     const otherUsername =
-      channelUsernames.indexOf(user.username) === 0 ? channelUsernames[1] : channelUsernames[0];
-    return <ChatHeaderDirect username={otherUsername} />;
+      channelUsernames.indexOf(user.username) === 0
+        ? channelUsernames[1]
+        : channelUsernames[0]
+    return <ChatHeaderDirect username={otherUsername} />
   }
 
   return (
@@ -85,7 +91,7 @@ const ChatHeader = () => {
         )}
       </S.Container>
     </>
-  );
-};
+  )
+}
 
-export default ChatHeader;
+export default ChatHeader

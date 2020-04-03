@@ -1,4 +1,4 @@
-import Chat from 'components/Chat/Chat';
-// import Layout from 'components/Layout/Layout';
+// import Chat from 'components/Chat/Chat'
 
-export default () => <Chat />;
+// export default () => <Chat />
+export default () => <div />

@@ -1,4 +1,15 @@
-import gql from 'graphql-tag';
+import gql from 'graphql-tag'
+
+export const GET_COMMUNITIES = gql`
+  query communities {
+    communities {
+      id
+      url
+      image
+      name
+    }
+  }
+`
 
 export const GET_COMMUNITY = gql`
   query community($url: String) {
@@ -21,27 +32,7 @@ export const GET_COMMUNITY = gql`
       }
     }
   }
-`;
-
-export const GET_COMMUNITIES = gql`
-  query communities {
-    communities {
-      id
-      url
-      image
-      name
-      author {
-        id
-      }
-      members {
-        id
-      }
-      notifications {
-        id
-      }
-    }
-  }
-`;
+`
 
 export const SEARCH_COMMUNITIES = gql`
   query searchCommunities($searchString: String) {
@@ -62,7 +53,7 @@ export const SEARCH_COMMUNITIES = gql`
       }
     }
   }
-`;
+`
 
 export const FOLLOW_COMMUNITY = gql`
   mutation followCommunity($url: String) {
@@ -73,7 +64,7 @@ export const FOLLOW_COMMUNITY = gql`
       }
     }
   }
-`;
+`
 
 export const UNFOLLOW_COMMUNITY = gql`
   mutation unfollowCommunity($url: String) {
@@ -84,7 +75,7 @@ export const UNFOLLOW_COMMUNITY = gql`
       }
     }
   }
-`;
+`
 
 export const CREATE_COMMUNITY = gql`
   mutation createCommunity(
@@ -104,4 +95,4 @@ export const CREATE_COMMUNITY = gql`
       url
     }
   }
-`;
+`

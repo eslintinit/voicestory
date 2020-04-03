@@ -6,32 +6,33 @@ export const community = queryField('community', {
   nullable: true,
   args: {
     id: idArg({ nullable: true }),
-    url: stringArg({ nullable: true })
+    url: stringArg({ nullable: true }),
   },
   resolve: (parent, { id, url }, ctx) => {
     if (id) {
       return ctx.prisma.community.findOne({
-        where: { id }
+        where: { id },
       })
     } else if (url) {
       return ctx.prisma.community.findOne({
-        where: { url }
+        where: { url },
       })
     }
-  }
+  },
 })
 
 export const communities = queryField('communities', {
   type: 'Community',
   list: true,
   args: {},
-  resolve: (parent, {}, ctx) => {
-    return ctx.prisma.community.findMany({
+  resolve: async (parent, {}, ctx) => {
+    const r = await ctx.prisma.community.findMany({
       where: {
-        url: { not: 'direct' }
-      }
+        url: { not: 'direct' },
+      },
     })
-  }
+    return r
+  },
 })
 
 // export const followedCommunities = queryField('followedCommunities', {
@@ -61,11 +62,11 @@ export const searchCommunities = queryField('searchCommunities', {
           {
             OR: [
               { name: { contains: searchString } },
-              { description: { contains: searchString } }
-            ]
-          }
-        ]
-      }
+              { description: { contains: searchString } },
+            ],
+          },
+        ],
+      },
     })
-  }
+  },
 })

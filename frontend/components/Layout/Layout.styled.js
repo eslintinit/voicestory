@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 export const Content = styled.div`
   width: 100%;
@@ -6,7 +6,7 @@ export const Content = styled.div`
   display: flex;
   height: calc(100vh - 42px);
   background: ${props => props.theme.chatBG};
-`;
+`
 
 export const Layout = styled.div.attrs({
   id: 'vs-layout',
@@ -15,4 +15,4 @@ export const Layout = styled.div.attrs({
   height: 100vh;
   background: ${props => props.theme.chatBG};
   font-family: 'Helvetica Neue';
-`;
+`

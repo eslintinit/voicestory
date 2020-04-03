@@ -1,18 +1,18 @@
-import Document, { Html, Head, Main, NextScript } from 'next/document';
-import { ServerStyleSheet } from 'styled-components';
+import Document, { Html, Head, Main, NextScript } from 'next/document'
+import { ServerStyleSheet } from 'styled-components'
 
 export default class MyDocument extends Document {
   static async getInitialProps(ctx) {
-    const sheet = new ServerStyleSheet();
-    const originalRenderPage = ctx.renderPage;
+    const sheet = new ServerStyleSheet()
+    const originalRenderPage = ctx.renderPage
 
     try {
       ctx.renderPage = () =>
         originalRenderPage({
           enhanceApp: App => props => sheet.collectStyles(<App {...props} />),
-        });
+        })
 
-      const initialProps = await Document.getInitialProps(ctx);
+      const initialProps = await Document.getInitialProps(ctx)
       return {
         ...initialProps,
         styles: (
@@ -21,9 +21,9 @@ export default class MyDocument extends Document {
             {sheet.getStyleElement()}
           </>
         ),
-      };
+      }
     } finally {
-      sheet.seal();
+      sheet.seal()
     }
   }
 
@@ -39,21 +39,12 @@ export default class MyDocument extends Document {
           />
           <link rel="manifest" href="/manifest.json" />
           <link rel="icon" type="image/png" sizes="64x64" href="/favicon.svg" />
-
-          <audio src="/sounds/notification.wav" id="sound-notification" />
-
-          <link
-            rel="stylesheet"
-            type="text/css"
-            href="https://cdnjs.cloudflare.com/ajax/libs/Ladda/1.0.0/ladda.min.css"
-          />
-          <script src="https://luciorubeens.github.io/pictogrify/dist/pictogrify.js" />
         </Head>
         <body>
           <Main />
           <NextScript />
         </body>
       </Html>
-    );
+    )
   }
 }

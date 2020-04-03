@@ -1,14 +1,15 @@
-import { useState, createContext } from 'react';
+import { useState, createContext } from 'react'
 
-const AppContext = createContext();
+const AppContext = createContext()
 
 const AppProvider = ({ children }) => {
-  const [userLoaded, setUserLoaded] = useState(false);
-  const [communitiesLoaded, setCommunitiesLoaded] = useState(false);
-  const [channelLoaded, setChannelLoaded] = useState(false);
-  const [chatLoaded, setChatLoaded] = useState(false);
+  const [userLoaded, setUserLoaded] = useState(false)
+  const [communitiesLoaded, setCommunitiesLoaded] = useState(false)
+  const [channelLoaded, setChannelLoaded] = useState(false)
+  const [chatLoaded, setChatLoaded] = useState(false)
 
-  const appLoaded = userLoaded && communitiesLoaded && channelLoaded && chatLoaded;
+  const appLoaded =
+    userLoaded && communitiesLoaded && channelLoaded && chatLoaded
 
   return (
     <AppContext.Provider
@@ -26,7 +27,7 @@ const AppProvider = ({ children }) => {
     >
       {children}
     </AppContext.Provider>
-  );
-};
+  )
+}
 
-export { AppProvider as default, AppContext };
+export { AppProvider as default, AppContext }
