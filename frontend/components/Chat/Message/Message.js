@@ -1,16 +1,15 @@
-import { useState, useEffect, useContext, forwardRef } from 'react';
-import { UserContext } from 'context/UserContext';
-import { useInView } from 'react-intersection-observer';
-import { transformMessage } from 'utils/helper';
+import { useState, useContext, forwardRef } from 'react'
+import { UserContext } from 'context/UserContext'
+import { transformMessage } from 'utils/helper'
 
-import Actions from './Actions';
-import Reactions from './Reactions';
-import Replies from './Replies';
-import Editor from './Editor';
+import Actions from './Actions'
+import Reactions from './Reactions'
+import Replies from './Replies'
+import Editor from './Editor'
 
-import MessageWrapper from './_MessageWrapper';
+import MessageWrapper from './_MessageWrapper'
 
-import * as S from './Message.styled';
+import * as S from './Message.styled'
 
 const Message = forwardRef(
   (
@@ -23,48 +22,38 @@ const Message = forwardRef(
       noActions,
       className,
       unread,
-      onEntryInView,
       isPreview,
       isFirstMessage,
     },
     forwardedRef
   ) => {
-    const { user, getMessageQueue } = useContext(UserContext);
-    const [isEditing, setEditing] = useState(false);
-    const [showActions, setShowActions] = useState(false);
+    const { user, getMessageQueue } = useContext(UserContext)
+    const [isEditing, setEditing] = useState(false)
+    const [showActions, setShowActions] = useState(false)
 
-    const toggleEditing = () => setEditing(!isEditing);
+    const toggleEditing = () => setEditing(!isEditing)
 
     const editMessage = editedValue => {
       if (message.body !== editedValue) {
-        onEdit(editedValue, message.id);
+        onEdit(editedValue, message.id)
       }
-      toggleEditing();
-    };
-
-    const [intersectionRef, inView] = useInView({
-      triggerOnce: true,
-      threshold: 0,
-    });
-
-    useEffect(() => {
-      if (unread && inView) {
-        onEntryInView(message);
-      }
-    }, [inView]);
+      toggleEditing()
+    }
 
     const setShow = value => {
-      setShowActions(value);
-    };
+      setShowActions(value)
+    }
 
-    const showReactions = !isEditing && message.reactions && message.reactions.length > 0;
-    const showReplies = !isThread && !isPreview && message.children.length > 0;
+    const showReactions =
+      !isEditing && message.reactions && message.reactions.length > 0
+    const showReplies = !isThread && !isPreview && message.children.length > 0
 
-    const canShowAction = !noActions && !isEditing && user;
-    let isDeleted = false;
+    const canShowAction = !noActions && !isEditing && user
+    let isDeleted = false
     if (user) {
-      const deletedMessages = getMessageQueue();
-      if (deletedMessages.filter(e => e === message.id).length > 0) isDeleted = true;
+      const deletedMessages = getMessageQueue()
+      if (deletedMessages.filter(e => e === message.id).length > 0)
+        isDeleted = true
     }
     return (
       <S.MessageContainer
@@ -94,9 +83,14 @@ const Message = forwardRef(
           ) : (
             <S.Body child={isChild}>{transformMessage(message.body)}</S.Body>
           )}
-          {showReactions && <Reactions reactions={message.reactions} messageId={message.id} />}
+          {showReactions && (
+            <Reactions reactions={message.reactions} messageId={message.id} />
+          )}
           {showReplies && (
-            <Replies reply={message.children} onClick={() => onThreadOpen(message.id)} />
+            <Replies
+              reply={message.children}
+              onClick={() => onThreadOpen(message.id)}
+            />
           )}
         </MessageWrapper>
         {canShowAction && showActions && (
@@ -108,10 +102,9 @@ const Message = forwardRef(
             message={message}
           />
         )}
-        <div ref={intersectionRef} />
       </S.MessageContainer>
-    );
+    )
   }
-);
+)
 
-export default Message;
+export default Message

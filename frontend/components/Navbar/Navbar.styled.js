@@ -1,10 +1,10 @@
 import styled from 'styled-components'
 import PlusSVG from 'public/icons/new-plus-community.svg'
 
-export const NavbarContainer = styled.div`
+export const Container = styled.div`
   display: flex;
   align-items: center;
-  background-color: ${props => props.theme.navbarContainerBG};
+  background-color: ${(props) => props.theme.navbarContainerBG};
   width: calc(100% - 24px);
   height: 34px;
   padding: 8px 12px 0;
@@ -16,7 +16,7 @@ export const PlaceholderContainer = styled.div`
   width: calc(100% - 24px);
   border-radius: 16px 16px 0 0;
   padding: 8px 12px 0;
-  background-color: ${props => props.theme.navbarContainerBG};
+  background-color: ${(props) => props.theme.navbarContainerBG};
 `
 
 export const IconsWrapper = styled.div`
@@ -38,7 +38,7 @@ export const IconBox = styled.div`
   justify-content: center;
   height: 20px;
   width: 19px;
-  ${props =>
+  ${(props) =>
     props.last &&
     `
       display: inline-flex;
@@ -47,7 +47,7 @@ export const IconBox = styled.div`
       vertical-align: bottom;
       margin-bottom: 2px;
   `}
-  ${props =>
+  ${(props) =>
     props.second &&
     `
       vertical-align: top;

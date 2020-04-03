@@ -8,7 +8,6 @@ import * as RoleMutation from './Role/RoleMutation'
 
 export const Mutation = {
   login: { UserMutation },
-  updateUser: { UserMutation },
   users: { UserMutation },
   createCommunity: { CommunityMutation },
   followCommunity: { CommunityMutation },

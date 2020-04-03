@@ -1,18 +1,21 @@
-import { useContext } from 'react';
-import { useMutation } from '@apollo/react-hooks';
-import { UserContext } from 'context/UserContext';
-import dynamic from 'next/dynamic';
-import cuid from 'cuid';
-import { SEND_MESSAGE, GET_LAST_MESSAGES } from 'apis/Message';
-import plusIcon from 'public/icons/plus.svg';
-import InputComponent from './InputComponent';
-import * as S from './ChatInput.styled';
+import { useContext } from 'react'
+import { useMutation } from '@apollo/react-hooks'
+import { UserContext } from 'context/UserContext'
+import dynamic from 'next/dynamic'
+import cuid from 'cuid'
+import { SEND_MESSAGE, GET_LAST_MESSAGES } from 'apis/Message'
+import plusIcon from 'public/icons/plus.svg'
+import InputComponent from './InputComponent'
+import * as S from './ChatInput.styled'
 
-const DynamicTypingStatus = dynamic(() => import('./TypingStatus/TypingStatus'), { ssr: false });
+const DynamicTypingStatus = dynamic(
+  () => import('./TypingStatus/TypingStatus'),
+  { ssr: false }
+)
 
 const ChatInput = ({ dropzoneItems }) => {
-  const [sendMessage] = useMutation(SEND_MESSAGE);
-  const { user } = useContext(UserContext);
+  const [sendMessage] = useMutation(SEND_MESSAGE)
+  const { user } = useContext(UserContext)
 
   const handleSendMessage = async ({
     body,
@@ -29,7 +32,7 @@ const ChatInput = ({ dropzoneItems }) => {
       urlList,
       mentions: mentions ? mentions.map(e => e.id) : [],
       communityUrl,
-    };
+    }
 
     await sendMessage({
       variables: message,
@@ -54,14 +57,17 @@ const ChatInput = ({ dropzoneItems }) => {
           variables: {
             channelUrl: `${communityUrl}/${channelUrl}`,
           },
-        });
+        })
 
-        let messagesData = { ...data };
-        if (data.messages.filter(message => message.id === sendMessageData.id).length === 0) {
+        let messagesData = { ...data }
+        if (
+          data.messages.filter(message => message.id === sendMessageData.id)
+            .length === 0
+        ) {
           messagesData = {
             ...data,
             messages: [...data.messages, sendMessageData],
-          };
+          }
         }
 
         proxy.writeQuery({
@@ -70,12 +76,12 @@ const ChatInput = ({ dropzoneItems }) => {
           variables: {
             channelUrl: `${communityUrl}/${channelUrl}`,
           },
-        });
+        })
       },
-    });
+    })
 
-    return true;
-  };
+    return true
+  }
 
   return (
     <S.ChatInputWrapper>
@@ -84,10 +90,13 @@ const ChatInput = ({ dropzoneItems }) => {
           <use xlinkHref={`${plusIcon}#icon-plus`} />
         </S.PlusIcon>
       </S.AddButton>
-      <InputComponent onSendMessage={handleSendMessage} dropzoneItems={dropzoneItems} />
+      <InputComponent
+        onSendMessage={handleSendMessage}
+        dropzoneItems={dropzoneItems}
+      />
       <DynamicTypingStatus />
     </S.ChatInputWrapper>
-  );
-};
+  )
+}
 
-export default ChatInput;
+export default ChatInput

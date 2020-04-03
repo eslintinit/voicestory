@@ -1,32 +1,37 @@
-import { useEffect, useContext } from 'react';
-import Router from 'next/router';
-import { UserContext } from 'context/UserContext';
-import { COMPANY_NAME } from 'utils/config';
-import { SettingsIcon, UsersIcon, RolesIcon, DarkModeIcon } from 'components/UI/Icons';
-import Toggle from 'components/UI/Toggle/Toggle';
-import useDarkMode from 'use-dark-mode';
+import { useEffect, useContext } from 'react'
+import Router from 'next/router'
+import { UserContext } from 'context/UserContext'
+import { COMPANY_NAME } from 'utils/config'
+import {
+  SettingsIcon,
+  UsersIcon,
+  RolesIcon,
+  DarkModeIcon,
+} from 'components/UI/Icons'
+import Toggle from 'components/UI/Toggle/Toggle'
+import useDarkMode from 'use-dark-mode'
 
-import * as S from './ProfilePopup.styled';
+import * as S from './ProfilePopup.styled'
 
 const ModalMore = ({ opened, close }) => {
-  const { user, logout } = useContext(UserContext);
-  const { value: isDarkMode, toggle } = useDarkMode(false);
+  const { user, logout } = useContext(UserContext)
+  const { value: isDarkMode, toggle } = useDarkMode(false)
 
   useEffect(() => {
-    const listener = document.body.addEventListener('click', event => {
-      const modalContainer = event.target.closest('#modal-more');
-      const profileIconContainer = event.target.closest('#profile-icon');
+    const listener = document.body.addEventListener('click', (event) => {
+      const modalContainer = event.target.closest('#modal-more')
+      const profileIconContainer = event.target.closest('#profile-icon')
       if (!modalContainer && !profileIconContainer) {
-        close();
+        close()
       }
-    });
-    return () => document.body.removeEventListener('click', listener);
-  }, []);
+    })
+    return () => document.body.removeEventListener('click', listener)
+  }, [])
 
   const onLogout = () => {
-    logout();
-    close();
-  };
+    logout()
+    close()
+  }
 
   return (
     <S.Container opened={opened} id="modal-more">
@@ -43,10 +48,14 @@ const ModalMore = ({ opened, close }) => {
         {user && (
           <S.MenuItem
             onClick={() => {
-              Router.push('/[company]/settings/members', `/${COMPANY_NAME()}/settings/members`, {
-                shallow: true,
-              });
-              close();
+              Router.push(
+                '/[company]/settings/members',
+                `/${COMPANY_NAME()}/settings/members`,
+                {
+                  shallow: true,
+                }
+              )
+              close()
             }}
           >
             <S.UsersIcon>
@@ -58,10 +67,14 @@ const ModalMore = ({ opened, close }) => {
         {user && (
           <S.MenuItem
             onClick={() => {
-              Router.push('/[company]/settings/roles', `/${COMPANY_NAME()}/settings/roles`, {
-                shallow: true,
-              });
-              close();
+              Router.push(
+                '/[company]/settings/roles',
+                `/${COMPANY_NAME()}/settings/roles`,
+                {
+                  shallow: true,
+                }
+              )
+              close()
             }}
           >
             <S.RolesIcon>
@@ -73,10 +86,14 @@ const ModalMore = ({ opened, close }) => {
         {user && (
           <S.MenuItem
             onClick={() => {
-              Router.push('/[company]/settings/profile', `/${COMPANY_NAME()}/settings/profile`, {
-                shallow: true,
-              });
-              close();
+              Router.push(
+                '/[company]/settings/profile',
+                `/${COMPANY_NAME()}/settings/profile`,
+                {
+                  shallow: true,
+                }
+              )
+              close()
             }}
           >
             <SettingsIcon />
@@ -103,7 +120,7 @@ const ModalMore = ({ opened, close }) => {
         </S.Footer>
       )}
     </S.Container>
-  );
-};
+  )
+}
 
-export default ModalMore;
+export default ModalMore

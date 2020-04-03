@@ -3,6 +3,7 @@ import { useKeyboardShortcut } from 'hooks'
 
 import { COMPANY_NAME } from 'utils/config'
 
+import voicestoryIcon from 'public/favicon.svg'
 import closeSVG from 'public/icons/close.svg'
 import * as S from './Tab.styled'
 
@@ -27,13 +28,7 @@ const Tab = ({ community, active, nextActive, index }) => {
     <S.Tab active={active} onClick={onChangeTab} key={community.id}>
       <S.TabContent active={active} nextActive={nextActive}>
         <S.Community>
-          <S.CommunityLogo
-            src={
-              community.image ||
-              'http://mish-sanek.online/v5_helvetica/img/index2-img/widget-icon.svg'
-            }
-            alt="Logo"
-          />
+          <S.CommunityLogo src={community.image || voicestoryIcon} alt="Logo" />
           <S.CommunityName active={active}>{community.name}</S.CommunityName>
         </S.Community>
         <S.UnsubscribeIconWrapper>

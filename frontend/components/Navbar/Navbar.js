@@ -35,7 +35,7 @@ const Navbar = () => {
   }
 
   return (
-    <S.NavbarContainer>
+    <S.Container>
       <S.IconsWrapper>
         <S.Icons>
           <S.IconBox last>
@@ -52,7 +52,7 @@ const Navbar = () => {
       <S.AddCommunity onClick={toCommunities} />
 
       <CloseIcon onClick={closeWidget} id="vs-close-widget" />
-    </S.NavbarContainer>
+    </S.Container>
   )
 }
 

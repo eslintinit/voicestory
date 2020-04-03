@@ -1,23 +1,22 @@
-import { useState, useEffect, useContext, useCallback } from 'react';
-import { UserContext } from 'context/UserContext';
-import { useRouter } from 'next/router';
-import { useMutation } from '@apollo/react-hooks';
-import { Mention } from 'react-mentions';
-import { useKeyboardShortcut, useEscapeToClose } from 'hooks';
-import { throttle } from 'lodash';
-import useSound from 'use-sound';
+import { useState, useEffect, useContext, useCallback } from 'react'
+import { UserContext } from 'context/UserContext'
+import { useRouter } from 'next/router'
+import { useMutation } from '@apollo/react-hooks'
+import { Mention } from 'react-mentions'
+import { useEscapeToClose } from 'hooks'
+import { throttle } from 'lodash'
+import useSound from 'use-sound'
 
-import { COMPANY_NAME } from 'utils/config';
-import { GET_USERS } from 'apis/User';
-import { SET_USER_TYPING_STATUS } from 'apis/Message';
-import { UploadManagerContext } from 'context/UploadManager';
+import { COMPANY_NAME } from 'utils/config'
+import { GET_USERS } from 'apis/User'
+import { SET_USER_TYPING_STATUS } from 'apis/Message'
 
-import docPreview from 'public/icons/document-preview.png';
-import emojiIcon from 'public/icons/smile.svg';
+import docPreview from 'public/icons/document-preview.png'
+import emojiIcon from 'public/icons/smile.svg'
 // import addAtachmentSVG from 'public/icons/add-img.svg';
 
-import AttachmentItem from './AttachmentItem';
-import * as S from './styled';
+import AttachmentItem from './AttachmentItem'
+import * as S from './styled'
 
 const InputComponent = ({
   children,
@@ -29,25 +28,21 @@ const InputComponent = ({
   const {
     query: { channel: channelUrl, community: communityUrl },
     push,
-  } = useRouter();
+  } = useRouter()
 
-  // useKeyboardShortcut({
-  //   T: () => document.getElementById('vs-input').focus(),
-  // });
-  useEscapeToClose(() => document.getElementById('vs-input').blur());
+  useEscapeToClose(() => document.getElementById('vs-input').blur())
 
-  const [body, setBody] = useState('');
-  const [mentions, onMentionsSet] = useState([]);
-  const { user: loggedUser } = useContext(UserContext);
-  const { addUploadToQueue } = useContext(UploadManagerContext);
-  const [getUsers] = useMutation(GET_USERS);
-  const [setUserTypingStatus] = useMutation(SET_USER_TYPING_STATUS);
+  const [body, setBody] = useState('')
+  const [mentions, onMentionsSet] = useState([])
+  const { user: loggedUser } = useContext(UserContext)
+  const [getUsers] = useMutation(GET_USERS)
+  const [setUserTypingStatus] = useMutation(SET_USER_TYPING_STATUS)
 
-  const [attachments, setAttachments] = useState([]);
-  const [attachmentPreviews, setAttachmentPreviews] = useState([]);
-  const [status, setStatus] = useState(null);
+  const [attachments, setAttachments] = useState([])
+  const [attachmentPreviews, setAttachmentPreviews] = useState([])
+  const [status, setStatus] = useState(null)
 
-  const [playSoundSendMessage] = useSound('/sounds/click_snap_lo.mp3');
+  const [playSoundSendMessage] = useSound('/sounds/click_snap_lo.mp3')
 
   const updateTypingStatus = isTyping => {
     setUserTypingStatus({
@@ -55,117 +50,91 @@ const InputComponent = ({
         isTyping,
         channelUrl: `${communityUrl}/${channelUrl}`,
       },
-    });
-  };
+    })
+  }
 
   const throttledTypingStatusUpdate = useCallback(
     throttle(
       isTyping => {
-        updateTypingStatus(isTyping);
+        updateTypingStatus(isTyping)
       },
       2000,
       { trailing: false }
     ),
     [channelUrl, communityUrl]
-  );
+  )
 
   const handleFileAdd = fileList => {
     if (process.browser) {
-      setAttachments([...attachments, ...fileList]);
+      setAttachments([...attachments, ...fileList])
 
       const previewList = Array.prototype.map.call(fileList, file =>
         file.type.includes('image/') ? URL.createObjectURL(file) : docPreview
-      );
+      )
 
-      setAttachmentPreviews([...attachmentPreviews, ...previewList]);
+      setAttachmentPreviews([...attachmentPreviews, ...previewList])
     }
-  };
-
-  const checkUrlAttachments = messageBody => {
-    const urlRegex = /(https?:\/\/[^\s]+)/g;
-    const urlList = messageBody.match(urlRegex);
-
-    return urlList;
-  };
+  }
 
   useEffect(() => {
-    if (dropzoneItems) handleFileAdd(dropzoneItems);
-  }, [dropzoneItems]);
+    if (dropzoneItems) handleFileAdd(dropzoneItems)
+  }, [dropzoneItems])
 
   const handleSendMessage = () => {
     if (!loggedUser) {
       push(`/[company]/login`, `/${COMPANY_NAME()}/login`, {
         shallow: true,
-      });
+      })
     } else {
-      setStatus('SEND_MESSAGE');
-      const urlList = checkUrlAttachments(body);
-      if (attachments.length) {
-        playSoundSendMessage();
-        addUploadToQueue({
-          data: {
-            attachments,
-          },
-          onSendMessage: fileList => {
-            return onSendMessage({
-              body,
-              channelUrl,
-              communityUrl,
-              mentions,
-              attachments: fileList,
-              urlList,
-            });
-          },
-        });
-      } else if (body !== '') {
-        playSoundSendMessage();
+      setStatus('SEND_MESSAGE')
+      if (body !== '') {
+        playSoundSendMessage()
         onSendMessage({
           body,
           channelUrl,
           communityUrl,
           mentions,
-          urlList,
-        });
+        })
       }
     }
 
-    setAttachmentPreviews([]);
-    setBody('');
-    setAttachments([]);
-    eraseAttachments();
-    setStatus(null);
-    throttledTypingStatusUpdate.cancel();
-  };
+    setAttachmentPreviews([])
+    setBody('')
+    setAttachments([])
+    eraseAttachments()
+    setStatus(null)
+    throttledTypingStatusUpdate.cancel()
+  }
 
   const onKeyDown = e => {
     // Sending message
     if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
+      e.preventDefault()
       if (!(status === 'SEND_MESSAGE')) {
-        handleSendMessage();
+        handleSendMessage()
       }
     }
-  };
+  }
 
   // const handleFileInput = ({ target }) => {
   //   handleFileAdd(target.files);
   // };
 
   const removeAttachmentFromList = number => {
-    setAttachmentPreviews(attachmentPreviews.filter((el, i) => i !== number));
-    setAttachments(attachments.filter((el, i) => i !== number));
-  };
+    setAttachmentPreviews(attachmentPreviews.filter((el, i) => i !== number))
+    setAttachments(attachments.filter((el, i) => i !== number))
+  }
 
   const handleInputChange = (e, a, b, newMentions) => {
-    const isInputEmpty = e.target.value.length === 0;
-    setBody(e.target.value);
+    const isInputEmpty = e.target.value.length === 0
+    setBody(e.target.value)
 
     if (!isInputEmpty) {
-      throttledTypingStatusUpdate(true);
+      throttledTypingStatusUpdate(true)
     }
 
-    onMentionsSet(newMentions);
-  };
+    onMentionsSet(newMentions)
+  }
 
   return (
     <S.Container className={status === 'SEND_MESSAGE' ? 'disabled' : ''}>
@@ -209,7 +178,7 @@ const InputComponent = ({
             data={async (searchString, callback) => {
               const { data: { users = [] } = {} } = await getUsers({
                 variables: { searchString },
-              });
+              })
               callback(
                 users.map(user => ({
                   id: user.username,
@@ -217,7 +186,7 @@ const InputComponent = ({
                   username: user.username,
                   isOnline: user.isOnline,
                 }))
-              );
+              )
             }}
             style={S.MentionStyles}
             appendSpaceOnAdd
@@ -231,25 +200,11 @@ const InputComponent = ({
             )}
           />
         </S.Input>
-
-        {/*
-          <S.Actions>
-          <S.AttachButton />
-          <S.EmojiButton
-            className="chat-input__emoji"
-            onClick={() => setShowEmojiPicker(!showEmojiPicker)}
-          >
-            <Picker
-              onSelect={() => {}}
-              style={{ display: showEmojiPicker ? 'block' : 'none' }}
-              emojisToShowFilter={emoji => emojiNames.indexOf(emoji.name) > -1}
-            />
-          </S.EmojiButton>
-          </S.Actions>
-        */}
       </S.InputWrapper>
       {loggedUser ? (
-        body !== '' && <S.SendButton onClick={handleSendMessage}>Send</S.SendButton>
+        body !== '' && (
+          <S.SendButton onClick={handleSendMessage}>Send</S.SendButton>
+        )
       ) : (
         <S.SendButton
           style={{ padding: '0 16px', width: 'auto' }}
@@ -265,7 +220,7 @@ const InputComponent = ({
       {children}
       <S.Overlay className="overlay" />
     </S.Container>
-  );
-};
+  )
+}
 
-export default InputComponent;
+export default InputComponent

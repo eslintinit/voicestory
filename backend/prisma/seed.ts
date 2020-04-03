@@ -10,8 +10,6 @@ async function main() {
       fullname: 'petrov',
       image: '',
       email: 'denis@gmail.com',
-      password: '',
-      owner: '1',
       social: 'twitter',
       role: {
         create: [

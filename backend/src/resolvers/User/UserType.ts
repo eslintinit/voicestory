@@ -4,10 +4,10 @@ export const User = objectType({
   name: 'User',
   definition(t) {
     t.model.id()
-    t.model.fullname()
     t.model.username()
-    t.model.bio()
+    t.model.fullname()
     t.model.email()
+    t.model.bio()
     t.model.social()
     t.model.image()
     t.model.isOnline()

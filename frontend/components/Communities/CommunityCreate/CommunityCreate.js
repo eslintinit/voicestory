@@ -1,5 +1,4 @@
-import { useContext, useState } from 'react'
-import { UserContext } from 'context/UserContext'
+import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { useMutation } from '@apollo/react-hooks'
 import { useEscapeToClose } from 'hooks'
@@ -20,7 +19,6 @@ import * as S from './CommunityCreate.styled'
 
 const CreateCommunity = () => {
   const [communityImage, setCommunityImage] = useState(null)
-  const { getMe } = useContext(UserContext)
   const [uploadFile] = useMutation(UPLOAD_FILE)
   const [createCommunity] = useMutation(CREATE_COMMUNITY, {
     update(cache, { data: { createCommunity: community } }) {
@@ -93,7 +91,7 @@ const CreateCommunity = () => {
     if (!data) {
       setErrors({ name: 'Community with this name or url already exists' })
     } else {
-      await getMe()
+      // await getMe()
       const {
         createCommunity: { url: communityUrl },
       } = data

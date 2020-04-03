@@ -1,39 +1,39 @@
 import { mutationField, stringArg } from 'nexus'
 import { sign } from 'jsonwebtoken'
-import { compare, hash } from 'bcryptjs'
 import { getTenant, getUserId } from '../../utils'
-import { channel } from '../Channel/ChannelQuery'
-import { disconnect } from 'cluster'
 
 export const login = mutationField('login', {
   type: 'AuthPayload',
   args: {
-    email: stringArg({ nullable: false }),
-    password: stringArg({ nullable: false }),
+    username: stringArg({ nullable: false }),
+    fullname: stringArg({ nullable: true }),
+    email: stringArg({ nullable: true }),
     social: stringArg({ nullable: false }),
   },
-  resolve: async (_parent, { email, password, social }, context) => {
+  resolve: async (_parent, { username, fullname, email, social }, context) => {
     try {
       let user = await context.prisma.user.findOne({
-        where: { email },
+        where: { username },
       })
+
       if (!user) {
         throw new Error(`No user found for email: ${email}`)
       }
 
       const twitterProfile = JSON.parse(social)
       user = await context.prisma.user.update({
-        where: { email },
+        where: { username },
         data: {
           image: twitterProfile.photos[0].value,
         },
       })
 
       const data = {
-        token: sign(
-          { userId: user.id, tenant: getTenant(context) },
-          process.env['APP_SECRET'],
-        ),
+        /* token: sign( */
+        /*   { userId: user.id, tenant: getTenant(context) }, */
+        /*   process.env['APP_SECRET'], */
+        /* ), */
+        token: sign({ userId: user.id }, process.env['APP_SECRET']),
         user,
       }
       console.log(data, 'user')
@@ -41,6 +41,7 @@ export const login = mutationField('login', {
     } catch (error) {
       if (social !== '') {
         const twitterProfile = JSON.parse(social)
+        console.log(twitterProfile)
         const user = await context.prisma.user.create({
           data: {
             username: twitterProfile.username,
@@ -48,7 +49,7 @@ export const login = mutationField('login', {
             image: twitterProfile.photos[0].value,
             email,
             social: 'twitter',
-            communitiesFollowed: { connect: { url: 'general' } },
+            /* communitiesFollowed: { connect: { url: 'general' } }, */
           },
         })
 
@@ -65,26 +66,6 @@ export const login = mutationField('login', {
         throw new Error(`No user found for email: ${email}`)
       }
     }
-  },
-})
-
-export const updateUser = mutationField('updateUser', {
-  type: 'User',
-  args: {
-    email: stringArg({ nullable: false }),
-    fullname: stringArg({ nullable: false }),
-    username: stringArg({ nullable: false }),
-    image: stringArg(),
-  },
-  resolve: (_parent, { email, fullname, username, image }, context) => {
-    return context.prisma.user.update({
-      where: { email },
-      data: {
-        username,
-        fullname,
-        image,
-      },
-    })
   },
 })
 

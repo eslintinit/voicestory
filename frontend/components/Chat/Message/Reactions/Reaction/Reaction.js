@@ -1,20 +1,20 @@
 // Refactor: createUsersList
-import { useContext } from 'react';
-import { UserContext } from 'context';
-import { useMutation } from '@apollo/react-hooks';
-import { Emoji } from 'emoji-mart';
+import { useContext } from 'react'
+import { UserContext } from 'context'
+import { useMutation } from '@apollo/react-hooks'
+import { Emoji } from 'emoji-mart'
 
-import { TOGGLE_REACTION } from 'apis/Message';
+import { TOGGLE_REACTION } from 'apis/Message'
 
-import Tooltip from 'components/UI/Tooltip';
-import * as S from './Reaction.styled';
+import Tooltip from 'components/UI/Tooltip'
+import * as S from './Reaction.styled'
 
-const maxNumberOfLines = 50;
-const lineSymbols = 28;
+const maxNumberOfLines = 50
+const lineSymbols = 28
 
 export default ({ reaction, messageId }) => {
-  const [toggleReaction] = useMutation(TOGGLE_REACTION);
-  const { isLogged } = useContext(UserContext);
+  const [toggleReaction] = useMutation(TOGGLE_REACTION)
+  const { isLogged } = useContext(UserContext)
 
   const onToggleReaction = () => {
     if (isLogged) {
@@ -23,22 +23,30 @@ export default ({ reaction, messageId }) => {
           name: reaction.name,
           messageId,
         },
-      });
+      })
     }
-  };
+  }
 
   const createUsersList = users => {
-    const userListString = users.map(({ username: userName }) => userName).join(', ');
-    const resultList = [];
+    const userListString = users
+      .map(({ username: userName }) => userName)
+      .join(', ')
+    const resultList = []
     for (let i = 0; i < maxNumberOfLines; i++) {
-      resultList.push(userListString.slice(i * lineSymbols, (1 + i) * lineSymbols));
+      resultList.push(
+        userListString.slice(i * lineSymbols, (1 + i) * lineSymbols)
+      )
     }
 
-    return resultList;
-  };
+    return resultList
+  }
 
   return (
-    <S.Reaction key={reaction.id} onClick={onToggleReaction} isLogged={isLogged}>
+    <S.Reaction
+      key={reaction.id}
+      onClick={onToggleReaction}
+      isLogged={isLogged}
+    >
       <Emoji
         emoji={reaction.name}
         size={16}
@@ -60,5 +68,5 @@ export default ({ reaction, messageId }) => {
         </Tooltip>
       </S.TooltipWrapper>
     </S.Reaction>
-  );
-};
+  )
+}

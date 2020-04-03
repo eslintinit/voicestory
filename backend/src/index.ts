@@ -19,7 +19,6 @@ import { verify } from 'jsonwebtoken'
 import * as compression from 'compression' // compresses requests
 import * as bodyParser from 'body-parser'
 
-/* const multiTenant = new MultiTenant<PrismaClient>() */
 const prisma = new PrismaClient()
 
 const cors = require('cors')
