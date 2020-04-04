@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import loaderBG from 'public/images/loader-bg.jpg';
-import logoWide from 'public/logo-wide.svg';
+import styled from 'styled-components'
+import loaderBG from 'public/images/loader-bg.jpg'
+import logoWide from 'public/logo-wide.svg'
 
 export const Container = styled.div`
   display: flex;
@@ -31,19 +31,19 @@ export const Container = styled.div`
     background: rgba(255, 255, 255, 0.92);
     z-index: 0;
   }
-`;
+`
 
 export const LogoBox = styled.div`
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-`;
+`
 
 export const Logo = styled.img.attrs({
   src: logoWide,
   alt: 'Voicestory',
-})``;
+})``
 
 export const Text = styled.div`
   display: flex;
@@ -59,7 +59,7 @@ export const Text = styled.div`
   font-family: 'Helvetica Neue';
   font-size: 16px;
   color: #33353b;
-`;
+`
 
 export const Spinner = styled.svg`
   @keyframes rotator {
@@ -75,7 +75,7 @@ export const Spinner = styled.svg`
 
   animation: rotator 1.4s linear infinite;
   margin-right: 10px;
-`;
+`
 
 export const Circle = styled.circle`
   @keyframes dash {
@@ -99,4 +99,4 @@ export const Circle = styled.circle`
   transform-origin: center;
   animation: dash 1.4s ease-in-out infinite;
   stroke: #33353b;
-`;
+`

@@ -1,7 +1,7 @@
-import ContentLoader from 'react-content-loader';
-import { withTheme } from 'styled-components';
+import ContentLoader from 'react-content-loader'
+import { withTheme } from 'styled-components'
 
-const ChannelsPlaceholder = () => <div />;
+const ChannelsPlaceholder = () => <div />
 // const ChannelsPlaceholder = ({ theme }) => (
 //   <ContentLoader
 //     height={16}
@@ -15,4 +15,4 @@ const ChannelsPlaceholder = () => <div />;
 //   </ContentLoader>
 // );
 
-export default withTheme(ChannelsPlaceholder);
+export default withTheme(ChannelsPlaceholder)

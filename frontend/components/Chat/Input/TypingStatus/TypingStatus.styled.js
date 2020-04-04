@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes } from 'styled-components'
 
 const jump = keyframes`
   0% {
@@ -13,7 +13,7 @@ const jump = keyframes`
   100% {
     transform: translateY(0);
   }
-`;
+`
 
 export const Container = styled.p`
   font-weight: 400;
@@ -23,7 +23,7 @@ export const Container = styled.p`
 
   position: absolute;
   top: -20px;
-`;
+`
 
 export const Circle = styled.span`
   display: inline-block;
@@ -47,4 +47,4 @@ export const Circle = styled.span`
   :nth-of-type(4) {
     animation-delay: 0.3s;
   }
-`;
+`

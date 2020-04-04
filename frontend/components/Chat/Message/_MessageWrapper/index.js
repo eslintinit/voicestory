@@ -1,9 +1,9 @@
-import { useRef, useState } from 'react';
-import moment from 'moment';
-import { PortalWithState } from 'react-portal';
-import { useWindowDimensions } from 'hooks';
-import UserPopup from 'components/UI/UserPopup';
-import * as S from './styled';
+import { useRef, useState } from 'react'
+import moment from 'moment'
+import { PortalWithState } from 'react-portal'
+import { useWindowDimensions } from 'hooks'
+import UserPopup from 'components/UI/UserPopup'
+import * as S from './styled'
 /* eslint-disable jsx-a11y/anchor-is-valid */
 
 const ChildMessageWrapper = ({ message, children, isEditing, isDeleted }) => (
@@ -13,20 +13,20 @@ const ChildMessageWrapper = ({ message, children, isEditing, isDeleted }) => (
       {children}
     </S.Content>
   </S.Container>
-);
+)
 
 const UserPopupWrapper = ({ message }) => {
-  const ref = useRef(null);
-  const windowSize = useWindowDimensions();
+  const ref = useRef(null)
+  const windowSize = useWindowDimensions()
 
   const getPosition = () => {
-    const { y, x } = ref.current.getBoundingClientRect();
+    const { y, x } = ref.current.getBoundingClientRect()
 
     if (windowSize.height < y + 350) {
-      return { x, y: windowSize.height - y + 10, position: 't' };
+      return { x, y: windowSize.height - y + 10, position: 't' }
     }
-    return { x, y: y + 35, position: 'b' };
-  };
+    return { x, y: y + 35, position: 'b' }
+  }
 
   return (
     <PortalWithState
@@ -44,17 +44,23 @@ const UserPopupWrapper = ({ message }) => {
               username={message.author.username}
               getPosition={getPosition}
               close={() => {
-                closePortal();
+                closePortal()
               }}
             />
           )}
         </>
       )}
     </PortalWithState>
-  );
-};
-const ParentMessageWrapper = ({ message, children, isEditing, isPreview, isDeleted }) => {
-  const [showUserPopup, setShowUserPopup] = useState(false);
+  )
+}
+const ParentMessageWrapper = ({
+  message,
+  children,
+  isEditing,
+  isPreview,
+  isDeleted,
+}) => {
+  const [showUserPopup, setShowUserPopup] = useState(false)
 
   return (
     <S.Container
@@ -76,9 +82,9 @@ const ParentMessageWrapper = ({ message, children, isEditing, isPreview, isDelet
         {children}
       </S.Content>
     </S.Container>
-  );
-};
+  )
+}
 const MessageWrapper = ({ isChild, ...props }) =>
-  isChild ? ChildMessageWrapper(props) : ParentMessageWrapper(props);
+  isChild ? ChildMessageWrapper(props) : ParentMessageWrapper(props)
 
-export default MessageWrapper;
+export default MessageWrapper

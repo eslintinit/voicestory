@@ -1,8 +1,8 @@
-import shareIcon from 'public/icons/share.svg';
-import Tooltip from 'components/UI/Tooltip';
+import shareIcon from 'public/icons/share.svg'
+import Tooltip from 'components/UI/Tooltip'
 
-import { Action, TooltipWrapper } from '../MessageActions.styled';
-import * as S from './ReplyAction.styled';
+import { Action, TooltipWrapper } from '../MessageActions.styled'
+import * as S from './ReplyAction.styled'
 
 export default ({ onReply }) => (
   <>
@@ -15,4 +15,4 @@ export default ({ onReply }) => (
       </TooltipWrapper>
     </Action>
   </>
-);
+)

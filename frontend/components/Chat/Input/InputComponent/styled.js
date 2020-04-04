@@ -1,8 +1,8 @@
-import styled from 'styled-components';
-import { MentionsInput, Mention } from 'react-mentions';
-import DefaultAvatar from 'components/UI/Avatar';
-import LockIcon from 'public/icons/lock.svg';
-import AttachImage from 'public/icons/attach-image.svg';
+import styled from 'styled-components'
+import { MentionsInput, Mention } from 'react-mentions'
+import DefaultAvatar from 'components/UI/Avatar'
+import LockIcon from 'public/icons/lock.svg'
+import AttachImage from 'public/icons/attach-image.svg'
 
 export const Container = styled.div`
   display: flex;
@@ -16,7 +16,7 @@ export const Container = styled.div`
       display: block;
     }
   }
-`;
+`
 
 export const InputWrapper = styled.div`
   display: flex;
@@ -26,14 +26,14 @@ export const InputWrapper = styled.div`
   border: none;
   outline: none;
   box-shadow: none;
-  color: ${props => props.theme.chatText};
+  color: ${(props) => props.theme.chatText};
   font-size: 15px;
   font-weight: 400;
   line-height: 22px;
   box-sizing: border-box;
   max-height: 60px;
   overflow: auto;
-`;
+`
 
 export const AddAttachmentIcon = styled.svg`
   width: 21px;
@@ -46,7 +46,7 @@ export const AddAttachmentIcon = styled.svg`
   :hover {
     opacity: 0.75;
   }
-`;
+`
 
 export const Attachment = styled.img`
   height: 50px;
@@ -55,21 +55,21 @@ export const Attachment = styled.img`
   object-position: center;
   margin: 5px;
   border-radius: 6px;
-`;
+`
 
 export const Input = styled(MentionsInput)`
   width: 100%;
   font-weight: 400;
   font-size: 15px;
-  color: ${props => props.theme.chatText};
+  color: ${(props) => props.theme.chatText};
   line-height: 26px;
   margin-left: 10px;
 
   textarea {
-    color: ${props => props.theme.chatText} !important;
+    color: ${(props) => props.theme.chatText} !important;
     padding: 0;
   }
-`;
+`
 
 export const Actions = styled.div`
   display: flex;
@@ -83,7 +83,7 @@ export const Actions = styled.div`
       margin-right: 15px;
     }
   }
-`;
+`
 
 export const AttachButton = styled.button.attrs({
   type: 'button',
@@ -93,7 +93,7 @@ export const AttachButton = styled.button.attrs({
   width: 20px;
   height: 20px;
   background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='40px' height='38px'%3e%3cdefs%3e%3cfilter id='Filter_0'%3e%3cfeFlood flood-color='rgb(134, 134, 134);
-`;
+`
 
 export const AttachImageWrapper = styled.label`
   margin-right: 15px;
@@ -104,7 +104,7 @@ export const AttachImageWrapper = styled.label`
   background-repeat: no-repeat;
   cursor: pointer;
   background-size: contain;
-`;
+`
 
 export const HiddenFileInput = styled.input.attrs({
   type: 'file',
@@ -115,7 +115,7 @@ export const HiddenFileInput = styled.input.attrs({
   height: 0px;
   visibility: hidden;
   display: 'none';
-`;
+`
 
 export const EmojiButton = styled.button.attrs({
   type: 'button',
@@ -124,7 +124,7 @@ export const EmojiButton = styled.button.attrs({
   width: 20px;
   cursor: pointer;
   background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='38px' height='38px'%3e%3cpath fill-rule='evenodd' fill='rgb(134, 134, 134);
-`;
+`
 
 export const SendButton = styled.button.attrs({
   type: 'button',
@@ -152,7 +152,7 @@ export const SendButton = styled.button.attrs({
   :hover {
     opacity: 0.75;
   }
-`;
+`
 
 export const InputNonAuthorized = styled.div`
   width: 100%;
@@ -165,7 +165,7 @@ export const InputNonAuthorized = styled.div`
   border: 1px solid #d4d6da;
   padding: 0 10px 0 20px;
   margin: 0 auto;
-`;
+`
 
 export const Paragraph = styled.div`
   font-weight: 400;
@@ -182,13 +182,13 @@ export const Paragraph = styled.div`
     margin-right: 18px;
     margin-bottom: -3px;
   }
-`;
+`
 
 export const Button = styled.button.attrs({
   type: 'button',
 })`
   width: 100%;
-`;
+`
 
 export const MentionInputStyles = {
   suggestions: {
@@ -212,12 +212,12 @@ export const MentionInputStyles = {
       },
     },
   },
-};
+}
 
 export const MentionStyles = {
   // background: '#e2edfb',
   color: '#69a9ff',
-};
+}
 
 export const ListItem = styled.li`
   width: 100%;
@@ -240,7 +240,7 @@ export const ListItem = styled.li`
     background: #212464;
     color: #fff;
   }
-`;
+`
 
 export const Avatar = styled(DefaultAvatar).attrs({
   alt: 'Avatar',
@@ -249,7 +249,7 @@ export const Avatar = styled(DefaultAvatar).attrs({
   height: 20px;
   border-radius: 5px;
   overflow: hidden;
-`;
+`
 
 export const Fullname = styled.p`
   margin: 0;
@@ -264,7 +264,7 @@ export const Fullname = styled.p`
   ${ListItem}:hover & {
     color: white;
   }
-`;
+`
 
 export const Username = styled.span`
   max-width: 100px;
@@ -276,7 +276,7 @@ export const Username = styled.span`
   ${ListItem}:hover & {
     color: #b6b8e7;
   }
-`;
+`
 
 export const Status = styled.em`
   display: inline-block;
@@ -289,7 +289,7 @@ export const Status = styled.em`
   ${ListItem}:hover & {
     border-color: white;
   }
-  ${props =>
+  ${(props) =>
     props.online &&
     `
     width: 10px;
@@ -300,7 +300,7 @@ export const Status = styled.em`
       background: #34c19c;
     }
   `}
-`;
+`
 
 export const Overlay = styled.div`
   display: none;
@@ -311,7 +311,7 @@ export const Overlay = styled.div`
   bottom: 0;
   background-color: rgba(163, 163, 163, 0.1);
   cursor: progress;
-`;
+`
 
 export const ReactionIcon = styled.svg`
   width: 20px;
@@ -320,4 +320,4 @@ export const ReactionIcon = styled.svg`
   fill: #8c8c8c;
   margin-right: 4px;
   cursor: pointer;
-`;
+`

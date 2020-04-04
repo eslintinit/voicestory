@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 // eslint-disable-next-line import/prefer-default-export
 export const Badge = styled.span`
@@ -21,4 +21,4 @@ export const Badge = styled.span`
   height: 18.5px;
   cursor: pointer;
   user-select: none;
-`;
+`

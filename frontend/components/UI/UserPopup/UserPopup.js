@@ -1,20 +1,20 @@
-import { useContext } from 'react';
-import { useQuery } from '@apollo/react-hooks';
-import { GET_USER } from 'apis/User';
-import rightIcon from 'public/icons/right3.svg';
+import { useContext } from 'react'
+import { useQuery } from '@apollo/react-hooks'
+import { GET_USER } from 'apis/User'
+import rightIcon from 'public/icons/right3.svg'
 
-import * as S from './UserPopup.styled';
+import * as S from './UserPopup.styled'
 
 const UserPopup = ({ username, opened, close, getPosition }) => {
   const { data: { getUser: user } = {}, loading } = useQuery(GET_USER, {
     variables: { username },
-  });
+  })
 
   if (loading) {
-    return <S.Container>loading...</S.Container>;
+    return <S.Container>loading...</S.Container>
   }
 
-  if (!user) return <div />;
+  if (!user) return <div />
 
   return (
     <S.Overlay onClick={close}>
@@ -54,7 +54,7 @@ const UserPopup = ({ username, opened, close, getPosition }) => {
         </S.Info>
       </S.Container>
     </S.Overlay>
-  );
-};
+  )
+}
 
-export default UserPopup;
+export default UserPopup

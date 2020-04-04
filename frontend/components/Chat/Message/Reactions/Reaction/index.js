@@ -1,3 +1,3 @@
-import Reaction from './Reaction';
+import Reaction from './Reaction'
 
-export default Reaction;
+export default Reaction

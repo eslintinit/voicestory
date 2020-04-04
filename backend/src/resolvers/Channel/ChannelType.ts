@@ -9,12 +9,7 @@ export const Channel = objectType({
     t.model.url()
     t.model.description()
     t.model.createdAt()
-    t.model.isPrivate()
     t.model.community()
     t.model.author()
-    t.model.messages({ pagination: false })
-    t.model.notifications({ pagination: false })
-    t.model.typingUsers()
-    t.model.userData()
-  }
+  },
 })

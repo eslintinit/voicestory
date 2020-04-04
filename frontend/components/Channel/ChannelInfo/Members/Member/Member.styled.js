@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import DefaultAvatar from 'components/UI/Avatar';
+import styled from 'styled-components'
+import DefaultAvatar from 'components/UI/Avatar'
 
 export const ListItem = styled.li`
   position: relative;
@@ -16,9 +16,9 @@ export const ListItem = styled.li`
   user-select: none;
   margin-bottom: 2px;
   :hover {
-    background: ${props => props.theme.notificationBGHover};
+    background: ${(props) => props.theme.notificationBGHover};
   }
-`;
+`
 
 export const Avatar = styled(DefaultAvatar).attrs({
   alt: 'Avatar',
@@ -27,7 +27,7 @@ export const Avatar = styled(DefaultAvatar).attrs({
   height: 25px;
   border-radius: 5px;
   margin-right: 10px;
-`;
+`
 
 export const Name = styled.span`
   max-width: calc(100% - 75px);
@@ -35,8 +35,8 @@ export const Name = styled.span`
   white-space: nowrap;
   overflow: hidden;
   margin-bottom: -2px;
-  color: ${props => props.theme.chatAuthor};
-`;
+  color: ${(props) => props.theme.chatAuthor};
+`
 
 export const Status = styled.i`
   display: inline-block;
@@ -49,7 +49,7 @@ export const Status = styled.i`
   ${ListItem}:hover & {
     border-color: white;
   }
-  ${props =>
+  ${(props) =>
     props.online &&
     `
     width: 10px;
@@ -60,9 +60,9 @@ export const Status = styled.i`
       background: #34c19c;
     }
   `}
-`;
+`
 
-export const Member = styled.div``;
-export const OnlineStatus = styled.div``;
-export const Info = styled.div``;
-export const Username = styled.div``;
+export const Member = styled.div``
+export const OnlineStatus = styled.div``
+export const Info = styled.div``
+export const Username = styled.div``

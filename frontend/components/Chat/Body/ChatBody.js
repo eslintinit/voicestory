@@ -39,7 +39,7 @@ const ChatBody = ({
     chat.scrollTop = chat.scrollHeight
   }
 
-  const scrollToMessage = messageRef => {
+  const scrollToMessage = (messageRef) => {
     if (!messageRef.current) return
 
     scrollView.current._container.scrollTop = messageRef.current.offsetTop - 20
@@ -78,13 +78,11 @@ const ChatBody = ({
     return <ChatBodyEmpty />
   }
 
-  const messagesByDay = groupBy(messages, date =>
-    moment(date)
-      .startOf('day')
-      .format()
+  const messagesByDay = groupBy(messages, (date) =>
+    moment(date).startOf('day').format()
   )
 
-  const handleReachTop = async container => {
+  const handleReachTop = async (container) => {
     if (isFetching || isFirstLoad || isFirstMessageReached) return
 
     const prevHeight = container.scrollHeight
@@ -100,7 +98,7 @@ const ChatBody = ({
     setFetching(false)
   }
 
-  const handleReachBottom = async container => {
+  const handleReachBottom = async (container) => {
     if (isFetching || isLastMessageReached) return
 
     const prevHeight = container.scrollTop
@@ -114,13 +112,13 @@ const ChatBody = ({
     setFetching(false)
   }
 
-  const handleScrollUp = container => {
+  const handleScrollUp = (container) => {
     if (container.scrollTop < 400) {
       handleReachTop(container)
     }
   }
 
-  const handleScrollDown = container => {
+  const handleScrollDown = (container) => {
     if (
       container.scrollHeight - (container.scrollTop + container.offsetHeight) <
       400

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 // eslint-disable-next-line import/prefer-default-export
 export const Tabs = styled.div`
@@ -12,4 +12,4 @@ export const Tabs = styled.div`
   margin-left: -4px;
 
   height: 34px;
-`;
+`

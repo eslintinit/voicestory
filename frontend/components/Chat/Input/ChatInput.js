@@ -30,7 +30,7 @@ const ChatInput = ({ dropzoneItems }) => {
       attachments,
       channelUrl: `${communityUrl}/${channelUrl}`,
       urlList,
-      mentions: mentions ? mentions.map(e => e.id) : [],
+      mentions: mentions ? mentions.map((e) => e.id) : [],
       communityUrl,
     }
 
@@ -61,7 +61,7 @@ const ChatInput = ({ dropzoneItems }) => {
 
         let messagesData = { ...data }
         if (
-          data.messages.filter(message => message.id === sendMessageData.id)
+          data.messages.filter((message) => message.id === sendMessageData.id)
             .length === 0
         ) {
           messagesData = {

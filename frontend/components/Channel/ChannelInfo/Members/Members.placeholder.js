@@ -1,7 +1,7 @@
-import ContentLoader from 'react-content-loader';
-import { withTheme } from 'styled-components';
+import ContentLoader from 'react-content-loader'
+import { withTheme } from 'styled-components'
 
-const MembersPlaceholder = () => <div />;
+const MembersPlaceholder = () => <div />
 // const MembersPlaceholder = ({ theme }) => (
 //   <ContentLoader
 //     height={157}
@@ -19,4 +19,4 @@ const MembersPlaceholder = () => <div />;
 //   </ContentLoader>
 // );
 
-export default withTheme(MembersPlaceholder);
+export default withTheme(MembersPlaceholder)

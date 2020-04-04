@@ -1,5 +1,5 @@
-import Toggle from 'components/UI/Toggle';
-import * as S from './ToggleInput.styled';
+import Toggle from 'components/UI/Toggle'
+import * as S from './ToggleInput.styled'
 
 const Input = ({ field: { name, value, onChange }, label, tip }) => (
   <S.Container>
@@ -9,6 +9,6 @@ const Input = ({ field: { name, value, onChange }, label, tip }) => (
     </div>
     <Toggle name={name} value={value} onChange={onChange} />
   </S.Container>
-);
+)
 
-export default Input;
+export default Input

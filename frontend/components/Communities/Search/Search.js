@@ -1,10 +1,10 @@
-import { useEffect } from 'react';
-import { useKeyboardShortcut } from 'hooks';
+import { useEffect } from 'react'
+import { useKeyboardShortcut } from 'hooks'
 
 // Refactor: CloseIcon
-import closeIcon from 'public/icons/close.svg';
-import { SearchIcon } from 'components/UI/Icons';
-import * as S from './Search.styled';
+import closeIcon from 'public/icons/close.svg'
+import { SearchIcon } from 'components/UI/Icons'
+import * as S from './Search.styled'
 
 const SearchInput = ({ show, close, value, onChange }) => {
   // Do: input ref
@@ -12,7 +12,7 @@ const SearchInput = ({ show, close, value, onChange }) => {
     if (show) {
       // input.ref.focus();
     }
-  }, [show]);
+  }, [show])
 
   return (
     <S.SearchPanel show={show}>
@@ -28,8 +28,8 @@ const SearchInput = ({ show, close, value, onChange }) => {
         </S.CloseIcon>
       </S.CloseWrapper>
     </S.SearchPanel>
-  );
-};
+  )
+}
 
 export default ({ searchString, setSearchString, isSearch, setSearch }) => {
   // const [searchString, setSearchString] = useState('');
@@ -37,7 +37,7 @@ export default ({ searchString, setSearchString, isSearch, setSearch }) => {
 
   useKeyboardShortcut({
     f: () => setSearch(!isSearch),
-  });
+  })
 
   return (
     <>
@@ -50,13 +50,13 @@ export default ({ searchString, setSearchString, isSearch, setSearch }) => {
       <SearchIcon
         onClick={() => {
           if (isSearch) {
-            setSearch(false);
-            setSearchString('');
+            setSearch(false)
+            setSearchString('')
           } else {
-            setSearch(true);
+            setSearch(true)
           }
         }}
       />
     </>
-  );
-};
+  )
+}

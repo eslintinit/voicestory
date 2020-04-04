@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import gql from 'graphql-tag'
 
 export const GET_CHANNEL_NOTIFICATIONS = gql`
   query channelNotifications($channelUrl: String!) {
@@ -6,7 +6,7 @@ export const GET_CHANNEL_NOTIFICATIONS = gql`
       id
     }
   }
-`;
+`
 
 export const MARK_CHANNEL_NOTIFICATIONS_AS_READ = gql`
   mutation markChannelNotificationsAsRead($channelUrl: String!) {
@@ -14,7 +14,7 @@ export const MARK_CHANNEL_NOTIFICATIONS_AS_READ = gql`
       id
     }
   }
-`;
+`
 
 export const GET_CHANNELS = gql`
   query channels($communityUrl: String!) {
@@ -29,7 +29,7 @@ export const GET_CHANNELS = gql`
       }
     }
   }
-`;
+`
 
 export const GET_CHANNEL = gql`
   query channel($url: String) {
@@ -45,7 +45,7 @@ export const GET_CHANNEL = gql`
       }
     }
   }
-`;
+`
 
 export const CREATE_CHANNEL = gql`
   mutation createChannel(
@@ -67,10 +67,14 @@ export const CREATE_CHANNEL = gql`
       url
     }
   }
-`;
+`
 
 export const EDIT_CHANNEL = gql`
-  mutation editChannel($channelId: String!, $name: String!, $description: String) {
+  mutation editChannel(
+    $channelId: String!
+    $name: String!
+    $description: String
+  ) {
     editChannel(channelId: $channelId, name: $name, description: $description) {
       id
       name
@@ -78,7 +82,7 @@ export const EDIT_CHANNEL = gql`
       url
     }
   }
-`;
+`
 
 export const NEW_CHANNEL_MESSAGE_SUBSCRIPTION = gql`
   subscription channelNewMessage($communityUrl: String, $tenant: String) {
@@ -88,7 +92,7 @@ export const NEW_CHANNEL_MESSAGE_SUBSCRIPTION = gql`
       url
     }
   }
-`;
+`
 
 export const GET_PRIVATE_CHANNELS = gql`
   query privateChannels {
@@ -97,4 +101,4 @@ export const GET_PRIVATE_CHANNELS = gql`
       url
     }
   }
-`;
+`

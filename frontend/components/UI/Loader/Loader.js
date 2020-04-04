@@ -1,4 +1,4 @@
-import * as S from './Loader.styled';
+import * as S from './Loader.styled'
 
 export default () => {
   return (
@@ -13,10 +13,17 @@ export default () => {
           viewBox="0 0 66 66"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <S.Circle fill="none" strokeWidth={6} strokeLinecap="round" cx={33} cy={33} r={30} />
+          <S.Circle
+            fill="none"
+            strokeWidth={6}
+            strokeLinecap="round"
+            cx={33}
+            cy={33}
+            r={30}
+          />
         </S.Spinner>
         Loading...
       </S.Text>
     </S.Container>
-  );
-};
+  )
+}

@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import gql from 'graphql-tag'
 
 export const UPLOAD_FILE = gql`
   mutation uploadFile($file: Upload!) {
@@ -10,4 +10,4 @@ export const UPLOAD_FILE = gql`
       filesize
     }
   }
-`;
+`

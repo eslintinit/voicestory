@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import moreIcon from 'public/icons/more.svg';
+import styled from 'styled-components'
+import moreIcon from 'public/icons/more.svg'
 
 const MoreIcon = styled.svg`
   width: 18px;
@@ -14,15 +14,15 @@ const MoreIcon = styled.svg`
   :hover {
     opacity: 0.85;
   }
-  ${props =>
+  ${(props) =>
     props.active &&
     `
     fill: #69a9ff;
   `}
-`;
+`
 
 export default ({ onClick, active }) => (
   <MoreIcon id="profile-icon" onClick={onClick} active={active}>
     <use xlinkHref={`${moreIcon}#icon-more`} />
   </MoreIcon>
-);
+)

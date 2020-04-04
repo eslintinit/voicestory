@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import closeIcon from 'public/icons/close.svg';
+import styled from 'styled-components'
+import closeIcon from 'public/icons/close.svg'
 
 const CloseIcon = styled.svg`
   transition: opacity 0.2s ease-in-out;
@@ -13,10 +13,10 @@ const CloseIcon = styled.svg`
   :hover {
     opacity: 0.75;
   }
-`;
+`
 
 export default ({ onClick, style, id }) => (
   <CloseIcon id={id || ''} onClick={onClick} style={style || {}}>
     <use xlinkHref={`${closeIcon}#icon-close`} />
   </CloseIcon>
-);
+)

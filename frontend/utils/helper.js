@@ -20,7 +20,7 @@ moment.updateLocale('en', {
   },
 })
 
-export const chatTime = time => {
+export const chatTime = (time) => {
   const date1 = new Date(time)
   const date2 = new Date()
   const diffTime = Math.abs(date2 - date1)
@@ -34,10 +34,10 @@ export const chatTime = time => {
 // const Mention = ({ mention }) =>
 //   `<a className="mention">@${mention.match(/\[(.*)\]/)[1]}</a>`;
 
-export const transformMentions = message =>
+export const transformMentions = (message) =>
   message.replace(
     /@(\[[^]*\]\([^ ]*?\))/g,
-    mention => `<a class="mention">@${mention.match(/\[(.*)\]/)[1]}</a>`
+    (mention) => `<a class="mention">@${mention.match(/\[(.*)\]/)[1]}</a>`
   )
 
 const transformLinebreaks = (message, multi) => {
@@ -45,10 +45,10 @@ const transformLinebreaks = (message, multi) => {
   return message.match(/^.*$/m)[0]
 }
 
-const transformUrls = message =>
+const transformUrls = (message) =>
   message.replace(
     /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi,
-    url =>
+    (url) =>
       `<a href="${url}" target="_blank" rel="noopener noreferrer" class="Message__link"> ${url}</a>`
   )
 
@@ -57,13 +57,14 @@ export const transformMessage = (message, multi = true) =>
     transformLinebreaks(transformMentions(transformUrls(message)), multi)
   )
 
-export const getUsername = user => (user && user.name ? user.name : user.email)
+export const getUsername = (user) =>
+  user && user.name ? user.name : user.email
 
 export const awsUrl =
   process.env.AWS_S3_URL ||
   'https://voice-story-dev.s3.us-east-2.amazonaws.com/'
 
-export const notificationHandler = title => {
+export const notificationHandler = (title) => {
   // Let's check if the browser supports notifications
   if (!('Notification' in window)) {
     alert('This browser does not support desktop notification')
@@ -77,7 +78,7 @@ export const notificationHandler = title => {
 
   // Otherwise, we need to ask the user for permission
   else if (Notification.permission !== 'denied') {
-    Notification.requestPermission().then(function(permission) {
+    Notification.requestPermission().then(function (permission) {
       // If the user accepts, let's create a notification
       if (permission === 'granted') {
         new Notification(title)

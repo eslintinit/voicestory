@@ -1,24 +1,24 @@
-import { useRouter } from 'next/router';
-import { useMutation } from '@apollo/react-hooks';
-import { useEscapeToClose } from 'hooks';
-import { Formik, Form, Field } from 'formik';
-import * as yup from 'yup';
+import { useRouter } from 'next/router'
+import { useMutation } from '@apollo/react-hooks'
+import { useEscapeToClose } from 'hooks'
+import { Formik, Form, Field } from 'formik'
+import * as yup from 'yup'
 
-import withAuth from 'utils/apollo/withAuth';
-import { CREATE_CHANNEL, GET_CHANNELS } from 'apis/Channel';
-import { COMPANY_NAME } from 'utils/config';
+import withAuth from 'utils/apollo/withAuth'
+import { CREATE_CHANNEL, GET_CHANNELS } from 'apis/Channel'
+import { COMPANY_NAME } from 'utils/config'
 
-import Input from 'components/UI/Input/Input';
-import { ButtonPrimary } from 'components/UI/Button';
-import { BackIcon } from 'components/UI/Icons';
+import Input from 'components/UI/Input/Input'
+import { ButtonPrimary } from 'components/UI/Button'
+import { BackIcon } from 'components/UI/Icons'
 
-import * as S from './ChannelCreate.styled';
+import * as S from './ChannelCreate.styled'
 
 const initialValues = {
   name: '',
   description: '',
   isPrivate: false,
-};
+}
 
 const validationSchema = yup.object().shape({
   name: yup
@@ -27,13 +27,13 @@ const validationSchema = yup.object().shape({
     .max(22, 'Must be shorter than 22 characters')
     .matches(/^[^.]+$/, 'Must contain no dots')
     .required('Name is required'),
-});
+})
 
 const CreateChannel = () => {
-  const router = useRouter();
-  useEscapeToClose(router.back);
+  const router = useRouter()
+  useEscapeToClose(router.back)
 
-  const { community: communityUrl } = router.query;
+  const { community: communityUrl } = router.query
 
   const [createChannel] = useMutation(CREATE_CHANNEL, {
     update(cache, { data: { createChannel: channel } }) {
@@ -42,18 +42,18 @@ const CreateChannel = () => {
         variables: {
           communityUrl,
         },
-      });
+      })
       cache.writeQuery({
         query: GET_CHANNELS,
         variables: { communityUrl },
         data: { channels: channels.concat([channel]) },
-      });
+      })
     },
-  });
+  })
 
   const onSubmit = async (values, { setSubmitting, setErrors }) => {
-    const channelUrl = values.name.toLowerCase().replace(' ', '-');
-    const url = `${communityUrl}/${channelUrl}`;
+    const channelUrl = values.name.toLowerCase().replace(' ', '-')
+    const url = `${communityUrl}/${channelUrl}`
     const { data } = await createChannel({
       variables: {
         communityUrl,
@@ -61,17 +61,21 @@ const CreateChannel = () => {
         ...values,
       },
       errorPolicy: 'all',
-    });
+    })
 
-    setSubmitting(false);
+    setSubmitting(false)
     if (!data) {
-      setErrors({ name: 'Channel with this name already exists' });
+      setErrors({ name: 'Channel with this name already exists' })
     } else {
-      router.push(`/[company]/[community]/[channel]`, `/${COMPANY_NAME()}/${url}`, {
-        shallow: true,
-      });
+      router.push(
+        `/[company]/[community]/[channel]`,
+        `/${COMPANY_NAME()}/${url}`,
+        {
+          shallow: true,
+        }
+      )
     }
-  };
+  }
 
   return (
     <S.Container>
@@ -129,7 +133,7 @@ const CreateChannel = () => {
         </Formik>
       </S.Body>
     </S.Container>
-  );
-};
+  )
+}
 
-export default withAuth(CreateChannel);
+export default withAuth(CreateChannel)

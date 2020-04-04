@@ -1,3 +1,3 @@
-import MessageEditor from './MessageEditor';
+import MessageEditor from './MessageEditor'
 
-export default MessageEditor;
+export default MessageEditor

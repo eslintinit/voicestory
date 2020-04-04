@@ -5,28 +5,22 @@ export const createChannel = mutationField('createChannel', {
   type: 'Channel',
   args: {
     name: stringArg(),
-    description: stringArg({ nullable: true }),
     url: stringArg(),
-    isPrivate: booleanArg({ nullable: true }),
-    communityUrl: stringArg()
+    communityUrl: stringArg(),
+    description: stringArg({ nullable: true }),
   },
-  resolve: async (
-    parent,
-    { name, url, description, isPrivate, communityUrl },
-    ctx
-  ) => {
+  resolve: async (parent, { name, url, communityUrl, description }, ctx) => {
     const userId = getUserId(ctx)
     return ctx.prisma.channel.create({
       data: {
         name,
         url,
         description,
-        isPrivate,
-        author: { connect: { id: userId } },
-        community: { connect: { url: communityUrl } }
-      }
+        /* author: { connect: { id: userId } }, */
+        community: { connect: { url: communityUrl } },
+      },
     })
-  }
+  },
 })
 
 export const editChannel = mutationField('editChannel', {
@@ -34,7 +28,7 @@ export const editChannel = mutationField('editChannel', {
   args: {
     channelId: stringArg(),
     name: stringArg(),
-    description: stringArg({ nullable: true })
+    description: stringArg({ nullable: true }),
   },
   resolve: async (parent, { channelId, name, description }, ctx) => {
     const userId = getUserId(ctx)
@@ -42,8 +36,8 @@ export const editChannel = mutationField('editChannel', {
       where: { id: channelId },
       data: {
         name,
-        description
-      }
+        description,
+      },
     })
-  }
+  },
 })

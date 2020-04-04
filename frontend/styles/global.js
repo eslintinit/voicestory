@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from 'styled-components'
 
 export default createGlobalStyle`
   * {
@@ -35,7 +35,7 @@ export default createGlobalStyle`
 
   .ps__rail-y {
     z-index: 1;
-    background: ${props => props.theme.chatBG} !important;
+    background: ${(props) => props.theme.chatBG} !important;
     :hover {
       background: transparent !important;
     }
@@ -81,4 +81,4 @@ export default createGlobalStyle`
     color: #000000;
     margin-bottom: 8px;
   }
-`;
+`

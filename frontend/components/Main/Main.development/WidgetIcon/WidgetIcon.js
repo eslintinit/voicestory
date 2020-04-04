@@ -1,7 +1,7 @@
-import * as S from './WidgetIcon.styled';
+import * as S from './WidgetIcon.styled'
 
-export default ({ openWidget, show }) => (
-  <S.Container id="voicestory" show={show}>
+export default ({ show, openWidget }) => (
+  <S.Container show={show}>
     <S.WidgetIcon onClick={openWidget} />
   </S.Container>
-);
+)

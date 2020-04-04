@@ -1,3 +1,3 @@
-import ReplyAction from './ReplyAction';
+import ReplyAction from './ReplyAction'
 
-export default ReplyAction;
+export default ReplyAction

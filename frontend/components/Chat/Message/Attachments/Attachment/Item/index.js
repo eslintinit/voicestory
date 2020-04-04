@@ -1,19 +1,23 @@
-import docPreview from 'public/icons/document-preview.png';
-import AttachmentImage from '../Image';
-import * as S from './styled';
+import docPreview from 'public/icons/document-preview.png'
+import AttachmentImage from '../Image'
+import * as S from './styled'
 
 const AttachmentItem = ({ url, mimetype, filesize, filename }) => {
-  const fileSizeFormat = bytes => {
-    const threshold = 1000;
+  const fileSizeFormat = (bytes) => {
+    const threshold = 1000
 
-    const i = Math.floor(Math.log(bytes) / Math.log(threshold));
-    return `${(bytes / threshold ** i).toFixed(2) * 1} ${['B', 'kB', 'MB'][i]}`;
-  };
+    const i = Math.floor(Math.log(bytes) / Math.log(threshold))
+    return `${(bytes / threshold ** i).toFixed(2) * 1} ${['B', 'kB', 'MB'][i]}`
+  }
 
-  const isImage = mimetype.includes('image');
+  const isImage = mimetype.includes('image')
   return (
     <S.Container>
-      {isImage ? <AttachmentImage url={url} /> : <S.FileIcon src={docPreview} />}
+      {isImage ? (
+        <AttachmentImage url={url} />
+      ) : (
+        <S.FileIcon src={docPreview} />
+      )}
       <S.Description>
         <S.Name>{filename}</S.Name>
         <S.Bottom>
@@ -24,7 +28,7 @@ const AttachmentItem = ({ url, mimetype, filesize, filename }) => {
         </S.Bottom>
       </S.Description>
     </S.Container>
-  );
-};
+  )
+}
 
-export default AttachmentItem;
+export default AttachmentItem

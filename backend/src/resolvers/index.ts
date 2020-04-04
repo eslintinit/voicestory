@@ -25,10 +25,10 @@ export const resolvers = {
   TwitterPayload,
 
   Community,
+  Channel,
 
   /* Role, */
   /* UnreadMessagePayload, */
-  /* Channel, */
   /* Message, */
   /* File, */
   /* Upload, */

@@ -44,7 +44,7 @@ const InputComponent = ({
 
   const [playSoundSendMessage] = useSound('/sounds/click_snap_lo.mp3')
 
-  const updateTypingStatus = isTyping => {
+  const updateTypingStatus = (isTyping) => {
     setUserTypingStatus({
       variables: {
         isTyping,
@@ -55,7 +55,7 @@ const InputComponent = ({
 
   const throttledTypingStatusUpdate = useCallback(
     throttle(
-      isTyping => {
+      (isTyping) => {
         updateTypingStatus(isTyping)
       },
       2000,
@@ -64,11 +64,11 @@ const InputComponent = ({
     [channelUrl, communityUrl]
   )
 
-  const handleFileAdd = fileList => {
+  const handleFileAdd = (fileList) => {
     if (process.browser) {
       setAttachments([...attachments, ...fileList])
 
-      const previewList = Array.prototype.map.call(fileList, file =>
+      const previewList = Array.prototype.map.call(fileList, (file) =>
         file.type.includes('image/') ? URL.createObjectURL(file) : docPreview
       )
 
@@ -106,7 +106,7 @@ const InputComponent = ({
     throttledTypingStatusUpdate.cancel()
   }
 
-  const onKeyDown = e => {
+  const onKeyDown = (e) => {
     // Sending message
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault()
@@ -120,7 +120,7 @@ const InputComponent = ({
   //   handleFileAdd(target.files);
   // };
 
-  const removeAttachmentFromList = number => {
+  const removeAttachmentFromList = (number) => {
     setAttachmentPreviews(attachmentPreviews.filter((el, i) => i !== number))
     setAttachments(attachments.filter((el, i) => i !== number))
   }
@@ -168,19 +168,19 @@ const InputComponent = ({
           type="text"
           value={body}
           onChange={handleInputChange}
-          onKeyDown={e => onKeyDown(e)}
+          onKeyDown={(e) => onKeyDown(e)}
           style={S.MentionInputStyles}
           allowSuggestionsAboveCursor
         >
           <Mention
             trigger="@"
-            displayTransform={name => `@${name}`}
+            displayTransform={(name) => `@${name}`}
             data={async (searchString, callback) => {
               const { data: { users = [] } = {} } = await getUsers({
                 variables: { searchString },
               })
               callback(
-                users.map(user => ({
+                users.map((user) => ({
                   id: user.username,
                   display: user.fullname,
                   username: user.username,
@@ -190,7 +190,7 @@ const InputComponent = ({
             }}
             style={S.MentionStyles}
             appendSpaceOnAdd
-            renderSuggestion={user => (
+            renderSuggestion={(user) => (
               <S.ListItem>
                 <S.Avatar name={user.username} />
                 <S.Fullname>{user.display}</S.Fullname>

@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import DefaultAvatar from 'components/UI/Avatar';
+import styled from 'styled-components'
+import DefaultAvatar from 'components/UI/Avatar'
 
 export const Container = styled.div`
   display: flex;
@@ -9,8 +9,8 @@ export const Container = styled.div`
   position: relative;
   cursor: inherit;
   word-wrap: break-word;
-  opacity: ${props => (props.isDeleted ? '0.4' : '1')};
-  ${props =>
+  opacity: ${(props) => (props.isDeleted ? '0.4' : '1')};
+  ${(props) =>
     props.child &&
     `
     padding: 1px 13px 1px 23px;
@@ -23,40 +23,40 @@ export const Container = styled.div`
       display: block;
     }
   `}
-`;
+`
 
 export const Content = styled.div`
   width: calc(100% - 50px);
-  ${props => (props.child ? ` margin-left: 45px; ` : ` margin-left: 9px; `)}
-`;
+  ${(props) => (props.child ? ` margin-left: 45px; ` : ` margin-left: 9px; `)}
+`
 
-export const User = styled.p``;
+export const User = styled.p``
 
 export const NameLink = styled.a`
   font-weight: 600;
   font-size: 15px;
-  color: ${props => props.theme.chatAuthor};
+  color: ${(props) => props.theme.chatAuthor};
   cursor: pointer;
-`;
+`
 
 export const Name = styled.span`
   font-weight: 600;
   font-size: 15px;
   letter-spacing: -0.15px;
-  color: ${props => props.theme.chatAuthor};
+  color: ${(props) => props.theme.chatAuthor};
   cursor: pointer;
-`;
+`
 
 export const Time = styled.span`
   font-weight: 400;
   font-size: 12px;
-  color: ${props => props.theme.notificationDate};
+  color: ${(props) => props.theme.notificationDate};
   margin-left: 7px;
 
   ${Container}:hover & {
     opacity: 1;
   }
-  ${props =>
+  ${(props) =>
     props.child &&
     `
     position: absolute;
@@ -75,7 +75,7 @@ export const Time = styled.span`
     text-align: center;
 
   `}
-`;
+`
 
 export const EditInput = styled.textarea`
   font-weight: 400;
@@ -84,7 +84,7 @@ export const EditInput = styled.textarea`
   line-height: 150%;
   width: 100%;
   resize: none;
-`;
+`
 
 export const Avatar = styled(DefaultAvatar).attrs({
   alt: 'Avatar',
@@ -92,4 +92,4 @@ export const Avatar = styled(DefaultAvatar).attrs({
   width: 36px;
   height: 36px;
   border-radius: 3px;
-`;
+`

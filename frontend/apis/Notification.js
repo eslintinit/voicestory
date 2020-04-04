@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import gql from 'graphql-tag'
 
 export const NOTIFICATIONS_SUBSCRIPTION = gql`
   subscription newNotification($receiverId: String!, $tenant: String!) {
@@ -35,7 +35,7 @@ export const NOTIFICATIONS_SUBSCRIPTION = gql`
       }
     }
   }
-`;
+`
 
 export const GET_UNREAD_NOTIFICATIONS = gql`
   query unreadNotifications {
@@ -45,7 +45,7 @@ export const GET_UNREAD_NOTIFICATIONS = gql`
       isRead
     }
   }
-`;
+`
 
 export const GET_NOTIFICATIONS = gql`
   query notifications {
@@ -82,7 +82,7 @@ export const GET_NOTIFICATIONS = gql`
       }
     }
   }
-`;
+`
 
 export const MARK_NOTIFICATIONS_AS_READ = gql`
   mutation markNotificationsAsRead($type: String!) {
@@ -90,11 +90,11 @@ export const MARK_NOTIFICATIONS_AS_READ = gql`
       count
     }
   }
-`;
+`
 export const MARK_NOTIFICATION_AS_READ = gql`
   mutation markNotificationAsRead($id: String!) {
     markNotificationAsRead(id: $id) {
       count
     }
   }
-`;
+`

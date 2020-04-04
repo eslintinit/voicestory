@@ -1,3 +1,3 @@
-import ReplyBar from './ReplyBar';
+import ReplyBar from './ReplyBar'
 
-export default ReplyBar;
+export default ReplyBar

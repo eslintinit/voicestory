@@ -27,7 +27,7 @@ export default ({ reaction, messageId }) => {
     }
   }
 
-  const createUsersList = users => {
+  const createUsersList = (users) => {
     const userListString = users
       .map(({ username: userName }) => userName)
       .join(', ')

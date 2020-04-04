@@ -1,5 +1,5 @@
 /* eslint-disable import/prefer-default-export */
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 export const Image = styled.img`
   min-height: 250px;
@@ -12,4 +12,4 @@ export const Image = styled.img`
   object-position: center;
   display: block;
   position: relative;
-`;
+`

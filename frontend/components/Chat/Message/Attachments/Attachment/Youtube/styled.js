@@ -1,29 +1,29 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 export const Container = styled.div`
   max-width: 400px;
-`;
+`
 
-export const Header = styled.div``;
+export const Header = styled.div``
 
 export const Description = styled.p`
   margin: 5px 0 10px 0;
   display: block;
   width: 100%;
   max-height: 200px;
-`;
+`
 export const Preview = styled.img`
   display: block;
   width: 360px;
   height: 260px;
   object-fit: cover;
-`;
+`
 export const PreviewContainer = styled.div`
   display: block;
   width: 360px;
   height: 260px;
   position: relative;
-`;
+`
 
 export const StartVideoButton = styled.button`
   position: absolute;
@@ -55,17 +55,17 @@ export const StartVideoButton = styled.button`
     opacity: 1;
     box-shadow: 0 1px 8px #030303;
   }
-`;
+`
 
 export const VideoContainer = styled.div`
   max-width: 360px;
-`;
+`
 
 export const VideoWrapper = styled.div`
   position: relative;
   height: 260px;
   width: 360px;
-`;
+`
 
 export const Youtube = styled.iframe.attrs({
   allowFullScreen: 'allowfullscreen',
@@ -78,4 +78,4 @@ export const Youtube = styled.iframe.attrs({
   left: 0;
   width: 100%;
   height: 100%;
-`;
+`

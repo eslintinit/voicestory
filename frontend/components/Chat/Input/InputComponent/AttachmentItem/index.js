@@ -1,3 +1,3 @@
-import AttachmentItem from './AttachmentItem';
+import AttachmentItem from './AttachmentItem'
 
-export default AttachmentItem;
+export default AttachmentItem

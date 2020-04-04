@@ -1,5 +1,5 @@
-import CheckboxArrow from 'public/icons/CheckboxArrow.svg';
-import * as S from './Toggle.styled';
+import CheckboxArrow from 'public/icons/CheckboxArrow.svg'
+import * as S from './Toggle.styled'
 
 const Toggle = ({ value, onChange, name }) => (
   <>
@@ -13,6 +13,6 @@ const Toggle = ({ value, onChange, name }) => (
     />
     <S.ToggleLabel htmlFor={name || 'checkboxNotifications'} />
   </>
-);
+)
 
-export default Toggle;
+export default Toggle

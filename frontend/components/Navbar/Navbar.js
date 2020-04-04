@@ -7,7 +7,7 @@ import { useKeyboardShortcut } from 'hooks'
 import { COMPANY_NAME } from 'utils/config'
 
 import { ProfileIcon as MoreIcon, CloseIcon } from 'components/UI/Icons'
-import Tabs from './Tabs/Tabs'
+import Tabs from './Tabs'
 
 import * as S from './Navbar.styled'
 

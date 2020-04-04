@@ -1,3 +1,3 @@
-import ReactionAction from './ReactionAction';
+import ReactionAction from './ReactionAction'
 
-export default ReactionAction;
+export default ReactionAction

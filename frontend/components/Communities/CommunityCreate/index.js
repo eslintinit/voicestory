@@ -1,3 +1,3 @@
-import CommunityCreate from './CommunityCreate';
+import CommunityCreate from './CommunityCreate'
 
-export default CommunityCreate;
+export default CommunityCreate

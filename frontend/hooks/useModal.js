@@ -1,34 +1,34 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react'
 
 const useModal = () => {
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(false)
 
   function toggle() {
-    setShowModal(!showModal);
+    setShowModal(!showModal)
   }
 
-  const onKeyDown = e => {
+  const onKeyDown = (e) => {
     if (e.key === 'Escape') {
-      setShowModal(false);
+      setShowModal(false)
     }
-  };
+  }
 
   useEffect(() => {
     if (process.browser) {
-      window.addEventListener('keydown', onKeyDown);
+      window.addEventListener('keydown', onKeyDown)
       return () => {
-        window.removeEventListener('keydown', onKeyDown);
-      };
+        window.removeEventListener('keydown', onKeyDown)
+      }
     }
-    return window.removeEventListener('keydown', onKeyDown);
-  }, []);
+    return window.removeEventListener('keydown', onKeyDown)
+  }, [])
 
   return {
     isShowing: showModal,
     toggle,
     hide: () => setShowModal(false),
     show: () => setShowModal(true),
-  };
-};
+  }
+}
 
-export default useModal;
+export default useModal

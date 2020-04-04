@@ -1,6 +1,6 @@
-import ContentLoader from 'react-content-loader';
-import { withTheme } from 'styled-components';
-import { Container } from './ChatHeader.styled';
+import ContentLoader from 'react-content-loader'
+import { withTheme } from 'styled-components'
+import { Container } from './ChatHeader.styled'
 
 const ChatHeaderPlaceholder = ({ theme }) => (
   <Container>
@@ -16,6 +16,6 @@ const ChatHeaderPlaceholder = ({ theme }) => (
       <rect x="0" y="36" rx="4" ry="4" width="219" height="17" />
     </ContentLoader>
   </Container>
-);
+)
 
-export default withTheme(ChatHeaderPlaceholder);
+export default withTheme(ChatHeaderPlaceholder)

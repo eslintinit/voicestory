@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 export const ChatInputWrapper = styled.div`
   display: flex;
@@ -6,7 +6,7 @@ export const ChatInputWrapper = styled.div`
   align-items: center;
   padding: 5px 23px 24px 23px;
   position: relative;
-`;
+`
 
 export const AddButton = styled.button`
   display: flex;
@@ -21,10 +21,10 @@ export const AddButton = styled.button`
   :hover {
     opacity: 0.75;
   }
-`;
+`
 
 export const PlusIcon = styled.svg`
   fill: #fff;
   width: 15px;
   height: 15px;
-`;
+`

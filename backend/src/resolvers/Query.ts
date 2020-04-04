@@ -12,8 +12,8 @@ export const Query = {
   community: { CommunityQuery },
   communities: { CommunityQuery },
   searchCommunities: { CommunityQuery },
-  /* channel: { ChannelQuery }, */
-  /* channels: { ChannelQuery }, */
+  channel: { ChannelQuery },
+  channels: { ChannelQuery },
   /* privateChannels: { ChannelQuery }, */
   /* messages: { MessageQuery }, */
   /* files: { FileQuery }, */

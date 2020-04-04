@@ -1,3 +1,1 @@
-import ProfilePopup from './ProfilePopup';
-
-export default ProfilePopup;
+export { default } from './ProfilePopup'

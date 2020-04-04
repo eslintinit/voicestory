@@ -1,4 +1,4 @@
-import * as S from './Member.styled';
+import * as S from './Member.styled'
 
 export default ({ member }) => (
   <S.ListItem key={member.id}>
@@ -6,7 +6,7 @@ export default ({ member }) => (
     <S.Name>{member.username}</S.Name>
     <S.Status online={member.isOnline} />
   </S.ListItem>
-);
+)
 
 // export default ({ member }) => (
 //   <S.Member>

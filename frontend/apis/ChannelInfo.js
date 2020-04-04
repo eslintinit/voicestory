@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import gql from 'graphql-tag'
 
 export const UPDATE_CHANNEL_INFO = gql`
   mutation updateChannelInfo($channelUrl: String!, $date: String!) {
@@ -47,4 +47,4 @@ export const UPDATE_CHANNEL_INFO = gql`
       }
     }
   }
-`;
+`

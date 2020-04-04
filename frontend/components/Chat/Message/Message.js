@@ -33,14 +33,14 @@ const Message = forwardRef(
 
     const toggleEditing = () => setEditing(!isEditing)
 
-    const editMessage = editedValue => {
+    const editMessage = (editedValue) => {
       if (message.body !== editedValue) {
         onEdit(editedValue, message.id)
       }
       toggleEditing()
     }
 
-    const setShow = value => {
+    const setShow = (value) => {
       setShowActions(value)
     }
 
@@ -52,7 +52,7 @@ const Message = forwardRef(
     let isDeleted = false
     if (user) {
       const deletedMessages = getMessageQueue()
-      if (deletedMessages.filter(e => e === message.id).length > 0)
+      if (deletedMessages.filter((e) => e === message.id).length > 0)
         isDeleted = true
     }
     return (

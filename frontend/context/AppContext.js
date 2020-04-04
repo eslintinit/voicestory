@@ -6,10 +6,10 @@ const AppProvider = ({ children }) => {
   const [userLoaded, setUserLoaded] = useState(false)
   const [communitiesLoaded, setCommunitiesLoaded] = useState(false)
   const [channelLoaded, setChannelLoaded] = useState(false)
-  const [chatLoaded, setChatLoaded] = useState(false)
+  const [messagesLoaded, setMessagesLoaded] = useState(false)
 
   const appLoaded =
-    userLoaded && communitiesLoaded && channelLoaded && chatLoaded
+    userLoaded && communitiesLoaded && channelLoaded && messagesLoaded
 
   return (
     <AppContext.Provider
@@ -21,8 +21,8 @@ const AppProvider = ({ children }) => {
         setCommunitiesLoaded,
         channelLoaded,
         setChannelLoaded,
-        chatLoaded,
-        setChatLoaded,
+        messagesLoaded,
+        setMessagesLoaded,
       }}
     >
       {children}

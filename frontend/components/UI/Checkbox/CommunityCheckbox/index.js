@@ -1,3 +1,3 @@
-import CommunityCheckbox from './CommunityCheckbox';
+import CommunityCheckbox from './CommunityCheckbox'
 
-export default CommunityCheckbox;
+export default CommunityCheckbox

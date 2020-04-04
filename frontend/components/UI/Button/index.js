@@ -1,2 +1,2 @@
-export * from './Button';
-export * from './LaddaButton';
+export * from './Button'
+export * from './LaddaButton'

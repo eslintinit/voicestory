@@ -1,50 +1,49 @@
-import { useState, useEffect } from 'react';
-import useSound from 'use-sound';
+import { useState, useEffect } from 'react'
+import useSound from 'use-sound'
 
-import Landing from './Landing/Landing';
-import Widget from './Widget/Widget';
-import WidgetIcon from './WidgetIcon/WidgetIcon';
+import Landing from './Landing'
+import Widget from './Widget'
+import WidgetIcon from './WidgetIcon'
 
 export default () => {
-  const widgetUrl = `${process.env.FRONTEND_URL}/vs/general/general`;
-  const [widgetOpened, setWidgetOpened] = useState(true);
+  const widgetUrl = `${process.env.FRONTEND_URL}/vs/general/general`
+  const [widgetOpened, setWidgetOpened] = useState(true)
 
-  const [playSoundWidgetOpen] = useSound('/sounds/card_drop.mp3');
+  const [playSoundWidgetOpen] = useSound('/sounds/card_drop.mp3')
 
   const openWidget = () => {
-    playSoundWidgetOpen();
-    setWidgetOpened(true);
-  };
+    playSoundWidgetOpen()
+    setWidgetOpened(true)
+  }
 
   useEffect(() => {
     if (document) {
-      document.onkeyup = e => {
+      document.onkeyup = (e) => {
         if (e.key === 's') {
-          playSoundWidgetOpen();
-          setWidgetOpened(!widgetOpened);
+          playSoundWidgetOpen()
+          setWidgetOpened(!widgetOpened)
         }
-      };
+      }
     }
-  }, []);
+  }, [])
 
   useEffect(() => {
     const onClose = window.addEventListener(
       'message',
-      event => {
+      (event) => {
         if (event.data.message === 'close-widget') {
-          console.log('close');
-          setWidgetOpened(false);
+          setWidgetOpened(false)
         }
       },
       false
-    );
-    return () => window.removeEventListener('message', onClose);
-  }, []);
+    )
+    return () => window.removeEventListener('message', onClose)
+  }, [])
 
   return (
     <Landing>
       <WidgetIcon openWidget={openWidget} show={!widgetOpened} />
       <Widget widgetUrl={widgetUrl} show={widgetOpened} />
     </Landing>
-  );
-};
+  )
+}

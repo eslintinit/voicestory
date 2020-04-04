@@ -5,7 +5,7 @@ import { useContext } from 'react'
 import { AppContext } from 'context'
 import { GET_COMMUNITIES } from 'apis/Community'
 
-import Tab from './Tab/Tab'
+import Tab from './Tab'
 import * as S from './Tabs.styled'
 
 const Tabs = () => {

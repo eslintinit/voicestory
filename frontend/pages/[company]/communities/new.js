@@ -1,1 +1,1 @@
-export { default } from 'components/Communities/CommunityCreate';
+export { default } from 'components/Communities/CommunityCreate'

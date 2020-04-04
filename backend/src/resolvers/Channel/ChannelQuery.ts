@@ -8,52 +8,23 @@ export const channels = queryField('channels', {
   resolve: (parent, { communityUrl }, ctx) => {
     return ctx.prisma.channel.findMany({
       where: {
-        community: {
-          url: communityUrl
-        }
+        communityUrl,
       },
-      orderBy: { createdAt: 'asc' }
+      orderBy: { createdAt: 'asc' },
     })
-  }
+  },
 })
 
 export const channel = queryField('channel', {
   type: 'Channel',
   nullable: true,
   args: {
-    url: stringArg()
+    url: stringArg(),
+    communityUrl: stringArg(),
   },
-  resolve: (parent, { url }, ctx) => {
+  resolve: (parent, { url, communityUrl }, ctx) => {
     return ctx.prisma.channel.findOne({
-      where: { url }
+      where: { url, communityUrl },
     })
-  }
-})
-
-export const privateChannels = queryField('privateChannels', {
-  type: 'Channel',
-  list: true,
-  resolve: async (_parent, {}, ctx) => {
-    const userId = await getUserId(ctx)
-
-    const user = await ctx.prisma.user.findOne({
-      where: {
-        id: userId
-      }
-    })
-
-    const searchString = 'direct/'
-    const searchString1 = user.username + '-'
-
-    const channels = await ctx.prisma.channel.findMany({
-      where: {
-        AND: [{ url: { contains: searchString } }, { url: { contains: searchString1 } }]
-      },
-      orderBy: {
-        createdAt: 'desc'
-      }
-    })
-
-    return channels
-  }
+  },
 })

@@ -1,4 +1,4 @@
-import * as S from './styled';
+import * as S from './styled'
 
 const Input = ({
   field,
@@ -34,6 +34,6 @@ const Input = ({
     {tip && <S.Tip>{tip}</S.Tip>}
     {urlMask && <S.UrlMask>{urlMask}</S.UrlMask>}
   </S.InputContainer>
-);
+)
 
-export default Input;
+export default Input

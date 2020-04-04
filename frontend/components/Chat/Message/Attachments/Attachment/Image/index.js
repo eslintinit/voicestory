@@ -1,3 +1,3 @@
-import AttachmentImage from './AttachmentImage';
+import AttachmentImage from './AttachmentImage'
 
-export default AttachmentImage;
+export default AttachmentImage

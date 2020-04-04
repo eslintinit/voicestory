@@ -1,11 +1,11 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 export const Reaction = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background: ${props => props.theme.reactionBG};
-  ${props => props.isLogged && 'cursor: pointer;'}
+  background: ${(props) => props.theme.reactionBG};
+  ${(props) => props.isLogged && 'cursor: pointer;'}
   width: 45px;
   height: 24px;
   margin-top: 1px;
@@ -17,20 +17,20 @@ export const Reaction = styled.div`
   position: relative;
   padding-top: 3px;
   :hover {
-    background: ${props => props.theme.reactionBGHover};
+    background: ${(props) => props.theme.reactionBGHover};
     box-shadow: 0 3px 5px rgba(18, 100, 163, 0.2);
     border: 1px solid #1264a3;
   }
-`;
+`
 
 export const Count = styled.span`
   font-size: 11px;
   font-weight: 400;
   line-height: 100%;
   margin-left: 4px;
-  color: ${props => props.theme.chatText};
+  color: ${(props) => props.theme.chatText};
   user-select: none;
-`;
+`
 
 export const Tooltip = styled.div`
   background: #000;
@@ -56,7 +56,7 @@ export const Tooltip = styled.div`
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
   }
-`;
+`
 
 export const TooltipWrapper = styled.div`
   padding: 5px;
@@ -69,7 +69,7 @@ export const TooltipWrapper = styled.div`
   ${Reaction}:hover & {
     display: block;
   }
-`;
+`
 
 export const UsersList = styled.ul`
   text-align: center;
@@ -89,7 +89,7 @@ export const UsersList = styled.ul`
       overflow: hidden;
     }
   }
-`;
+`
 
 export const ReactonName = styled.span`
   display: block;
@@ -98,4 +98,4 @@ export const ReactonName = styled.span`
   width: 100%;
   margin-top: 5px;
   white-space: nowrap;
-`;
+`

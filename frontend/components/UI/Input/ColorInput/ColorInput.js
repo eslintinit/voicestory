@@ -1,5 +1,5 @@
-import checkIcon from 'public/icons/check.svg';
-import * as S from './ColorInput.styled';
+import checkIcon from 'public/icons/check.svg'
+import * as S from './ColorInput.styled'
 
 const colors = [
   '#19BC9B',
@@ -22,23 +22,27 @@ const colors = [
   '#992D23',
   '#979C9F',
   '#546D7A',
-];
+]
 
 const CheckIcon = () => (
   <S.CheckIcon>
     <use xlinkHref={`${checkIcon}#icon-check`} />
   </S.CheckIcon>
-);
+)
 
 export default ({ field: { value }, form: { setFieldValue } }) => (
   <S.Container>
     <S.Label>Role color</S.Label>
     <S.Colors>
-      {colors.map(color => (
-        <S.Color key={color} color={color} onClick={() => setFieldValue('color', color)}>
+      {colors.map((color) => (
+        <S.Color
+          key={color}
+          color={color}
+          onClick={() => setFieldValue('color', color)}
+        >
           {value === color && <CheckIcon />}
         </S.Color>
       ))}
     </S.Colors>
   </S.Container>
-);
+)

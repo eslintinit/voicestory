@@ -46,7 +46,7 @@ module.exports = withSourceMaps(
 
             if (!options.isServer) {
               // https://github.com/zeit/next.js/blob/canary/examples/with-sentry-simple/next.config.js
-              // eslint-disable-next-line
+              // eslint-disable-next-line no-param-reassign
               config.resolve.alias['@sentry/node'] = '@sentry/browser'
             }
             return config

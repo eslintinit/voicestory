@@ -1,12 +1,12 @@
-import styled from 'styled-components';
-import TextareaAutosize from 'react-textarea-autosize';
+import styled from 'styled-components'
+import TextareaAutosize from 'react-textarea-autosize'
 
-import { ButtonSubtle } from 'components/UI/Button';
+import { ButtonSubtle } from 'components/UI/Button'
 
 export const Container = styled.form`
   margin-top: 4px;
   margin-right: 8px;
-`;
+`
 
 export const EditInput = styled(TextareaAutosize)`
   font-weight: 400;
@@ -23,15 +23,15 @@ export const EditInput = styled(TextareaAutosize)`
   box-sizing: border-box;
 
   width: 100%;
-`;
+`
 
 export const Buttons = styled.div`
   display: flex;
   justify-content: flex-end;
   margin: 4px 0 8px;
-`;
+`
 
 export const CancelButton = styled(ButtonSubtle)`
   background: #fff;
   margin-right: 8px;
-`;
+`

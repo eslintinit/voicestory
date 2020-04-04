@@ -1,5 +1,5 @@
 /* eslint-disable no-nested-ternary, import/prefer-default-export */
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 export const Channel = styled.li`
   cursor: pointer;
@@ -7,8 +7,8 @@ export const Channel = styled.li`
   line-height: 17px;
   font-size: 15px;
   display: inline-block;
-  font-weight: ${props => (props.active ? 600 : 500)};
-  color: ${props =>
+  font-weight: ${(props) => (props.active ? 600 : 500)};
+  color: ${(props) =>
     props.active
       ? props.theme.channelActive
       : props.unread
@@ -22,7 +22,7 @@ export const Channel = styled.li`
   :hover {
     opacity: 0.85;
   }
-`;
+`
 // color: ${props =>
 //   props.active
 //     ? props.theme.channelActive

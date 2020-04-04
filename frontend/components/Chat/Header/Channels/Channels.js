@@ -1,46 +1,24 @@
-import { useEffect } from 'react';
-import { useRouter } from 'next/router';
-import { useQuery } from '@apollo/react-hooks';
+import { useRouter } from 'next/router'
+import { useQuery } from '@apollo/react-hooks'
 
-import { COMPANY_NAME } from 'utils/config';
-import { GET_CHANNELS, NEW_CHANNEL_MESSAGE_SUBSCRIPTION } from 'apis/Channel';
+import { GET_CHANNELS } from 'apis/Channel'
 
-import Channel from './Channel/Channel';
-import Placeholder from './Channels.placeholder';
-import * as S from './Channels.styled';
+import Channel from './Channel/Channel'
+import Placeholder from './Channels.placeholder'
+import * as S from './Channels.styled'
 
 const Channels = () => {
   const {
     query: { community: communityUrl },
-  } = useRouter();
-  const { data: { channels = [] } = {}, loading, subscribeToMore } = useQuery(GET_CHANNELS, {
-    variables: { communityUrl },
-  });
+  } = useRouter()
 
-  useEffect(() => {
-    subscribeToMore({
-      document: NEW_CHANNEL_MESSAGE_SUBSCRIPTION,
-      variables: { communityUrl, tenant: COMPANY_NAME() },
-      updateQuery: (prev, { subscriptionData }) => {
-        if (!subscriptionData.data) return prev;
-        const { channelNewMessage } = subscriptionData.data;
-        const index = prev.channels.findIndex(({ id }) => id === channelNewMessage.id);
-        const channelsList = [...prev.channels];
-        if (index === -1) {
-          channelsList.push(channelNewMessage);
-        } else {
-          channelsList[index] = channelNewMessage;
-        }
-        return {
-          ...prev,
-          channels: channelsList,
-        };
-      },
-    });
-  }, []);
+  // TODO: only run this query on community change
+  const { data: { channels = [] } = {}, loading } = useQuery(GET_CHANNELS, {
+    variables: { communityUrl },
+  })
 
   if (loading) {
-    return <Placeholder />;
+    return <Placeholder />
   }
 
   return (
@@ -51,7 +29,7 @@ const Channels = () => {
         </Channel>
       ))}
     </S.Channels>
-  );
-};
+  )
+}
 
-export default Channels;
+export default Channels

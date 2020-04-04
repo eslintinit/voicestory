@@ -1,30 +1,32 @@
-import { useEffect } from 'react';
-import { useRouter } from 'next/router';
-import { useLazyQuery } from '@apollo/react-hooks';
-import { useEscapeToClose } from 'hooks';
-import { COMPANY_NAME } from 'utils/config';
-import { GET_COMMUNITY } from 'apis/Community';
-import { USER_WENT_ONLINE, USER_WENT_OFFLINE } from 'apis/User';
-import { UserIcon, CloseIcon } from 'components/UI/Icons';
-import PortalWrapper from 'components/UI/PortalWrapper';
+import { useEffect } from 'react'
+import { useRouter } from 'next/router'
+import { useLazyQuery } from '@apollo/react-hooks'
+import { useEscapeToClose } from 'hooks'
+import { COMPANY_NAME } from 'utils/config'
+import { GET_COMMUNITY } from 'apis/Community'
+import { USER_WENT_ONLINE, USER_WENT_OFFLINE } from 'apis/User'
+import { UserIcon, CloseIcon } from 'components/UI/Icons'
+import PortalWrapper from 'components/UI/PortalWrapper'
 
-import Member from './Member';
-import MembersPlaceholder from './Members.placeholder';
-import * as S from './Members.styled';
+import Member from './Member'
+import MembersPlaceholder from './Members.placeholder'
+import * as S from './Members.styled'
 
 const Members = ({ show, onClose }) => {
   const {
     query: { community: communityUrl, channel: channelUrl },
-  } = useRouter();
-  const [getMembers, { data, loading, error, subscribeToMore }] = useLazyQuery(GET_COMMUNITY);
+  } = useRouter()
+  const [getMembers, { data, loading, error, subscribeToMore }] = useLazyQuery(
+    GET_COMMUNITY
+  )
 
-  useEscapeToClose(onClose);
+  useEscapeToClose(onClose)
 
   useEffect(() => {
     if (channelUrl) {
-      getMembers({ variables: { url: communityUrl } });
+      getMembers({ variables: { url: communityUrl } })
     }
-  }, [channelUrl]);
+  }, [channelUrl])
 
   useEffect(() => {
     if (subscribeToMore) {
@@ -35,15 +37,17 @@ const Members = ({ show, onClose }) => {
           tenant: COMPANY_NAME(),
         },
         updateQuery: (prev, { subscriptionData }) => {
-          if (!subscriptionData.data) return prev;
-          const { user } = subscriptionData.data;
-          const userData = prev.members.filter(member => member.username === user.username)[0];
-          userData.isOnline = user.isOnline;
+          if (!subscriptionData.data) return prev
+          const { user } = subscriptionData.data
+          const userData = prev.members.filter(
+            (member) => member.username === user.username
+          )[0]
+          userData.isOnline = user.isOnline
           return {
             ...prev,
-          };
+          }
         },
-      });
+      })
       subscribeToMore({
         document: USER_WENT_OFFLINE,
         variables: {
@@ -51,24 +55,26 @@ const Members = ({ show, onClose }) => {
           tenant: COMPANY_NAME(),
         },
         updateQuery: (prev, { subscriptionData }) => {
-          if (!subscriptionData.data) return prev;
-          const { user } = subscriptionData.data;
+          if (!subscriptionData.data) return prev
+          const { user } = subscriptionData.data
 
-          const userData = prev.members.filter(member => member.username === user.username)[0];
-          userData.isOnline = user.isOnline;
+          const userData = prev.members.filter(
+            (member) => member.username === user.username
+          )[0]
+          userData.isOnline = user.isOnline
           return {
             ...prev,
-          };
+          }
         },
-      });
+      })
     }
-  }, [subscribeToMore]);
+  }, [subscribeToMore])
 
   if (error) {
-    return <div />;
+    return <div />
   }
   if (loading || !data) {
-    return <MembersPlaceholder />;
+    return <MembersPlaceholder />
   }
 
   return (
@@ -90,12 +96,14 @@ const Members = ({ show, onClose }) => {
 
           <S.List>
             {data.community &&
-              data.community.members.map(member => <Member member={member} key={member.id} />)}
+              data.community.members.map((member) => (
+                <Member member={member} key={member.id} />
+              ))}
           </S.List>
         </S.Container>
       </S.Wrapper>
     </PortalWrapper>
-  );
-};
+  )
+}
 
-export default Members;
+export default Members

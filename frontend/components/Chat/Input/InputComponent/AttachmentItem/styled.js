@@ -1,12 +1,12 @@
-import styled from 'styled-components';
-import CloseIcon from 'public/icons/close-white.svg';
+import styled from 'styled-components'
+import CloseIcon from 'public/icons/close-white.svg'
 
 export const Attachment = styled.img`
   height: 50px;
   width: 50px;
   object-fit: cover;
   object-position: center;
-`;
+`
 
 export const CloseOverlay = styled.div`
   position: absolute;
@@ -20,7 +20,7 @@ export const CloseOverlay = styled.div`
   background-repeat: no-repeat;
   background-position: center;
   background-size: 25px;
-`;
+`
 
 export const Container = styled.div`
   position: relative;
@@ -36,4 +36,4 @@ export const Container = styled.div`
       display: inline-block;
     }
   }
-`;
+`

@@ -1,6 +1,6 @@
-import React from 'react';
-import * as S from './styled';
-import YoutubeAttachmentBody from '../Youtube';
+import React from 'react'
+import * as S from './styled'
+import YoutubeAttachmentBody from '../Youtube'
 
 const RemoteAttachment = ({
   attachment: { title, description, url, siteName, videoLink, preview },
@@ -25,7 +25,7 @@ const RemoteAttachment = ({
         </S.Body>
       )}
     </S.Container>
-  );
-};
+  )
+}
 
-export default RemoteAttachment;
+export default RemoteAttachment

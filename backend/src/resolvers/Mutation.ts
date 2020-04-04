@@ -12,9 +12,9 @@ export const Mutation = {
   createCommunity: { CommunityMutation },
   followCommunity: { CommunityMutation },
   unfollowCommunity: { CommunityMutation },
-  /* createChannel: { ChannelMutation }, */
+  createChannel: { ChannelMutation },
+  editChannel: { ChannelMutation },
   /* setUserTypingStatus: { TypingStatusMutation }, */
-  /* editChannel: { ChannelMutation }, */
   /* createRole: { RoleMutation }, */
   /* updateRole: { RoleMutation }, */
   /* deleteRole: { RoleMutation }, */

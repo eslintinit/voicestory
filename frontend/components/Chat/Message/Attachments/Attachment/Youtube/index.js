@@ -1,12 +1,18 @@
-import React, { useState } from 'react';
-import * as S from './styled';
+import React, { useState } from 'react'
+import * as S from './styled'
 
-const YoutubeAttachmentBody = ({ description, url, siteName, videoLink, preview }) => {
-  const [isActive, setActive] = useState(false);
+const YoutubeAttachmentBody = ({
+  description,
+  url,
+  siteName,
+  videoLink,
+  preview,
+}) => {
+  const [isActive, setActive] = useState(false)
 
   const launchVideo = () => {
-    setActive(true);
-  };
+    setActive(true)
+  }
 
   return (
     <S.Container>
@@ -24,7 +30,7 @@ const YoutubeAttachmentBody = ({ description, url, siteName, videoLink, preview 
         </S.PreviewContainer>
       )}
     </S.Container>
-  );
-};
+  )
+}
 
-export default YoutubeAttachmentBody;
+export default YoutubeAttachmentBody

@@ -1,11 +1,11 @@
-import React, { useState, useRef } from 'react';
-import * as S from './styled';
+import React, { useState, useRef } from 'react'
+import * as S from './styled'
 
 const fileTypes = [
   { name: 'png', type: ['png'] },
   { name: 'jpg', type: ['jpg', 'jpeg'] },
   { name: 'gif', type: ['gif'] },
-];
+]
 
 const FileInput = ({
   field,
@@ -15,33 +15,35 @@ const FileInput = ({
   label,
   removeButtonText = 'Remove',
 }) => {
-  const [imagePreview, setImagePreview] = useState('');
-  const [activeType, setActiveType] = useState(-1);
-  const inputRef = useRef();
+  const [imagePreview, setImagePreview] = useState('')
+  const [activeType, setActiveType] = useState(-1)
+  const inputRef = useRef()
 
-  const handleChange = e => {
-    const file = e.target.files[0];
+  const handleChange = (e) => {
+    const file = e.target.files[0]
 
     if (file && file.type.includes('image/')) {
-      const previewLink = URL.createObjectURL(file);
-      const active = fileTypes.findIndex(({ type }) => type.includes(file.type.slice(6)));
+      const previewLink = URL.createObjectURL(file)
+      const active = fileTypes.findIndex(({ type }) =>
+        type.includes(file.type.slice(6))
+      )
 
-      setActiveType(active);
-      setImagePreview(previewLink);
+      setActiveType(active)
+      setImagePreview(previewLink)
     }
 
-    onChange(e);
-    return e;
-  };
+    onChange(e)
+    return e
+  }
 
   const removePreview = () => {
-    setImagePreview('');
-    setActiveType(-1);
+    setImagePreview('')
+    setActiveType(-1)
 
     if (inputRef) {
-      inputRef.current.value = '';
+      inputRef.current.value = ''
     }
-  };
+  }
 
   return (
     <S.Container>
@@ -64,20 +66,27 @@ const FileInput = ({
 
         <S.FileTypes>
           {fileTypes.map(({ name }, i) => (
-            <S.FileType className={`${i === activeType ? 'active' : ''}`} key={name}>
+            <S.FileType
+              className={`${i === activeType ? 'active' : ''}`}
+              key={name}
+            >
               {name}
             </S.FileType>
           ))}
         </S.FileTypes>
 
         {imagePreview && (
-          <S.RemoveButton onClick={removePreview}>{removeButtonText}</S.RemoveButton>
+          <S.RemoveButton onClick={removePreview}>
+            {removeButtonText}
+          </S.RemoveButton>
         )}
 
-        {touched[field.name] && errors[field.name] && <S.Error>{errors[field.name]}</S.Error>}
+        {touched[field.name] && errors[field.name] && (
+          <S.Error>{errors[field.name]}</S.Error>
+        )}
       </S.FileInfo>
     </S.Container>
-  );
-};
+  )
+}
 
-export default FileInput;
+export default FileInput

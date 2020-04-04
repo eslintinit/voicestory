@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 export const Container = styled.div`
   display: flex;
@@ -11,13 +11,13 @@ export const Container = styled.div`
   max-height: 73px;
   min-height: 73px;
   box-sizing: border-box;
-  background: ${props => props.theme.background};
-  border-bottom: 1px solid ${props => props.theme.chatHeaderBorder};
+  background: ${(props) => props.theme.background};
+  border-bottom: 1px solid ${(props) => props.theme.chatHeaderBorder};
   z-index: 1;
   position: relative;
-`;
+`
 
-export const Info = styled.div``;
+export const Info = styled.div``
 
 export const ChannelInfo = styled.div`
   display: flex;
@@ -26,15 +26,15 @@ export const ChannelInfo = styled.div`
   font-size: 14px;
   font-weight: 400;
 
-  color: ${props => props.theme.chatTopicText};
-`;
+  color: ${(props) => props.theme.chatTopicText};
+`
 
 export const ChatActions = styled.div`
   display: flex;
   flex-direction: row;
   align-self: center;
   position: relative;
-`;
+`
 
 export const Status = styled.i`
   display: inline-block;
@@ -43,7 +43,7 @@ export const Status = styled.i`
   border: 2px solid #616061;
   border-radius: 50%;
   box-sizing: content-box;
-  ${props =>
+  ${(props) =>
     props.online &&
     `
     width: 10px;
@@ -51,21 +51,21 @@ export const Status = styled.i`
     background: #007a5a;
     border: none;
   `}
-`;
+`
 
 export const UserName = styled.h1`
-  color: ${props => props.theme.channelActive};
+  color: ${(props) => props.theme.channelActive};
   font-size: 15px;
   font-weight: 700;
-`;
+`
 
 export const PrivateChannelInfo = styled.div`
   display: flex;
   font-size: 14px;
   font-weight: 400;
   flex-flow: column;
-  color: ${props => props.theme.chatTopicText};
-`;
+  color: ${(props) => props.theme.chatTopicText};
+`
 
 export const UserStatus = styled.div`
   display: flex;
@@ -73,4 +73,4 @@ export const UserStatus = styled.div`
   span {
     margin-left: 4px;
   }
-`;
+`

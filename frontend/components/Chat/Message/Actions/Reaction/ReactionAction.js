@@ -1,41 +1,45 @@
-import { useRef, useState, useCallback } from 'react';
-import { useWindowDimensions } from 'hooks';
-import { PortalWithState } from 'react-portal';
-import { useMutation } from '@apollo/react-hooks';
-import { TOGGLE_REACTION } from 'apis/Message';
+import { useRef, useState, useCallback } from 'react'
+import { useWindowDimensions } from 'hooks'
+import { PortalWithState } from 'react-portal'
+import { useMutation } from '@apollo/react-hooks'
+import { TOGGLE_REACTION } from 'apis/Message'
 
-import EmojiPicker from 'components/UI/EmojiPicker/EmojiPicker';
-import Tooltip from 'components/UI/Tooltip';
+import EmojiPicker from 'components/UI/EmojiPicker/EmojiPicker'
+import Tooltip from 'components/UI/Tooltip'
 
-import emojiIcon from 'public/icons/smile.svg';
-import { Action, TooltipWrapper } from '../MessageActions.styled';
-import * as S from './ReactionAction.styled';
+import emojiIcon from 'public/icons/smile.svg'
+import { Action, TooltipWrapper } from '../MessageActions.styled'
+import * as S from './ReactionAction.styled'
 
-const emojiPositionThreshold = 500;
+const emojiPositionThreshold = 500
 
 export default ({ checkPosition, messageId, setShow }) => {
-  const ref = useRef(null);
-  const windowSize = useWindowDimensions();
+  const ref = useRef(null)
+  const windowSize = useWindowDimensions()
 
-  const [toggleReaction] = useMutation(TOGGLE_REACTION);
+  const [toggleReaction] = useMutation(TOGGLE_REACTION)
 
-  const onEmojiClick = emoji => {
+  const onEmojiClick = (emoji) => {
     toggleReaction({
       variables: {
         name: emoji.colons,
         messageId,
       },
-    });
-  };
+    })
+  }
 
   const getPosition = useCallback(() => {
-    const { y, x } = ref.current.getBoundingClientRect();
+    const { y, x } = ref.current.getBoundingClientRect()
 
     if (windowSize.height < y + 350) {
-      return { x: windowSize.width - x, y: windowSize.height - y + 10, position: 't' };
+      return {
+        x: windowSize.width - x,
+        y: windowSize.height - y + 10,
+        position: 't',
+      }
     }
-    return { x: windowSize.width - x, y: y + 35, position: 'b' };
-  }, []);
+    return { x: windowSize.width - x, y: y + 35, position: 'b' }
+  }, [])
 
   return (
     <PortalWithState
@@ -63,8 +67,8 @@ export default ({ checkPosition, messageId, setShow }) => {
             <EmojiPicker
               getPosition={getPosition}
               close={() => {
-                closePortal();
-                setShow(false);
+                closePortal()
+                setShow(false)
               }}
               onSelect={onEmojiClick}
             />
@@ -72,5 +76,5 @@ export default ({ checkPosition, messageId, setShow }) => {
         </>
       )}
     </PortalWithState>
-  );
-};
+  )
+}

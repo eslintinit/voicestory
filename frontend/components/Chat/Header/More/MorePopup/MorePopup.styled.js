@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 export const PlusIconWrapper = styled.svg`
   height: 16px;
@@ -6,4 +6,4 @@ export const PlusIconWrapper = styled.svg`
   fill: #989ba0;
   margin-right: 13px;
   position: relative;
-`;
+`
