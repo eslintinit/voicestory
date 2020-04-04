@@ -30,5 +30,7 @@ model Community {
   authorUsername          String?
   author                  User?           @relation(name: "UserCommunityAuthor", fields: [authorUsername], references: [username])
   members                 User[]          @relation(name: "UserCommunityMember", references: [username])
+  @@index([url])
+
 }
 
