@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { UserContext } from 'context/UserContext'
 import { useMutation } from '@apollo/react-hooks'
 
@@ -15,15 +15,18 @@ export default ({ community }) => {
   const [followCommunity] = useMutation(FOLLOW_COMMUNITY)
   const [unfollowCommunity] = useMutation(UNFOLLOW_COMMUNITY)
 
-  const isFollowing = true
+  const [isFollowing, setFollowing] = useState(true)
   // const isFollowing = user
   //   ? community.members.map(c => c.id).indexOf(user.id) > -1
   //   : true
 
   const onFollow = async (url) => {
+    console.log('USER IS FOLLOWING: ', isFollowing)
     if (isFollowing) {
+      setFollowing(false)
       await unfollowCommunity({ variables: { url } })
     } else {
+      setFollowing(true)
       await followCommunity({ variables: { url } })
     }
     // getMe();
@@ -52,7 +55,9 @@ export default ({ community }) => {
         <Checkbox
           id={community.id}
           checked={isFollowing}
-          onClick={() => (user ? onFollow(community.url) : {})}
+          onClick={() => {
+            return onFollow(community.url)
+          }}
         />
       )}
     </S.Community>
