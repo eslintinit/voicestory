@@ -50,3 +50,16 @@ export const unfollowCommunity = mutationField('unfollowCommunity', {
     })
   },
 })
+
+export const deleteCommunity = mutationField('deleteCommunity', {
+  type: 'Community',
+  args: {
+    channelId: stringArg(),
+  },
+  resolve: async (parent, { channelId }, ctx) => {
+    const userId = getUserId(ctx)
+    return ctx.prisma.community.delete({
+      where: { id: channelId },
+    })
+  },
+})
