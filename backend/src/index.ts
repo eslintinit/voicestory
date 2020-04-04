@@ -1,6 +1,6 @@
 const dotenv = require('dotenv')
-/* dotenv.config({ path: `../.env.${process.env.NODE_ENV}` }) */
-dotenv.config({ path: `./.env` })
+dotenv.config({ path: `../.env.${process.env.NODE_ENV}` })
+/* dotenv.config({ path: `./.env` }) */
 
 import { GraphQLServer, PubSub } from 'graphql-yoga'
 import { PrismaClient } from '@prisma/client'
