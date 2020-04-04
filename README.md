@@ -1,1 +1,20 @@
 # Voicestory
+
+.env.development:
+```
+FRONTEND_URL=http://localhost:3000
+BACKEND_URL=http://localhost:4000
+WS_URL=ws://localhost:4000
+DATABASE_URL=postgresql://digital@localhost:5432/voicestory
+
+TWITTER_CONSUMER_KEY=9rUiBygsPqQsk5e3KOF2yr9wa
+TWITTER_CONSUMER_SECRET=NHMI1LD9cxKQiliBgoFiOUDCxSM3djEC8hBCqrKI2MEmMpZ3Hw
+TWITTER_TOKEN=1103273538318790656-kS7D03bGlAzuzlfx4TTed8SYH3X6xH
+TWITTER_TOKEN_SECRET=I4oddV3njxe7D3qZ0hkm5A2KTIZCQCeVlajjGeuGpU2We
+
+APP_SECRET=appsecret321
+
+AWS_S3_URL=https://voice-story-dev.s3.us-east-2.amazonaws.com/
+AWS_ACCESS_KEY_ID=AKIAIN2P7RXFHDP3QDRA
+AWS_SECRET_ACCESS_KEY=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
+```
