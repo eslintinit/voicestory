@@ -1,7 +1,7 @@
 import gql from 'graphql-tag'
 
 const UserFragment = gql`
-  fragment UserData on User {
+  fragment UserFragment on User {
     id
     fullname
     username
@@ -16,7 +16,7 @@ const UserFragment = gql`
 export const GET_ME = gql`
   query me {
     me {
-      ...UserData
+      ...UserFragment
     }
   }
   ${UserFragment}
@@ -25,7 +25,7 @@ export const GET_ME = gql`
 export const GET_USERS = gql`
   mutation users($searchString: String) {
     users(searchString: $searchString) {
-      ...UserData
+      ...UserFragment
     }
   }
   ${UserFragment}
@@ -38,7 +38,7 @@ export const GET_USER = gql`
       followings
       bio
       user {
-        ...UserData
+        ...UserFragment
       }
     }
   }
@@ -48,7 +48,7 @@ export const GET_USER = gql`
 export const SEARCH_USERS = gql`
   query users($searchString: String) {
     users(searchString: $searchString) {
-      ...UserData
+      ...UserFragment
     }
   }
   ${UserFragment}
@@ -68,7 +68,7 @@ export const LOGIN = gql`
     ) {
       token
       user {
-        ...UserData
+        ...UserFragment
       }
     }
   }

@@ -1,14 +1,21 @@
 import gql from 'graphql-tag'
 
+const CommunityFragment = gql`
+  fragment CommunityFragment on Community {
+    id
+    url
+    image
+    name
+  }
+`
+
 export const GET_COMMUNITIES = gql`
   query communities {
     communities {
-      id
-      url
-      image
-      name
+      ...CommunityFragment
     }
   }
+  ${CommunityFragment}
 `
 
 export const GET_COMMUNITY = gql`
@@ -37,22 +44,10 @@ export const GET_COMMUNITY = gql`
 export const SEARCH_COMMUNITIES = gql`
   query searchCommunities($searchString: String) {
     searchCommunities(searchString: $searchString) {
-      id
-      url
-      image
-      name
-      description
-      author {
-        id
-      }
-      members {
-        id
-      }
-      notifications {
-        id
-      }
+      ...CommunityFragment
     }
   }
+  ${CommunityFragment}
 `
 
 export const FOLLOW_COMMUNITY = gql`

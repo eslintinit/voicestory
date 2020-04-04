@@ -1,4 +1,5 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
+import voicestoryIcon from 'public/favicon.svg'
 
 export const UnsubscribeIcon = styled.svg`
   transition: 0.3s;
@@ -6,7 +7,7 @@ export const UnsubscribeIcon = styled.svg`
   width: 8px;
   height: 8px;
   opacity: 0;
-`;
+`
 
 export const UnsubscribeIconWrapper = styled.div`
   width: 16px;
@@ -22,7 +23,7 @@ export const UnsubscribeIconWrapper = styled.div`
     background: #d7d7d7;
     opacity: 0.85;
   }
-`;
+`
 
 export const CommunityName = styled.span`
   color: #7d7d7d;
@@ -33,7 +34,7 @@ export const CommunityName = styled.span`
   white-space: nowrap;
   line-height: 17px;
   margin-top: 2px;
-`;
+`
 
 export const Tab = styled.div`
   cursor: pointer;
@@ -42,21 +43,25 @@ export const Tab = styled.div`
   justify-content: center;
   min-width: 135px;
   height: 100%;
-  background: ${props => props.theme.tabBG};
+  background: ${(props) => props.theme.tabBG};
   position: relative;
   user-select: none;
   :before,
   :after {
     content: '';
-    display: ${props => (props.active ? 'block' : 'none')};
+    display: ${(props) => (props.active ? 'block' : 'none')};
     width: 9px;
     height: 9px;
-    background-image: radial-gradient(circle at 0 0, transparent 9px, #f4f7f 9px);
+    background-image: radial-gradient(
+      circle at 0 0,
+      transparent 9px,
+      #f4f7f 9px
+    );
     background-repeat: no-repeat;
     position: absolute;
     z-index: 1;
 
-    ${props =>
+    ${(props) =>
       props.theme.tabBG === '#f4f7fa'
         ? 'background-image: radial-gradient(circle at 0 0, transparent 9px, #fff 9px);'
         : 'background-image: radial-gradient(circle at 0 0, transparent 9px, #2f3136 9px);'}
@@ -71,7 +76,7 @@ export const Tab = styled.div`
     bottom: 0;
     left: -9px;
   }
-  ${props =>
+  ${(props) =>
     !props.active &&
     `
     :hover {
@@ -84,7 +89,7 @@ export const Tab = styled.div`
     }
   `}
 
-  ${props =>
+  ${(props) =>
     props.active &&
     `
     background: ${props.theme.background};
@@ -102,13 +107,12 @@ export const Tab = styled.div`
     ${CommunityName} {
       color: ${props.theme.activeTabText};
     }
-  `}
-  :hover {
+  `} :hover {
     ${UnsubscribeIcon} {
       opacity: 1;
     }
   }
-`;
+`
 
 export const TabContent = styled.div`
   padding: 0 11px;
@@ -118,7 +122,7 @@ export const TabContent = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  ${props =>
+  ${(props) =>
     !props.active &&
     !props.nextActive &&
     `
@@ -138,19 +142,20 @@ export const TabContent = styled.div`
       display: none;
     }
   }
-`;
+`
 
 export const Community = styled.div`
   display: flex;
   align-items: center;
-`;
+`
 
-export const CommunityLogo = styled.img.attrs({
+export const CommunityLogo = styled.img.attrs((props) => ({
+  src: props.src || voicestoryIcon,
   alt: 'Logo',
-})`
+}))`
   border-radius: 4px;
   width: 15px;
   height: 15px;
   margin-right: 7px;
   object-fit: contain;
-`;
+`

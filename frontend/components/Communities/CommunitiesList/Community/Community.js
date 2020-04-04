@@ -15,11 +15,12 @@ export default ({ community }) => {
   const [followCommunity] = useMutation(FOLLOW_COMMUNITY)
   const [unfollowCommunity] = useMutation(UNFOLLOW_COMMUNITY)
 
-  const isFollowing = user
-    ? community.members.map(c => c.id).indexOf(user.id) > -1
-    : true
+  const isFollowing = true
+  // const isFollowing = user
+  //   ? community.members.map(c => c.id).indexOf(user.id) > -1
+  //   : true
 
-  const onFollow = async url => {
+  const onFollow = async (url) => {
     if (isFollowing) {
       await unfollowCommunity({ variables: { url } })
     } else {
@@ -28,7 +29,7 @@ export default ({ community }) => {
     // getMe();
   }
 
-  const onCommunityClick = e => {
+  const onCommunityClick = (e) => {
     const checkboxClick = e.target.closest('.checkbox')
 
     if (!checkboxClick) {
@@ -42,7 +43,7 @@ export default ({ community }) => {
 
   return (
     <S.Community onClick={onCommunityClick}>
-      <S.Avatar src={community.image} />
+      <S.Logo src={community.image} />
       <S.Info>
         <S.Name>{community.name}</S.Name>
         <S.Description>{community.description}</S.Description>

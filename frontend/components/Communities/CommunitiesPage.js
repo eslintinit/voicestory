@@ -17,7 +17,8 @@ const CommunitiesPage = () => {
   const { user } = useContext(UserContext)
   const router = useRouter()
 
-  const canCreateCommunity = user && canManageCommunity(user)
+  // const canCreateCommunity = user && canManageCommunity(user)
+  const canCreateCommunity = true
   const toCreateCommunity = () =>
     router.push(
       `/[company]/communities/new`,
@@ -38,7 +39,7 @@ const CommunitiesPage = () => {
   })
 
   useKeyboardShortcut({
-    n: () =>
+    t: () =>
       router.push(
         `/[company]/communities/new`,
         `/${COMPANY_NAME()}/communities/new`,
@@ -54,12 +55,14 @@ const CommunitiesPage = () => {
         <S.Header>
           <S.Heading>Communities</S.Heading>
           <S.Actions>
+            {/*
             <Search
               isSearch={isSearch}
               setSearch={setSearch}
               searchString={searchString}
               setSearchString={setSearchString}
             />
+            */}
             {canCreateCommunity && (
               <S.PlusIconWrapper onClick={toCreateCommunity}>
                 <PlusIcon />

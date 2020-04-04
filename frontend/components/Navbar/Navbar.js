@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { useKeyboardShortcut } from 'hooks'
+// Commented yet because it's causing console error
 // import useSound from 'use-sound'
 
 import { COMPANY_NAME } from 'utils/config'
@@ -11,16 +12,21 @@ import Tabs from './Tabs/Tabs'
 import * as S from './Navbar.styled'
 
 const Navbar = () => {
-  const { push } = useRouter()
+  const { route, push } = useRouter()
   const [showMore, setShowMore] = useState(false)
 
   // const [playSoundWidgetClose] = useSound('/sounds/card_deal.mp3')
 
   useKeyboardShortcut({
-    b: () =>
-      push(`/[company]/communities`, `/${COMPANY_NAME()}/communities`, {
-        shallow: true,
-      }),
+    t: () => {
+      // If we are at communities page, we use this shortcut to create
+      // new community
+      if (route !== '/[company]/communities') {
+        push(`/[company]/communities`, `/${COMPANY_NAME()}/communities`, {
+          shallow: true,
+        })
+      }
+    },
   })
 
   const closeWidget = () => {

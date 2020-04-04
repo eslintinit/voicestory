@@ -1,5 +1,72 @@
-import gql from 'graphql-tag';
-import { MessagesFragment } from './Fragments';
+import gql from 'graphql-tag'
+
+const MessagesFragment = gql`
+  fragment message on Message {
+    id
+    body
+    createdAt
+    author {
+      id
+      username
+      image
+    }
+    channel {
+      url
+      id
+    }
+    reactions {
+      id
+      name
+      users {
+        id
+        username
+        image
+      }
+    }
+    children {
+      id
+      body
+      createdAt
+      author {
+        id
+        username
+        image
+      }
+      attachments {
+        id
+        Key
+        filename
+        mimetype
+        filesize
+      }
+      remoteAttachments {
+        id
+        siteName
+        description
+        title
+        videoLink
+        preview
+        url
+      }
+    }
+    attachments {
+      id
+      Key
+      filename
+      mimetype
+      filesize
+    }
+    remoteAttachments {
+      id
+      siteName
+      description
+      title
+      videoLink
+      preview
+      url
+    }
+  }
+`
 
 export const GET_ALL_MESSAGES = gql`
   query allMessages($channelUrl: String) {
@@ -8,10 +75,14 @@ export const GET_ALL_MESSAGES = gql`
     }
   }
   ${MessagesFragment}
-`;
+`
 
 export const GET_LAST_MESSAGES = gql`
-  query getLastMessages($channelUrl: String!, $cursorId: ID, $lastVisitDate: String) {
+  query getLastMessages(
+    $channelUrl: String!
+    $cursorId: ID
+    $lastVisitDate: String
+  ) {
     messages: getLastMessages(
       channelUrl: $channelUrl
       cursorId: $cursorId
@@ -21,7 +92,7 @@ export const GET_LAST_MESSAGES = gql`
     }
   }
   ${MessagesFragment}
-`;
+`
 
 export const GET_PREV_MESSAGES = gql`
   query getPrevMessages($channelUrl: String, $cursorId: ID) {
@@ -30,16 +101,19 @@ export const GET_PREV_MESSAGES = gql`
     }
   }
   ${MessagesFragment}
-`;
+`
 
 export const SEARCH_MESSAGES_QUERY = gql`
   query searchMessages($channelUrl: String, $searchQuery: String) {
-    messages: searchMessages(channelUrl: $channelUrl, searchQuery: $searchQuery) {
+    messages: searchMessages(
+      channelUrl: $channelUrl
+      searchQuery: $searchQuery
+    ) {
       ...message
     }
   }
   ${MessagesFragment}
-`;
+`
 
 export const GET_NEXT_MESSAGES = gql`
   query getNextMessages($channelUrl: String, $cursorId: ID) {
@@ -48,7 +122,7 @@ export const GET_NEXT_MESSAGES = gql`
     }
   }
   ${MessagesFragment}
-`;
+`
 
 export const EDIT_MESSAGE = gql`
   mutation editMessage($messageId: String!, $body: String!) {
@@ -58,7 +132,7 @@ export const EDIT_MESSAGE = gql`
       updatedAt
     }
   }
-`;
+`
 
 export const DELETE_MESSAGE = gql`
   mutation deleteMessage($messageId: String!) {
@@ -66,7 +140,7 @@ export const DELETE_MESSAGE = gql`
       id
     }
   }
-`;
+`
 
 export const MESSAGES_SUBSCRIPTION = gql`
   subscription newMessage($channelUrl: String, $tenant: String) {
@@ -75,7 +149,7 @@ export const MESSAGES_SUBSCRIPTION = gql`
     }
   }
   ${MessagesFragment}
-`;
+`
 
 export const MESSAGE_EDIT_SUBSCRIPTION = gql`
   subscription editMessage($channelUrl: String, $tenant: String) {
@@ -84,7 +158,7 @@ export const MESSAGE_EDIT_SUBSCRIPTION = gql`
     }
   }
   ${MessagesFragment}
-`;
+`
 
 export const MESSAGE_DELETE_SUBSCRIPTION = gql`
   subscription deleteMessage($channelUrl: String, $tenant: String) {
@@ -92,7 +166,7 @@ export const MESSAGE_DELETE_SUBSCRIPTION = gql`
       id
     }
   }
-`;
+`
 
 export const NEW_REACTION_SUBSCRIPTION = gql`
   subscription newReaction($channelUrl: String, $tenant: String) {
@@ -110,7 +184,7 @@ export const NEW_REACTION_SUBSCRIPTION = gql`
       }
     }
   }
-`;
+`
 
 export const UPDATE_REACTION_SUBSCRIPTION = gql`
   subscription updatedReaction($channelUrl: String, $tenant: String) {
@@ -128,7 +202,7 @@ export const UPDATE_REACTION_SUBSCRIPTION = gql`
       }
     }
   }
-`;
+`
 
 export const REMOVE_REACTION_SUBSCRIPTION = gql`
   subscription removedReaction($channelUrl: String, $tenant: String) {
@@ -136,7 +210,7 @@ export const REMOVE_REACTION_SUBSCRIPTION = gql`
       id
     }
   }
-`;
+`
 
 export const TOGGLE_REACTION = gql`
   mutation toggleReaction($messageId: String!, $name: String!) {
@@ -145,7 +219,7 @@ export const TOGGLE_REACTION = gql`
       name
     }
   }
-`;
+`
 
 export const SEND_MESSAGE = gql`
   mutation sendMessage(
@@ -177,7 +251,7 @@ export const SEND_MESSAGE = gql`
       }
     }
   }
-`;
+`
 
 export const SEND_NOTIFICATION = gql`
   mutation sendNotification(
@@ -196,7 +270,7 @@ export const SEND_NOTIFICATION = gql`
       id
     }
   }
-`;
+`
 
 export const SET_USER_TYPING_STATUS = gql`
   mutation setUserTypingStatus($channelUrl: String, $isTyping: Boolean) {
@@ -205,16 +279,19 @@ export const SET_USER_TYPING_STATUS = gql`
       isTyping
     }
   }
-`;
+`
 
 export const SEARCH_MESSAGES = gql`
   mutation searchMessages($channelUrl: String, $searchQuery: String) {
-    messages: searchMessages(channelUrl: $channelUrl, searchQuery: $searchQuery) {
+    messages: searchMessages(
+      channelUrl: $channelUrl
+      searchQuery: $searchQuery
+    ) {
       ...message
     }
   }
   ${MessagesFragment}
-`;
+`
 
 export const REPLY_MESSAGE = gql`
   mutation replyMessage(
@@ -223,14 +300,19 @@ export const REPLY_MESSAGE = gql`
     $attachments: [String!]
     $urlList: [String!]
   ) {
-    replyMessage(parentId: $parentId, body: $body, attachments: $attachments, urlList: $urlList) {
+    replyMessage(
+      parentId: $parentId
+      body: $body
+      attachments: $attachments
+      urlList: $urlList
+    ) {
       id
       parent {
         id
       }
     }
   }
-`;
+`
 
 export const EDIT_REPLY_MESSAGE = gql`
   mutation editReplyMessage($messageId: String!, $body: String!) {
@@ -240,7 +322,7 @@ export const EDIT_REPLY_MESSAGE = gql`
       updatedAt
     }
   }
-`;
+`
 
 export const DELETE_REPLY_MESSAGE = gql`
   mutation deleteReplyMessage($messageId: String!) {
@@ -248,7 +330,7 @@ export const DELETE_REPLY_MESSAGE = gql`
       id
     }
   }
-`;
+`
 
 export const GET_UNREAD_MESSAGES = gql`
   query getUnreadMessagesCount($channelUrl: String, $username: String) {
@@ -286,4 +368,4 @@ export const GET_UNREAD_MESSAGES = gql`
       }
     }
   }
-`;
+`

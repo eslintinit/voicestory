@@ -1,4 +1,5 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
+import voicestoryIcon from 'public/favicon.svg'
 
 export const Community = styled.div`
   padding: 17px 23px 17px 23px;
@@ -12,7 +13,7 @@ export const Community = styled.div`
     content: '';
     display: block;
     height: 1px;
-    background: ${props => props.theme.communityBorder};
+    background: ${(props) => props.theme.communityBorder};
     position: absolute;
     left: 23px;
     right: 0;
@@ -22,14 +23,17 @@ export const Community = styled.div`
     display: none;
   }
   :hover {
-    background: ${props => props.theme.communityBorderHover};
+    background: ${(props) => props.theme.communityBorderHover};
     :after {
-      background: ${props => props.theme.communityBorderHover};
+      background: ${(props) => props.theme.communityBorderHover};
     }
   }
-`;
+`
 
-export const Avatar = styled.img`
+export const Logo = styled.img.attrs((props) => ({
+  src: props.src || voicestoryIcon,
+  alt: 'Logo',
+}))`
   display: block;
   object-fit: cover;
   object-position: center;
@@ -39,7 +43,7 @@ export const Avatar = styled.img`
   flex-shrink: 0;
   overflow: hidden;
   object-fit: contain;
-`;
+`
 
 export const Info = styled.div`
   width: 80%;
@@ -47,7 +51,7 @@ export const Info = styled.div`
   white-space: nowrap;
   overflow: hidden;
   margin-left: 15px;
-`;
+`
 
 export const Name = styled.h3`
   max-width: calc(100% - 20px);
@@ -57,17 +61,17 @@ export const Name = styled.h3`
   vertical-align: middle;
 
   margin-top: 3px;
-  color: ${props => props.theme.chatAuthor};
+  color: ${(props) => props.theme.chatAuthor};
   font-size: 15px;
   font-weight: 700;
   letter-spacing: -0.15px;
   line-height: 100%;
-`;
+`
 
 export const Description = styled.p`
   color: #131313;
   font-size: 15px;
   font-weight: 400;
   line-height: 165%;
-  color: ${props => props.theme.chatText};
-`;
+  color: ${(props) => props.theme.chatText};
+`
