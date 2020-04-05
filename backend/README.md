@@ -1,115 +1,70 @@
 # Backend
-Node Version: 12.2.0
 
-## 1. install packages
-### 1) install global packages
-install prisma2 (tested: 2.0.0-preview024)
+## Set up prisma-multi-tenant
+
+### 1) set enviroment variables
+
+create .env file:
 ```
-npm install -g prisma2
+DATABASE_URL=postgresql://digital@localhost:5432/voicestory
+
+MANAGEMENT_PROVIDER=postgresql
+MANAGEMENT_URL=postgresql://digital@localhost:5432/voicestory?schema=management
+
+FRONTEND_URL=http://localhost:3000
+
+TWITTER_CONSUMER_KEY=
+TWITTER_CONSUMER_SECRET=
+TWITTER_TOKEN=
+TWITTER_TOKEN_SECRET=
+
+APP_SECRET=
 ```
 
-install prisma-multi-tenant (tested: prisma-multi-tenant v2.0.0-alpha23)
-```
-npm i -g prisma-multi-tenant@alpha
-```
-
-### 2) install packages
-install npm packages
+### 2) install dependencies
 
 ```
-cd backend
-npm install
+npm i
 ```
 
-init setup & config prisma multi tenant
+### 3) initialize prisma-multi-tenant
+
 ```
 npx prisma-multi-tenant init
 ```
-
-set the management database url to:
-
-development:
-> postgresql://admin@localhost:5432/voicestory?schema=management
-
-postgresql://postgres:voicestory@voicestorydev.ctcupwgfarwi.us-east-2.rds.amazonaws.com:5432/stagingVoicestory?schema=management
-staging
-> postgres:voicestory_!a@voicestory.ctcupwgfarwi.us-east-2.rds.amazonaws.com:5432/voicestory?schema=management
-
-production
-> postgresql://postgres:voicestory@voicestorydev.ctcupwgfarwi.us-east-2.rds.amazonaws.com:5432/voicestory?schema=management
+set provider and database url to:
+```
+{
+  provider: 'postgresql',
+  url: 'postgresql://digital@localhost:5432/voicestory?schema=management'
+}
+```
 
 
-( ----- ***NOTE*** -----:
-1. Please check prisma-multi-tenant is installed correctly.
-Run this command to check it
+check if prisma-multi-tenant is installed correctly:
 ```
 npx prisma-multi-tenant list
 ```
-You will see below response(if you can't see below response, prisma-multi-tenant is not installed correctly)
->Fetching available tenants...
-  List of available tenants
-```
-┌────────┬────────────┬───────────┐
-│ Name   │ Provider   │ URL       │
-├────────┼────────────┼───────────┤
-│ dev    │ postgresql │ postgre.. │
-└────────┴────────────┴───────────┘
-```
 
+## Create a tenant
 
-2. delete this default tenant in the database. **important**
+https://github.com/Errorname/prisma-multi-tenant/blob/master/docs/Complete_Documentation.md#createtenanttenant--name-string-provider-string-url-string--options-any-promiseprismaclient
+
+### create
+
 ```
-prisma-multi-tenant delete tenant
+npx prisma-multi-tenant new
 ```
-)
-
-
-After it run this command
 ```
-npm install
-prisma-multi-tenant migrate up
-npm run dev
-```
-
-## 2. Create the tenant
-
-### 1) Create the tenant using postman
->POST:http://localhost:4000/register
-Content-Type: application/json
-Body:
 {
-  "tenantName": "first",
-  "username": "username1",
-  "fullname": "Denis P",
-  "description": "This is my company description",
-  "email": "username1@gmail.com"
+  name: 'voicestory'.
+  provider: 'postgresql',
+  url: 'postgresql://digital@localhost:5432/voicestory?schema=voicestory'
 }
-
-you may got error when you create first tenant.
-close(Ctrl + C) and run npm run dev again
-And create second tenant.
-
-You will get success response like this via postman:
->{
-    "success": true
-}
-
-# Error handling
-- Error: missing-env
-If you get this error when you create the tenant, update .env.development
-```
-DATABASE_URL="postgresql://admin@localhost:5432/voicestory"
-MANAGEMENT_PROVIDER=postgresql
-MANAGEMENT_URL=postgresql://admin@localhost:5432/voicestory?schema=management
 ```
 
-### 2) create tenant using website
->visit http://localhost:3000/register
-input the company name
-login twitter
+-- seed data
 
-# Frontend
-```
-npm install
-npm run dev
-```
+
+# Misc
+Node Version: 12.2.0
