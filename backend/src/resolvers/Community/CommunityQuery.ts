@@ -35,20 +35,18 @@ export const communities = queryField('communities', {
   },
 })
 
-// export const followedCommunities = queryField('followedCommunities', {
-//   type: 'Community',
-//   list: true,
-//   resolve: async (parent, args, ctx) => {
-//     const userId = await getUserId(ctx)
-//     return ctx.prisma.community.findMany({
-//       where: {
-//         members: {
-//           id: userId
-//         }
-//       }
-//     })
-//   },
-// })
+export const followedCommunities = queryField('followedCommunities', {
+  type: 'Community',
+  list: true,
+  resolve: async (parent, args, ctx) => {
+    const userId = getUserId(ctx)
+    return ctx.prisma.community.findMany({
+      where: {
+        members: { some: { id: userId } },
+      },
+    })
+  },
+})
 
 export const searchCommunities = queryField('searchCommunities', {
   type: 'Community',
