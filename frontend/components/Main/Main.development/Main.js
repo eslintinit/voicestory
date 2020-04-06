@@ -6,7 +6,7 @@ import Widget from './Widget'
 import WidgetIcon from './WidgetIcon'
 
 export default () => {
-  const widgetUrl = `${process.env.FRONTEND_URL}/vs/general/general`
+  const widgetUrl = `${process.env.FRONTEND_URL}/voicestory/general/general`
   const [widgetOpened, setWidgetOpened] = useState(true)
 
   const [playSoundWidgetOpen] = useSound('/sounds/card_drop.mp3')
@@ -35,7 +35,7 @@ export default () => {
           setWidgetOpened(false)
         }
       },
-      false
+      false,
     )
     return () => window.removeEventListener('message', onClose)
   }, [])

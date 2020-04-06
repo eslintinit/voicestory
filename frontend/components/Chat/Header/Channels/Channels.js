@@ -1,6 +1,8 @@
+import { useEffect, useContext } from 'react'
 import { useRouter } from 'next/router'
-import { useQuery } from '@apollo/react-hooks'
+import { useLazyQuery } from '@apollo/react-hooks'
 
+import { AppContext } from 'context'
 import { GET_CHANNELS } from 'apis/Channel'
 
 import Channel from './Channel/Channel'
@@ -11,11 +13,23 @@ const Channels = () => {
   const {
     query: { community: communityUrl },
   } = useRouter()
+  const { channelsLoaded, setChannelsLoaded } = useContext(AppContext)
 
-  // TODO: only run this query on community change
-  const { data: { channels = [] } = {}, loading } = useQuery(GET_CHANNELS, {
-    variables: { communityUrl },
-  })
+  const [getChannels, { data: { channels = [] } = {}, loading }] = useLazyQuery(
+    GET_CHANNELS,
+    {
+      variables: { communityUrl },
+      onCompleted: () => {
+        if (!channelsLoaded) {
+          setChannelsLoaded(true)
+        }
+      },
+    },
+  )
+
+  useEffect(() => {
+    getChannels()
+  }, [communityUrl])
 
   if (loading) {
     return <Placeholder />

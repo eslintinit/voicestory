@@ -22,9 +22,18 @@ export const channel = queryField('channel', {
     url: stringArg(),
     communityUrl: stringArg(),
   },
-  resolve: (parent, { url, communityUrl }, ctx) => {
+  resolve: (parent, args, ctx) => {
+    /* console.log(stringArg) */
+    console.log('args:')
+    console.log(args)
+    console.log('____________________--')
     return ctx.prisma.channel.findOne({
-      where: { url, communityUrl },
+      where: {
+        communityUrl_url: {
+          url: args.url,
+          communityUrl: args.communityUrl,
+        },
+      },
     })
   },
 })

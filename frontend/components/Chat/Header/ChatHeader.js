@@ -22,25 +22,30 @@ const ChatHeader = () => {
     push,
   } = useRouter()
 
-  const { channelLoaded, setChannelLoaded } = useContext(AppContext)
+  // const { channelLoaded, setChannelLoaded } = useContext(AppContext)
 
-  const [
-    getChannel,
-    {
-      // data: { channel = { community: { members: [] } } } = {},
-      loading,
-    },
-  ] = useLazyQuery(GET_CHANNEL, {
-    onCompleted: () => {
-      if (!channelLoaded) {
-        setChannelLoaded(true)
-      }
-    },
-  })
+  // const [
+  //   getChannel,
+  //   {
+  //     // data: { channel = { community: { members: [] } } } = {},
+  //     loading,
+  //   },
+  // ] = useLazyQuery(GET_CHANNEL, {
+  //   onCompleted: () => {
+  //     if (!channelLoaded) {
+  //       setChannelLoaded(true)
+  //     }
+  //   },
+  // })
 
-  useEffect(() => {
-    getChannel({ variables: { url: `${communityUrl}/${channelUrl}` } })
-  }, [communityUrl, channelUrl])
+  // useEffect(() => {
+  //   getChannel({
+  //     variables: {
+  //       url: channelUrl,
+  //       communityUrl,
+  //     },
+  //   })
+  // }, [communityUrl, channelUrl])
 
   useKeyboardShortcut({
     n: () =>
@@ -49,13 +54,13 @@ const ChatHeader = () => {
         `/${COMPANY_NAME()}/${communityUrl}/new-channel`,
         {
           shallow: true,
-        }
+        },
       ),
   })
 
-  if (loading) {
-    return <ChatHeaderPlaceholder />
-  }
+  //   if (loading) {
+  //     return <ChatHeaderPlaceholder />
+  //   }
 
   return (
     <>

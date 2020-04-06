@@ -1,5 +1,13 @@
 import gql from 'graphql-tag'
 
+const ChannelFragment = gql`
+  fragment ChannelFragment on Channel {
+    id
+    name
+    url
+  }
+`
+
 export const GET_CHANNEL_NOTIFICATIONS = gql`
   query channelNotifications($channelUrl: String!) {
     channelNotifications(channelUrl: $channelUrl) {
@@ -19,9 +27,7 @@ export const MARK_CHANNEL_NOTIFICATIONS_AS_READ = gql`
 export const GET_CHANNELS = gql`
   query channels($communityUrl: String!) {
     channels(communityUrl: $communityUrl) {
-      id
-      name
-      url
+      ...ChannelFragment
       community {
         members {
           username
@@ -29,14 +35,13 @@ export const GET_CHANNELS = gql`
       }
     }
   }
+  ${ChannelFragment}
 `
 
 export const GET_CHANNEL = gql`
-  query channel($url: String) {
-    channel(url: $url) {
-      id
-      name
-      url
+  query channel($url: String, $communityUrl: String) {
+    channel(url: $url, communityUrl: $communityUrl) {
+      ...ChannelFragment
       description
       community {
         members {
@@ -45,6 +50,7 @@ export const GET_CHANNEL = gql`
       }
     }
   }
+  ${ChannelFragment}
 `
 
 export const CREATE_CHANNEL = gql`
@@ -62,11 +68,10 @@ export const CREATE_CHANNEL = gql`
       isPrivate: $isPrivate
       communityUrl: $communityUrl
     ) {
-      id
-      name
-      url
+      ...ChannelFragment
     }
   }
+  ${ChannelFragment}
 `
 
 export const EDIT_CHANNEL = gql`
@@ -78,27 +83,8 @@ export const EDIT_CHANNEL = gql`
     editChannel(channelId: $channelId, name: $name, description: $description) {
       id
       name
+      url
       description
-      url
-    }
-  }
-`
-
-export const NEW_CHANNEL_MESSAGE_SUBSCRIPTION = gql`
-  subscription channelNewMessage($communityUrl: String, $tenant: String) {
-    channelNewMessage(communityUrl: $communityUrl, tenant: $tenant) {
-      id
-      name
-      url
-    }
-  }
-`
-
-export const GET_PRIVATE_CHANNELS = gql`
-  query privateChannels {
-    privateChannels {
-      id
-      url
     }
   }
 `

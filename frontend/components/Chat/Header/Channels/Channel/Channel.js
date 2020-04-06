@@ -1,5 +1,3 @@
-// import { useContext } from 'react';
-// import { UserContext } from 'context/UserContext';
 import { useRouter } from 'next/router'
 import { COMPANY_NAME } from 'utils/config'
 import { useKeyboardShortcut } from 'hooks'
@@ -14,8 +12,6 @@ const channelsShortcutMap = {
 }
 
 export default ({ channel, index, children }) => {
-  // const { user } = useContext(UserContext);
-
   const {
     query: { community: communityUrl, channel: channelUrl },
     push,
@@ -25,10 +21,10 @@ export default ({ channel, index, children }) => {
     if (channel.url !== `${communityUrl}/${channelUrl}`) {
       push(
         '/[company]/[community]/[channel]',
-        `/${COMPANY_NAME()}/${channel.url}`,
+        `/${COMPANY_NAME()}/${communityUrl}/${channel.url}`,
         {
           shallow: true,
-        }
+        },
       )
     }
   }
@@ -40,7 +36,7 @@ export default ({ channel, index, children }) => {
   return (
     <S.Channel
       onClick={() => onChangeChannel()}
-      active={channel.url === `${communityUrl}/${channelUrl}`}
+      active={channel.url === channelUrl}
     >
       {children}
     </S.Channel>
