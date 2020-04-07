@@ -1,16 +1,16 @@
-import { useEffect, useContext } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { useRouter } from 'next/router'
 import { useLazyQuery } from '@apollo/react-hooks'
 import { useKeyboardShortcut } from 'hooks'
 
 import { AppContext } from 'context'
 import { COMPANY_NAME } from 'utils/config'
-import { GET_CHANNEL } from 'apis/Channel'
+import { GET_CHANNELS } from 'apis/Channel'
 
-// import Topic from './Topic/Topic'
+import Topic from './Topic/Topic'
 // import Search from './Search/Search'
 import More from './More'
-// import Members from './Members'
+import Members from './Members'
 import Channels from './Channels/Channels'
 
 import ChatHeaderPlaceholder from './ChatHeader.placeholder'
@@ -22,30 +22,25 @@ const ChatHeader = () => {
     push,
   } = useRouter()
 
-  // const { channelLoaded, setChannelLoaded } = useContext(AppContext)
+  const { channelsLoaded, setChannelsLoaded } = useContext(AppContext)
+  const [getChannels, { data: { channels = [] } = {}, loading }] = useLazyQuery(
+    GET_CHANNELS,
+    {
+      variables: { communityUrl },
+      onCompleted: () => {
+        if (!channelsLoaded) {
+          setChannelsLoaded(true)
+        }
+      },
+    },
+  )
 
-  // const [
-  //   getChannel,
-  //   {
-  //     // data: { channel = { community: { members: [] } } } = {},
-  //     loading,
-  //   },
-  // ] = useLazyQuery(GET_CHANNEL, {
-  //   onCompleted: () => {
-  //     if (!channelLoaded) {
-  //       setChannelLoaded(true)
-  //     }
-  //   },
-  // })
+  useEffect(() => {
+    getChannels()
+  }, [communityUrl])
 
-  // useEffect(() => {
-  //   getChannel({
-  //     variables: {
-  //       url: channelUrl,
-  //       communityUrl,
-  //     },
-  //   })
-  // }, [communityUrl, channelUrl])
+  // const getSelectedChannel = () =>
+  // const [selectedChannel, setSelectedChannel] = useState(null)
 
   useKeyboardShortcut({
     n: () =>
@@ -58,30 +53,30 @@ const ChatHeader = () => {
       ),
   })
 
-  //   if (loading) {
-  //     return <ChatHeaderPlaceholder />
-  //   }
+  if (loading) {
+    return <ChatHeaderPlaceholder />
+  }
+
+  const selectedChannel = channels.find((channel) => channel.url === channelUrl)
 
   return (
-    <>
-      <S.Container>
-        <S.Info>
-          <Channels />
+    <S.Container>
+      <S.Info>
+        <Channels channels={channels} />
+        {selectedChannel && (
           <S.ChannelInfo>
-            {/*
-            <Members membersCount={channel.community.members.length} />
-            <Topic channel={channel} />
-            */}
+            <Members membersCount={selectedChannel.community.members.length} />
+            <Topic channel={selectedChannel} />
           </S.ChannelInfo>
-        </S.Info>
-        <S.ChatActions>
-          {/*
-          <Search />
-          */}
-          <More />
-        </S.ChatActions>
-      </S.Container>
-    </>
+        )}
+      </S.Info>
+      <S.ChatActions>
+        {/*
+        <Search />
+        */}
+        <More />
+      </S.ChatActions>
+    </S.Container>
   )
 }
 

@@ -9,10 +9,5 @@ export const Message = objectType({
     t.model.body()
     t.model.author()
     t.model.channel()
-    t.model.children({ pagination: false })
-    t.model.reactions({ pagination: false })
-    t.model.attachments({ pagination: false })
-    t.model.remoteAttachments({ pagination: false })
   },
 })
-

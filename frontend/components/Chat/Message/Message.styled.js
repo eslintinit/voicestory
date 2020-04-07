@@ -3,7 +3,7 @@ import styled from 'styled-components'
 // &.unreaded {
 //   background: #e7e7e7;
 // }
-export const MessageContainer = styled.div`
+export const Container = styled.div`
   position: relative;
   font-weight: 400;
   font-size: 15px;
@@ -34,21 +34,4 @@ export const Body = styled.div`
     margin-top: 1px;
     margin-bottom: -2px;
   `}
-`
-
-export const Image = styled.img`
-  width: 100%;
-  height: auto;
-  max-height: 250px;
-  max-width: 300px;
-  border-radius: 6px;
-  margin: 10px 0;
-  object-fit: cover;
-  object-position: center;
-  display: block;
-`
-
-export const Attachments = styled.div`
-  width: 100%;
-  text-align: left;
 `

@@ -7,15 +7,17 @@ import * as RoleQuery from './Role/RoleQuery'
 
 export const Query = {
   me: { UserQuery },
-  getUser: { UserQuery },
   users: { UserQuery },
-  community: { CommunityQuery },
+  getUser: { UserQuery },
+
   communities: { CommunityQuery },
+  community: { CommunityQuery },
   searchCommunities: { CommunityQuery },
-  channel: { ChannelQuery },
+
   channels: { ChannelQuery },
-  /* privateChannels: { ChannelQuery }, */
-  /* messages: { MessageQuery }, */
+  channel: { ChannelQuery },
+
+  messages: { MessageQuery },
   /* files: { FileQuery }, */
   /* roles: { RoleQuery }, */
 }

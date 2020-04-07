@@ -7,20 +7,24 @@ import * as FileMutation from './File/FileMutation'
 import * as RoleMutation from './Role/RoleMutation'
 
 export const Mutation = {
-  login: { UserMutation },
   users: { UserMutation },
+  login: { UserMutation },
+
   createCommunity: { CommunityMutation },
   followCommunity: { CommunityMutation },
   unfollowCommunity: { CommunityMutation },
+
   createChannel: { ChannelMutation },
   editChannel: { ChannelMutation },
+
+  sendMessage: { MessageMutation },
+  deleteMessage: { MessageMutation },
+
   /* setUserTypingStatus: { TypingStatusMutation }, */
   /* createRole: { RoleMutation }, */
   /* updateRole: { RoleMutation }, */
   /* deleteRole: { RoleMutation }, */
   /* attachRoleToUser: { RoleMutation }, */
   /* deattachRoleToUser: { RoleMutation }, */
-  /* sendMessage: { MessageMutation }, */
-  /* deleteMessage: { MessageMutation }, */
   /* uploadFile: { FileMutation }, */
 }

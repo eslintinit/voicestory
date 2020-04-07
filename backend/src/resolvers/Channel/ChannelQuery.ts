@@ -1,5 +1,11 @@
-import { queryField, stringArg } from 'nexus'
+import { queryField, stringArg, queryType } from 'nexus'
 import { getUserId, getTenant } from '../../utils'
+
+export const channel = queryType({
+  definition(t) {
+    t.crud.channel()
+  },
+})
 
 export const channels = queryField('channels', {
   type: 'Channel',
@@ -11,29 +17,6 @@ export const channels = queryField('channels', {
         communityUrl,
       },
       orderBy: { createdAt: 'asc' },
-    })
-  },
-})
-
-export const channel = queryField('channel', {
-  type: 'Channel',
-  nullable: true,
-  args: {
-    url: stringArg(),
-    communityUrl: stringArg(),
-  },
-  resolve: (parent, args, ctx) => {
-    /* console.log(stringArg) */
-    console.log('args:')
-    console.log(args)
-    console.log('____________________--')
-    return ctx.prisma.channel.findOne({
-      where: {
-        communityUrl_url: {
-          url: args.url,
-          communityUrl: args.communityUrl,
-        },
-      },
     })
   },
 })

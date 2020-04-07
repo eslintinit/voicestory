@@ -1,11 +1,11 @@
 const dotenv = require('dotenv')
 dotenv.config({ path: `../.env.${process.env.NODE_ENV}` })
-/* dotenv.config({ path: `./.env` }) */
 
 import { GraphQLServer, PubSub } from 'graphql-yoga'
 import { PrismaClient } from '@prisma/client'
 import { nexusPrismaPlugin } from 'nexus-prisma'
 import { makeSchema } from 'nexus'
+/* import { makeSchema } from '@nexus/schema' */
 import { applyMiddleware } from 'graphql-middleware'
 import { join } from 'path'
 
@@ -25,11 +25,9 @@ const cors = require('cors')
 
 const pubsub = new PubSub()
 
-const nexusPrisma = nexusPrismaPlugin()
-
 const baseSchema = makeSchema({
   types: [allTypes],
-  plugins: [nexusPrisma],
+  plugins: [nexusPrismaPlugin()],
   outputs: {
     typegen: join(__dirname, '../generated/nexus-typegen.ts'),
     schema: join(__dirname, '/schema.graphql'),
@@ -176,5 +174,5 @@ server.start(
 )
 
 process.on('exit', async () => {
-  /* await multiTenant.disconnect() */
+  await prisma.disconnect()
 })

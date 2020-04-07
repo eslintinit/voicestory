@@ -1,14 +1,14 @@
 {
   "name": "voicestory-backend",
   "scripts": {
-    "postinstall": "npm -s run generate",
-    "seed": "ts-node prisma/seed.ts",
     "dev": "NODE_ENV=development ts-node-dev --no-notify --respawn --transpileOnly ./src",
-    "clean": "rm -rf dist",
+    "seed": "ts-node prisma/seed.ts",
     "build": "npm -s run clean && npm -s run generate && tsc",
+    "clean": "rm -rf dist",
     "generate": "npm -s run generate:prisma && npm -s run generate:nexus",
     "generate:prisma": "NODE_ENV=development npx @prisma/cli generate",
-    "generate:nexus": "NODE_ENV=development ts-node --transpile-only src/index.ts"
+    "generate:nexus": "NODE_ENV=development ts-node --transpile-only src/index.ts",
+    "postinstall": "npm -s run generate"
   },
   "dependencies": {
     "@nexus/schema": "^0.13.1",

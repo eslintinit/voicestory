@@ -14,7 +14,9 @@ export default ({ membersCount }) => {
         </S.UserIcon>
         <S.MembersCount>{membersCount}</S.MembersCount>
       </S.Members>
+      {/*
       <Members show={showMembers} onClose={() => setShowMembers(false)} />
+      */}
     </>
   )
 }

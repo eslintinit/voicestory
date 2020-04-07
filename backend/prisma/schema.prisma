@@ -10,15 +10,16 @@ generator client {
 model User {
   id                      String          @default(cuid()) @id
   username                String          @unique
-  fullname                String?
-  bio                     String?
   email                   String?         @unique
-  social                  String?
+  fullname                String?
   image                   String?
+  bio                     String?
+  social                  String?
   isOnline                Boolean         @default(false)
   communitiesOwned        Community[]     @relation(name: "UserCommunityAuthor")
   communitiesFollowed     Community[]     @relation(name: "UserCommunityMember", references: [url])
   channels                Channel[]       @relation(name: "UserChannelAuthor")
+  messages                Message[]       @relation(name: "MessageAuthor")
 }
 
 model Community {
@@ -43,7 +44,19 @@ model Channel {
   community               Community?      @relation(name: "CommunityChannels", fields: [communityUrl], references: [url])
   authorUsername          String?
   author                  User?           @relation(name: "UserChannelAuthor", fields: [authorUsername], references: [username])
+  messages                Message[]       @relation(name: "ChannelMessages")
 
   @@unique([communityUrl, url])
+}
+
+model Message {
+  id                      String          @default(cuid()) @id
+  createdAt               DateTime        @default(now())
+  updatedAt               DateTime        @updatedAt
+  body                    String?
+  channelId               String
+  channel                 Channel         @relation(name: "ChannelMessages", fields: [channelId], references: [id])
+  authorUsername          String
+  author                  User            @relation(name: "MessageAuthor", fields: [authorUsername], references: [username])
 }
 
