@@ -65,7 +65,10 @@ const ChatHeader = () => {
         <Channels channels={channels} />
         {selectedChannel && (
           <S.ChannelInfo>
+            {/*
             <Members membersCount={selectedChannel.community.members.length} />
+            */}
+            <Members membersCount={242} />
             <Topic channel={selectedChannel} />
           </S.ChannelInfo>
         )}

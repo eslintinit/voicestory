@@ -14,8 +14,7 @@ export const Mutation = {
   followCommunity: { CommunityMutation },
   unfollowCommunity: { CommunityMutation },
 
-  createChannel: { ChannelMutation },
-  editChannel: { ChannelMutation },
+  channelMutations: { ChannelMutation },
 
   sendMessage: { MessageMutation },
   deleteMessage: { MessageMutation },

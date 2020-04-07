@@ -1,5 +1,4 @@
 import { objectType } from 'nexus'
-import { getUserId } from '../../utils'
 
 export const Channel = objectType({
   name: 'Channel',

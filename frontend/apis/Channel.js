@@ -8,19 +8,79 @@ const ChannelFragment = gql`
   }
 `
 
-export const GET_CHANNELS = gql`
-  query channels($communityUrl: String!) {
-    channels(communityUrl: $communityUrl) {
-      ...ChannelFragment
-      community {
-        members {
-          id
-          image
-          username
-          fullname
-        }
+const ChannelMembersFragment = gql`
+  fragment ChannelMembersFragment on Channel {
+    community {
+      members {
+        id
+        image
+        username
+        fullname
       }
     }
   }
+`
+
+export const GET_CHANNELS = gql`
+  query channels($communityUrl: String!) {
+    channels(
+      where: { communityUrl: { equals: $communityUrl } }
+      orderBy: { createdAt: asc }
+    ) {
+      ...ChannelFragment
+      ...ChannelMembersFragment
+    }
+  }
   ${ChannelFragment}
+  ${ChannelMembersFragment}
+`
+
+export const CREATE_CHANNEL = gql`
+  mutation createChannel(
+    $name: String!
+    $description: String
+    $url: String!
+    $communityUrl: String!
+  ) {
+    createChannel(
+      data: {
+        name: $name
+        description: $description
+        url: $url
+        community: { connect: { url: $communityUrl } }
+      }
+    ) {
+      id
+    }
+  }
+`
+
+export const UPDATE_CHANNEL = gql`
+  mutation updateChannel(
+    $name: String
+    $description: String
+    $url: String!
+    $communityUrl: String!
+  ) {
+    updateChannel(
+      where: { communityUrl_url: { communityUrl: $communityUrl, url: $url } }
+      data: { name: $name, description: $description }
+    ) {
+      id
+      name
+      description
+    }
+  }
+`
+
+export const DELETE_CHANNEL = gql`
+  mutation deleteChannel($url: String!, $communityUrl: String!) {
+    deleteChannel(
+      where: { communityUrl_url: { communityUrl: $communityUrl, url: $url } }
+    ) {
+      id
+      name
+      description
+    }
+  }
 `

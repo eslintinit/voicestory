@@ -52,8 +52,7 @@ const CreateChannel = () => {
   })
 
   const onSubmit = async (values, { setSubmitting, setErrors }) => {
-    const channelUrl = values.name.toLowerCase().replace(' ', '-')
-    const url = `${communityUrl}/${channelUrl}`
+    const url = values.name.toLowerCase().replace(' ', '-')
     const { data } = await createChannel({
       variables: {
         communityUrl,
@@ -69,10 +68,8 @@ const CreateChannel = () => {
     } else {
       router.push(
         `/[company]/[community]/[channel]`,
-        `/${COMPANY_NAME()}/${url}`,
-        {
-          shallow: true,
-        }
+        `/${COMPANY_NAME()}/${communityUrl}/${url}`,
+        { shallow: true },
       )
     }
   }

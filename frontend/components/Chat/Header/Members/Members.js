@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { UserIcon } from 'components/UI/Icons'
-import Members from 'components/Channel/ChannelInfo/Members/Members'
+// import Members from 'components/Channel/ChannelInfo/Members/Members'
 import * as S from './Members.styled'
 
 export default ({ membersCount }) => {
