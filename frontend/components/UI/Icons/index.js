@@ -16,9 +16,12 @@ import AddIcon from './AddIcon'
 import MessageIcon from './MessageIcon'
 import UsersIcon from './UsersIcon'
 import RolesIcon from './RolesIcon'
+import DeleteIcon from './DeleteIcon'
 
 // todo: make styles available via props (width, height, fill)
 // do margin styles in icon wrappers
+
+// props: color, size
 
 export {
   CloseIcon,
@@ -39,4 +42,5 @@ export {
   MessageIcon,
   UsersIcon,
   RolesIcon,
+  DeleteIcon,
 }
