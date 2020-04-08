@@ -1,4 +1,4 @@
-import { objectType, stringArg, idArg } from 'nexus'
+import { queryField, stringArg, idArg } from 'nexus'
 import { getUserId } from '../../utils'
 
 // USE communities as private and communitiesPublic as public
@@ -116,20 +116,38 @@ import { getUserId } from '../../utils'
 //   },
 // })
 
-// export const searchCommunities = objectType({
-//   name: 'Query',
-//   definition(t) {
-//     t.string('anotherComputedField', {
-//       async resolve(_parent, _args, ctx) {
-//         const userId = getUserId(ctx)
-
-//         const databaseInfo = await ctx.prisma.community.findMany({
-//           where: {
-//             members: { some: { id: userId } },
-//           },
-//         })
-//         return databaseInfo
-//       },
-//     })
-//   },
-// })
+export const publicCommunities = queryField('publicCommunities', {
+  type: 'Community',
+  list: true,
+  args: {
+    description: stringArg({ nullable: true }),
+    name: stringArg({ nullable: true }),
+    url: stringArg({ nullable: true }),
+    id: stringArg({ nullable: true }),
+  },
+  resolve: async (parent, { description, name, url, id }, ctx) => {
+    const query = () => {
+      if (description) return { description: { contains: description } }
+      if (name) return { name: { contains: name } }
+      if (url) return { name: { contains: url } }
+      if (id) return { id: { contains: id } }
+    }
+    let result = await ctx.prisma.community.findMany({
+      // DOESNT WORKs
+      // select: {
+      //   id: true,
+      //   url: true,
+      //   name: true,
+      //   description: true,
+      //   members: {
+      //     include: { id: false },
+      //   },
+      // },
+      where: {
+        ...query(),
+      },
+    })
+    console.log(result)
+    return result
+  },
+})

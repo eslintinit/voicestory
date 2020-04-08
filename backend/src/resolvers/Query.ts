@@ -23,6 +23,7 @@ export const queries = queryType({
         id: true,
         author: true,
         description: true,
+        name: true,
       },
       ordering: true,
     })
@@ -32,7 +33,7 @@ export const queries = queryType({
 export const Query = {
   queries,
   UserQuery,
-  CommunityQuery,
+  searchCommunities: { CommunityQuery },
   // // users: { UserQuery },
   // // community: { CommunityQuery },
   // // communities: { CommunityQuery },
