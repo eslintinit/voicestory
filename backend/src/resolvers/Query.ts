@@ -1,20 +1,29 @@
 import * as UserQuery from './User/UserQuery'
 import * as CommunityQuery from './Community/CommunityQuery'
-import { queryField, queryType, stringArg } from 'nexus'
-
-import * as ChannelQuery from './Channel/ChannelQuery'
-import * as MessageQuery from './Message/MessageQuery'
-import * as FileQuery from './File/FileQuery'
-import * as RoleQuery from './Role/RoleQuery'
-import { getUserId, isEmpty } from '../utils'
-import { isContext } from 'vm'
+import { queryType } from 'nexus'
 
 export const queries = queryType({
   definition(t) {
-    // crud for USERS
+    // Enable crud for USERS
     t.crud.users({
-      alias: 'users',
       filtering: true,
+      ordering: true,
+    })
+    // Enable crud for PRIVATE COMMUNITIES
+    t.crud.communities({
+      filtering: true,
+      ordering: true,
+    })
+    // Public crud for COMMUNITIES
+
+    t.crud.communities({
+      alias: 'communitiesPublic',
+      filtering: {
+        url: true,
+        id: true,
+        author: true,
+        description: true,
+      },
       ordering: true,
     })
   },
@@ -23,7 +32,7 @@ export const queries = queryType({
 export const Query = {
   queries,
   UserQuery,
-
+  CommunityQuery,
   // // users: { UserQuery },
   // // community: { CommunityQuery },
   // // communities: { CommunityQuery },
