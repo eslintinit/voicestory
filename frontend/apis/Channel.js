@@ -4,7 +4,11 @@ const ChannelFragment = gql`
   fragment ChannelFragment on Channel {
     id
     name
+    description
     url
+    community {
+      url
+    }
   }
 `
 
@@ -57,14 +61,13 @@ export const CREATE_CHANNEL = gql`
 
 export const UPDATE_CHANNEL = gql`
   mutation updateChannel(
-    $name: String
     $description: String
     $url: String!
     $communityUrl: String!
   ) {
     updateChannel(
       where: { communityUrl_url: { communityUrl: $communityUrl, url: $url } }
-      data: { name: $name, description: $description }
+      data: { description: $description }
     ) {
       id
       name
