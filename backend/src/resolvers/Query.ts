@@ -2,7 +2,7 @@ import * as UserQuery from './User/UserQuery'
 import * as CommunityQuery from './Community/CommunityQuery'
 import { queryType } from 'nexus'
 
-export const queries = queryType({
+export const crudQueries = queryType({
   definition(t) {
     // Enable crud for USERS
     t.crud.users({
@@ -14,30 +14,13 @@ export const queries = queryType({
       filtering: true,
       ordering: true,
     })
-    // Public crud for COMMUNITIES
-
-    t.crud.communities({
-      alias: 'communitiesPublic',
-      filtering: {
-        url: true,
-        id: true,
-        author: true,
-        description: true,
-        name: true,
-      },
-      ordering: true,
-    })
   },
 })
 
 export const Query = {
-  queries,
+  crudQueries,
   UserQuery,
-  searchCommunities: { CommunityQuery },
-  // // users: { UserQuery },
-  // // community: { CommunityQuery },
-  // // communities: { CommunityQuery },
-  // searchCommunities: { CommunityQuery },
+  CommunityQuery,
   /* channel: { ChannelQuery }, */
   /* channels: { ChannelQuery }, */
   /* privateChannels: { ChannelQuery }, */

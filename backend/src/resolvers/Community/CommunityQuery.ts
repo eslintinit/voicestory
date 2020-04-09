@@ -116,6 +116,8 @@ import { getUserId } from '../../utils'
 //   },
 // })
 
+// Redo to Return only  NoN Private Communities
+
 export const publicCommunities = queryField('publicCommunities', {
   type: 'Community',
   list: true,
