@@ -3,7 +3,7 @@ import { useQuery } from '@apollo/react-hooks'
 import { useContext, useState, useEffect } from 'react'
 
 import { AppContext } from 'context'
-import { GET_FOLLOWED_COMMUNITIES } from 'apis/Community'
+import { GET_COMMUNITIES } from 'apis/Community'
 
 import Tab from './Tab/Tab'
 import * as S from './Tabs.styled'
@@ -14,36 +14,24 @@ const Tabs = () => {
   } = useRouter()
 
   const { communitiesLoaded, setCommunitiesLoaded } = useContext(AppContext)
-  const [followedCommunities, setFollowedCommunities] = useState([])
 
-  // const { data: { communities = [] } = {} } = useQuery(
-  //   GET_FOLLOWED_COMMUNITIES,
-  //   {
-  //     onCompleted: () => {
-  //       if (!communitiesLoaded) {
-  //         setCommunitiesLoaded(true)
-  //       }
-  //     },
-  //   }
-  // )
-
-  // const { followedCommunities, setFollowedCommunities } = useState([])
-
-  useQuery(GET_FOLLOWED_COMMUNITIES, {
-    onCompleted: (data) => {
-      setFollowedCommunities([...data.followedCommunities])
+  const { data: { communities = [] } = {} } = useQuery(GET_COMMUNITIES, {
+    onCompleted: () => {
+      if (!communitiesLoaded) {
+        setCommunitiesLoaded(true)
+      }
     },
   })
 
-  return followedCommunities.length !== 0 ? (
+  return communities.length !== 0 ? (
     <S.Tabs>
-      {followedCommunities.map((community, index) => {
+      {communities.map((community, index) => {
         const active = community.url === selectedCommunity
 
         // Done for styles
         const nextActive =
-          index < followedCommunities.length - 1
-            ? followedCommunities[index + 1].url === selectedCommunity
+          index < communities.length - 1
+            ? communities[index + 1].url === selectedCommunity
             : false
 
         return (

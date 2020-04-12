@@ -1,5 +1,68 @@
 import { queryField, stringArg, idArg } from 'nexus'
-import { getUserId } from '../../utils'
+import { getUserId, isEmpty } from '../../utils'
+
+// export const me = queryField('communities', {
+//   type: 'Community',
+//   list: true,
+//   resolve: async (parent, args, ctx) => {
+//     let res = await ctx.prisma.community.findMany({})
+//     return res
+//   },
+// })
+// export const me = queryField('communities', {
+//   type: 'Community',
+//   list: true,
+//   resolve: async (parent, args, ctx) => {
+//     const userId: string = getUserId(ctx)
+//     console.log(userId)
+//     // If we have User return only Followed
+//     let followedCommunities: any = []
+//     if (!isEmpty(userId)) {
+//       followedCommunities = await ctx.prisma.community.findMany({
+//         where: {
+//           members: { some: { id: userId } },
+//         },
+//       })
+//     }
+//     let communities = await ctx.prisma.community.findMany({})
+//     var obj: any = {}
+//     console.log('obje', communities)
+
+//     // We need to add isFollowing to those that exist at followedCommunities
+//     let mergedCommunities = communities.map((community) => {
+//       let isTrue: boolean
+//       followedCommunities.map((comm) => {
+//         if (comm.id === community.id) return (isTrue = true)
+//       })
+//       console.log('ss', isTrue)
+//       obj = { ...community, isFollowing: isTrue ? isTrue : false }
+//       return obj
+//     })
+//     console.log('obje', mergedCommunities)
+//     return mergedCommunities
+//   },
+// })
+
+// export const me = queryField('communities', {
+//   type: 'Community',
+//   list: true,
+//   resolve: async (parent, args, ctx) => {
+//     const userId: string = getUserId(ctx)
+//     console.log(userId)
+//     if (!isEmpty(userId)) {
+//       let res = await ctx.prisma.community.findMany({
+//         where: {
+//           members: { some: { id: userId } },
+//         },
+//       })
+//       console.log(userId)
+//       return res
+//     } else {
+//       let res = await ctx.prisma.community.findMany({})
+//       return res
+//     }
+//   },
+// })
 
 // USE communities as private and communitiesPublic as public
 

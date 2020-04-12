@@ -50,15 +50,6 @@ export const SEARCH_COMMUNITIES = gql`
   ${CommunityFragment}
 `
 
-export const GET_FOLLOWED_COMMUNITIES = gql`
-  query followedCommunities {
-    followedCommunities {
-      ...CommunityFragment
-    }
-  }
-  ${CommunityFragment}
-`
-
 export const FOLLOW_COMMUNITY = gql`
   mutation followCommunity($url: String) {
     followCommunity(url: $url) {
