@@ -8,9 +8,9 @@ const isAuthenticatedUser = rule()(async (parent, args, context) => {
   return isAuth
 })
 
+// Is user Containing isOwner on Account
 const isOwner = rule()(async (parent, { id }, context) => {
   const userId = getUserId(context)
-
   if (!userId) return false
   try {
     const user = await context.prisma.user.findOne({
@@ -21,7 +21,6 @@ const isOwner = rule()(async (parent, { id }, context) => {
     if (user.owner && user.owner === '1') {
       return true
     }
-
     return false
   } catch (error) {
     console.log('canManageCommunity - NO', error)
@@ -29,6 +28,7 @@ const isOwner = rule()(async (parent, { id }, context) => {
   }
 })
 
+// Can Manage All Communities by role
 const canManageCommunity = rule()(async (parent, { id }, context) => {
   const userId = getUserId(context)
   if (!userId) return false
@@ -54,6 +54,7 @@ const canManageCommunity = rule()(async (parent, { id }, context) => {
   }
 })
 
+// Does user has manage_channel role
 const canManageChannel = rule()(async (parent, { id }, context) => {
   const userId = getUserId(context)
   if (!userId) return false
@@ -79,6 +80,7 @@ const canManageChannel = rule()(async (parent, { id }, context) => {
   }
 })
 
+// does user has manage role
 const canManageRole = rule()(async (parent, { id }, context) => {
   const userId = getUserId(context)
   if (!userId) return false
@@ -105,6 +107,7 @@ const canManageRole = rule()(async (parent, { id }, context) => {
   }
 })
 
+// Does user has chat permision  role
 const canChatPermission = rule()(async (parent, { id }, context) => {
   const userId = getUserId(context)
   if (!userId) return false
@@ -131,6 +134,7 @@ const canChatPermission = rule()(async (parent, { id }, context) => {
   }
 })
 
+//  user can upload image role
 const canUploadImage = rule()(async (parent, { id }, context) => {
   const userId = getUserId(context)
   if (!userId) return false
@@ -157,6 +161,7 @@ const canUploadImage = rule()(async (parent, { id }, context) => {
   }
 })
 
+//  user can post links role
 const canPostLinks = rule()(async (parent, { id }, context) => {
   const userId = getUserId(context)
   if (!userId) return false
@@ -182,6 +187,7 @@ const canPostLinks = rule()(async (parent, { id }, context) => {
   }
 })
 
+// can user delete message he posted
 const canDeleteMessage = rule()(async (parent, { messageId }, context) => {
   const userId = getUserId(context)
   if (!userId) return false
@@ -200,7 +206,6 @@ const canDeleteMessage = rule()(async (parent, { messageId }, context) => {
         result = true
       }
     })
-
     if (result) return true
     const requestingUserIsAuthor = await context.prisma.message.findMany({
       where: {
@@ -220,6 +225,7 @@ const canDeleteMessage = rule()(async (parent, { messageId }, context) => {
   }
 })
 
+// can user edit message he posted
 const canEditMessage = rule()(async (parent, { messageId }, context) => {
   const userId = getUserId(context)
   if (!userId) return false
@@ -232,7 +238,6 @@ const canEditMessage = rule()(async (parent, { messageId }, context) => {
         },
       })
       .role()
-
     const requestingUserIsAuthor = await context.prisma.message.findMany({
       where: {
         id: messageId,
@@ -262,6 +267,8 @@ export const permissions = shield({
     getUser: isAuthenticatedUser,
     me: isAuthenticatedUser,
     users: isAuthenticatedUser,
+    // User Mutations
+
     // Community Queries
     // To Do:
     // Split on public and Private or make 1 resolver that will handle both
@@ -286,10 +293,16 @@ export const permissions = shield({
     // replyMessages: isAuthenticatedUser,
   },
   Mutation: {
+    // User Mutations
+
+    // Community Mutations.
+    createCommunity: isAuthenticatedUser,
+    updateCommunity: isOwner,
+    deleteCommunity: isOwner,
+    followCommunity: isAuthenticatedUser,
+    unfollowCommunity: isAuthenticatedUser,
+
     // setCurrentChannel: isAuthenticatedUser,
-    // createCommunity: or(isOwner, and(isAuthenticatedUser, canManageCommunity)),
-    // followCommunity: isAuthenticatedUser,
-    // unfollowCommunity: isAuthenticatedUser,
     // createChannel: or(isOwner, and(isAuthenticatedUser, canManageChannel)),
     // editChannel: or(isOwner, and(isAuthenticatedUser, canManageChannel)),
     // setUserTypingStatus: or(

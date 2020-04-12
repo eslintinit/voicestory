@@ -5,13 +5,20 @@ import * as MessageMutation from './Message/MessageMutation'
 import * as TypingStatusMutation from './TypingStatus/TypingStatusMutation'
 import * as FileMutation from './File/FileMutation'
 import * as RoleMutation from './Role/RoleMutation'
+import { mutationType } from 'nexus'
+
+export const crudMutations = mutationType({
+  definition(t) {
+    // Enable crud for COMMUNITIES
+    t.crud.updateOneCommunity({ alias: 'updateCommunity' })
+    t.crud.deleteOneCommunity({ alias: 'deleteCommunity' })
+  },
+})
 
 export const Mutation = {
-  login: { UserMutation },
-  users: { UserMutation },
-  createCommunity: { CommunityMutation },
-  followCommunity: { CommunityMutation },
-  unfollowCommunity: { CommunityMutation },
+  crudMutations,
+  UserMutation,
+  CommunityMutation,
   /* createChannel: { ChannelMutation }, */
   /* setUserTypingStatus: { TypingStatusMutation }, */
   /* editChannel: { ChannelMutation }, */
