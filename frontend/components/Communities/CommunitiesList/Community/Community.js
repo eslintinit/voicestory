@@ -13,8 +13,37 @@ import * as S from './Community.styled'
 export default ({ community, refetch }) => {
   const router = useRouter()
   const { user } = useContext(UserContext)
-  const [followCommunity] = useMutation(FOLLOW_COMMUNITY)
-  const [unfollowCommunity] = useMutation(UNFOLLOW_COMMUNITY)
+
+  const [followCommunity] = useMutation(FOLLOW_COMMUNITY, {
+    update(cache, { data: { followCommunity: community } }) {
+      const { communities } = cache.readQuery({ query: GET_COMMUNITIES })
+      // MANUALLY UPDATE THE STATE, TRY AND RESOLVE
+      // https://www.apollographql.com/docs/link/links/state/#updating-the-cache
+      let updatedCommunities = communities.map((el) => {
+        if (el.id === community.id) return community
+        return el
+      })
+      cache.writeQuery({
+        query: GET_COMMUNITIES,
+        data: { updatedCommunities },
+      })
+    },
+  })
+  const [unfollowCommunity] = useMutation(UNFOLLOW_COMMUNITY, {
+    update(cache, { data: { unfollowCommunity: community } }) {
+      const { communities } = cache.readQuery({ query: GET_COMMUNITIES })
+      // MANUALLY UPDATE THE STATE, TRY AND RESOLVE
+      // https://www.apollographql.com/docs/link/links/state/#updating-the-cache
+      let updatedCommunities = communities.map((el) => {
+        if (el.id === community.id) return community
+        return el
+      })
+      cache.writeQuery({
+        query: GET_COMMUNITIES,
+        data: { updatedCommunities },
+      })
+    },
+  })
 
   // const [isFollowing, setFollowing] = useState(true)
   // const isFollowing = user
