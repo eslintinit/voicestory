@@ -181,38 +181,38 @@ import { getUserId, isEmpty } from '../../utils'
 
 // Redo to Return only  NoN Private Communities
 
-export const publicCommunities = queryField('publicCommunities', {
-  type: 'Community',
-  list: true,
-  args: {
-    description: stringArg({ nullable: true }),
-    name: stringArg({ nullable: true }),
-    url: stringArg({ nullable: true }),
-    id: stringArg({ nullable: true }),
-  },
-  resolve: async (parent, { description, name, url, id }, ctx) => {
-    const query = () => {
-      if (description) return { description: { contains: description } }
-      if (name) return { name: { contains: name } }
-      if (url) return { name: { contains: url } }
-      if (id) return { id: { contains: id } }
-    }
-    let result = await ctx.prisma.community.findMany({
-      // DOESNT WORKs
-      // select: {
-      //   id: true,
-      //   url: true,
-      //   name: true,
-      //   description: true,
-      //   members: {
-      //     include: { id: false },
-      //   },
-      // },
-      where: {
-        ...query(),
-      },
-    })
-    console.log(result)
-    return result
-  },
-})
+// export const publicCommunities = queryField('publicCommunities', {
+//   type: 'Community',
+//   list: true,
+//   args: {
+//     description: stringArg({ nullable: true }),
+//     name: stringArg({ nullable: true }),
+//     url: stringArg({ nullable: true }),
+//     id: stringArg({ nullable: true }),
+//   },
+//   resolve: async (parent, { description, name, url, id }, ctx) => {
+//     const query = () => {
+//       if (description) return { description: { contains: description } }
+//       if (name) return { name: { contains: name } }
+//       if (url) return { name: { contains: url } }
+//       if (id) return { id: { contains: id } }
+//     }
+//     let result = await ctx.prisma.community.findMany({
+//       // DOESNT WORKs
+//       // select: {
+//       //   id: true,
+//       //   url: true,
+//       //   name: true,
+//       //   description: true,
+//       //   members: {
+//       //     include: { id: false },
+//       //   },
+//       // },
+//       where: {
+//         ...query(),
+//       },
+//     })
+//     console.log(result)
+//     return result
+//   },
+// })
