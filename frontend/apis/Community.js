@@ -54,23 +54,19 @@ export const SEARCH_COMMUNITIES = gql`
 export const FOLLOW_COMMUNITY = gql`
   mutation followCommunity($url: String) {
     followCommunity(url: $url) {
-      id
-      members {
-        id
-      }
+      ...CommunityFragment
     }
   }
+  ${CommunityFragment}
 `
 
 export const UNFOLLOW_COMMUNITY = gql`
   mutation unfollowCommunity($url: String) {
     unfollowCommunity(url: $url) {
-      id
-      members {
-        id
-      }
+      ...CommunityFragment
     }
   }
+  ${CommunityFragment}
 `
 
 export const CREATE_COMMUNITY = gql`
