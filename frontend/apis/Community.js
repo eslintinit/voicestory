@@ -1,6 +1,6 @@
 import gql from 'graphql-tag'
 
-const CommunityFragment = gql`
+export const CommunityFragment = gql`
   fragment CommunityFragment on Community {
     id
     url

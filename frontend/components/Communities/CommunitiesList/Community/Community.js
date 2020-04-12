@@ -5,7 +5,11 @@ import { useMutation, useQuery } from '@apollo/react-hooks'
 import { GET_COMMUNITIES } from '../../../../apis/Community'
 
 import { COMPANY_NAME } from 'utils/config'
-import { FOLLOW_COMMUNITY, UNFOLLOW_COMMUNITY } from 'apis/Community'
+import {
+  FOLLOW_COMMUNITY,
+  UNFOLLOW_COMMUNITY,
+  CommunityFragment,
+} from 'apis/Community'
 
 import Checkbox from 'components/UI/Checkbox/CommunityCheckbox'
 import * as S from './Community.styled'
@@ -17,38 +21,40 @@ export default ({ community, refetch }) => {
   const [followCommunity] = useMutation(FOLLOW_COMMUNITY, {
     update(cache, { data: { followCommunity: community } }) {
       const { communities } = cache.readQuery({ query: GET_COMMUNITIES })
+      const fragment = CommunityFragment
+      const cachedCommunity = cache.readFragment({
+        fragment,
+        __typename: 'Community',
+      })
+      const updatedCommunity = { ...cachedCommunity }
+      cache.writeFragment({ fragment, updatedCommunity })
+      return console.log(updatedCommunity)
+
       // MANUALLY UPDATE THE STATE, TRY AND RESOLVE
       // https://www.apollographql.com/docs/link/links/state/#updating-the-cache
-      let updatedCommunities = communities.map((el) => {
-        if (el.id === community.id) return community
-        return el
-      })
-      cache.writeQuery({
-        query: GET_COMMUNITIES,
-        data: { updatedCommunities },
-      })
+      // let updatedCommunities = communities.map((el) => {
+      //   if (el.id === community.id) return community
+      //   return el
+      // })
+      // cache.writeQuery({
+      //   query: GET_COMMUNITIES,
+      //   data: { updatedCommunities },
+      // })
     },
   })
   const [unfollowCommunity] = useMutation(UNFOLLOW_COMMUNITY, {
     update(cache, { data: { unfollowCommunity: community } }) {
       const { communities } = cache.readQuery({ query: GET_COMMUNITIES })
-      // MANUALLY UPDATE THE STATE, TRY AND RESOLVE
-      // https://www.apollographql.com/docs/link/links/state/#updating-the-cache
-      let updatedCommunities = communities.map((el) => {
-        if (el.id === community.id) return community
-        return el
+      const fragment = CommunityFragment
+      const cachedCommunity = cache.readFragment({
+        fragment,
+        __typename: 'Community',
       })
-      cache.writeQuery({
-        query: GET_COMMUNITIES,
-        data: { updatedCommunities },
-      })
+      const updatedCommunity = { ...cachedCommunity }
+      cache.writeFragment({ fragment, updatedCommunity })
+      return console.log(updatedCommunity)
     },
   })
-
-  // const [isFollowing, setFollowing] = useState(true)
-  // const isFollowing = user
-  //   ? community.members.map(c => c.id).indexOf(user.id) > -1
-  //   : true
 
   const onFollow = async (url, isFollowed) => {
     if (isFollowed === true) {
@@ -73,7 +79,6 @@ export default ({ community, refetch }) => {
   const { data: { communities = [] } = {} } = useQuery(GET_COMMUNITIES, {
     variables: { searchString: '' },
   })
-  console.log(community)
   return (
     <S.Community onClick={onCommunityClick}>
       <S.Logo src={community.image} />
