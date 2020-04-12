@@ -57,6 +57,7 @@ const CommunitiesPage = () => {
       pollInterval: 25000, // auto refetch after 20 sec
     }
   )
+  communities.sort((a, b) => a.isFollowed < b.isFollowed)
   return (
     <S.Container>
       <S.CommunitiesWrapper>
@@ -79,7 +80,6 @@ const CommunitiesPage = () => {
           </S.Actions>
         </S.Header>
         <CommunitiesList
-          refetch={refetch}
           communities={communities}
           searchString={searchString}
         />

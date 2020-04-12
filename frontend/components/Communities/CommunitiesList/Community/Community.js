@@ -2,7 +2,10 @@ import { useRouter } from 'next/router'
 import { useContext, useState } from 'react'
 import { UserContext } from 'context/UserContext'
 import { useMutation, useQuery } from '@apollo/react-hooks'
-import { GET_COMMUNITIES } from '../../../../apis/Community'
+import {
+  GET_COMMUNITIES_CLIENT,
+  GET_COMMUNITIES,
+} from '../../../../apis/Community'
 
 import { COMPANY_NAME } from 'utils/config'
 import {
@@ -14,21 +17,19 @@ import {
 import Checkbox from 'components/UI/Checkbox/CommunityCheckbox'
 import * as S from './Community.styled'
 
-export default ({ community, refetch }) => {
+export default ({ community }) => {
   const router = useRouter()
   const { user } = useContext(UserContext)
 
   const [followCommunity] = useMutation(FOLLOW_COMMUNITY, {
     update(cache, { data: { followCommunity: community } }) {
-      const { communities } = cache.readQuery({ query: GET_COMMUNITIES })
       const fragment = CommunityFragment
       const cachedCommunity = cache.readFragment({
         fragment,
         __typename: 'Community',
       })
       const updatedCommunity = { ...cachedCommunity }
-      cache.writeFragment({ fragment, updatedCommunity })
-      return console.log(updatedCommunity)
+      return cache.writeFragment({ fragment, updatedCommunity })
 
       // MANUALLY UPDATE THE STATE, TRY AND RESOLVE
       // https://www.apollographql.com/docs/link/links/state/#updating-the-cache
@@ -44,15 +45,14 @@ export default ({ community, refetch }) => {
   })
   const [unfollowCommunity] = useMutation(UNFOLLOW_COMMUNITY, {
     update(cache, { data: { unfollowCommunity: community } }) {
-      const { communities } = cache.readQuery({ query: GET_COMMUNITIES })
       const fragment = CommunityFragment
       const cachedCommunity = cache.readFragment({
         fragment,
         __typename: 'Community',
       })
       const updatedCommunity = { ...cachedCommunity }
-      cache.writeFragment({ fragment, updatedCommunity })
-      return console.log(updatedCommunity)
+
+      return cache.writeFragment({ fragment, updatedCommunity })
     },
   })
 
@@ -92,7 +92,6 @@ export default ({ community, refetch }) => {
           checked={community.isFollowed}
           onClick={async () => {
             await onFollow(community.url, community.isFollowed)
-            return refetch()
           }}
         />
       )}
