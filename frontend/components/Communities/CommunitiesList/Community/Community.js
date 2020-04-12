@@ -1,7 +1,8 @@
 import { useRouter } from 'next/router'
 import { useContext, useState } from 'react'
 import { UserContext } from 'context/UserContext'
-import { useMutation } from '@apollo/react-hooks'
+import { useMutation, useQuery } from '@apollo/react-hooks'
+import { GET_COMMUNITIES } from '../../../../apis/Community'
 
 import { COMPANY_NAME } from 'utils/config'
 import { FOLLOW_COMMUNITY, UNFOLLOW_COMMUNITY } from 'apis/Community'
@@ -9,27 +10,24 @@ import { FOLLOW_COMMUNITY, UNFOLLOW_COMMUNITY } from 'apis/Community'
 import Checkbox from 'components/UI/Checkbox/CommunityCheckbox'
 import * as S from './Community.styled'
 
-export default ({ community }) => {
+export default ({ community, refetch }) => {
   const router = useRouter()
   const { user } = useContext(UserContext)
   const [followCommunity] = useMutation(FOLLOW_COMMUNITY)
   const [unfollowCommunity] = useMutation(UNFOLLOW_COMMUNITY)
 
-  const [isFollowing, setFollowing] = useState(true)
+  // const [isFollowing, setFollowing] = useState(true)
   // const isFollowing = user
   //   ? community.members.map(c => c.id).indexOf(user.id) > -1
   //   : true
 
-  const onFollow = async (url) => {
-    console.log('USER IS FOLLOWING: ', isFollowing)
-    if (isFollowing) {
-      setFollowing(false)
-      await unfollowCommunity({ variables: { url } })
+  const onFollow = async (url, isFollowed) => {
+    if (isFollowed === true) {
+      unfollowCommunity({ variables: { url } })
     } else {
-      setFollowing(true)
-      await followCommunity({ variables: { url } })
+      followCommunity({ variables: { url } })
     }
-    // getMe();
+    return
   }
 
   const onCommunityClick = (e) => {
@@ -43,7 +41,10 @@ export default ({ community }) => {
       )
     }
   }
-
+  const { data: { communities = [] } = {} } = useQuery(GET_COMMUNITIES, {
+    variables: { searchString: '' },
+  })
+  console.log(community)
   return (
     <S.Community onClick={onCommunityClick}>
       <S.Logo src={community.image} />
@@ -54,9 +55,10 @@ export default ({ community }) => {
       {user && (
         <Checkbox
           id={community.id}
-          checked={isFollowing}
-          onClick={() => {
-            return onFollow(community.url)
+          checked={community.isFollowed}
+          onClick={async () => {
+            await onFollow(community.url, community.isFollowed)
+            return refetch()
           }}
         />
       )}

@@ -272,9 +272,7 @@ export const permissions = shield({
     // Community Queries
     // To Do:
     // Split on public and Private or make 1 resolver that will handle both
-    communities: isAuthenticatedUser,
-    publicCommunities: anyUser,
-
+    communities: anyUser,
     // users: isAuthenticatedUser,
     // channels: anyUser,
     // channel: anyUser,

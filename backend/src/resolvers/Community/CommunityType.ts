@@ -13,7 +13,7 @@ export const Community = objectType({
     t.model.description()
     t.model.author()
     t.model.members({ pagination: false })
-    t.string('isFollowed', {
+    t.boolean('isFollowed', {
       async resolve(_parent, _args, ctx) {
         const userId = await getUserId(ctx)
         const userFollowed = await ctx.prisma.community.findMany({

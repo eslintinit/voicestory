@@ -6,15 +6,19 @@ import Community from './Community'
 import * as S from './CommunitiesList.styled'
 import { GET_COMMUNITIES } from '../../../apis/Community'
 
-const CommunitiesList = ({ searchString }) => {
-  const { data: { communities = [] } = {} } = useQuery(GET_COMMUNITIES, {
-    variables: { searchString },
-  })
+const CommunitiesList = ({ communities, refetch, searchString }) => {
+  // const { data: { communities = [] } = {}, refetch } = useQuery(
+  //   GET_COMMUNITIES,
+  //   {
+  //     variables: { searchString },
+  //     pollInterval: 25000, // auto refetch after 20 sec
+  //   }
+  // )
 
   return (
     <S.CommunitiesList>
       {communities.map((community) => (
-        <Community community={community} key={community.id} />
+        <Community refetch={refetch} community={community} key={community.id} />
       ))}
     </S.CommunitiesList>
   )
