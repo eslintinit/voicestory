@@ -19,6 +19,15 @@ export const GET_COMMUNITIES = gql`
   ${CommunityFragment}
 `
 
+export const GET_COMMUNITIES_CLIENT = gql`
+  query communities {
+    communities {
+      CommunityFragment @client
+    }
+  }
+  ${CommunityFragment}
+`
+
 export const GET_COMMUNITY = gql`
   query community($url: String) {
     community(url: $url) {
