@@ -78,6 +78,8 @@ const Tab = ({ community, active, nextActive, index, numberOfCommunities }) => {
       }
       position="right top"
       on="hover"
+      mouseLeaveDelay={300}
+      mouseEnterDelay={700}
     >
       <Card community={community} />
     </Popup>
