@@ -31,22 +31,11 @@ export const sendMessage = mutationField('sendMessage', {
           },
           author: { connect: { id: userId } },
         },
-        /* author: { connect: { id: userId } }, */
-        /* include: { */
-        /*   channel: true, */
-        /* } */
+        include: { channel: true },
       })
-      /* await ctx.pubsub.publish('NEW_MESSAGE', { */
-      /*   newMessage: message, */
-      /*   tenant: getTenant(ctx) */
-      /* }) */
-
-      /* await ctx.pubsub.publish('CHANNEL_NEW_MESSAGE', { */
-      /*   channelNewMessage: { */
-      /*     ...message.channel, */
-      /*   }, */
-      /*   tenant: getTenant(ctx) */
-      /* }) */
+      await ctx.pubsub.publish('NEW_MESSAGE', {
+        newMessage: message,
+      })
 
       return message
     } catch (error) {

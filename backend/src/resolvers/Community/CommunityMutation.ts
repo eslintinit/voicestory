@@ -19,7 +19,7 @@ export const createCommunity = mutationField('createCommunity', {
         url,
         image,
         description,
-        isPrivate,
+        /* isPrivate, */
         /* author: { connect: { id: userId } }, */
         /* members: { connect: { id: userId } }, */
       },

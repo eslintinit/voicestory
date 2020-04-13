@@ -20,7 +20,7 @@ import { Message } from './Message/MessageType'
 export const resolvers = {
   Query,
   Mutation,
-  /* Subscription, */
+  Subscription,
 
   User,
   AuthPayload,
