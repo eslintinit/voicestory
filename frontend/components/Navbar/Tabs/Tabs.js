@@ -56,6 +56,7 @@ const Tabs = () => {
               index={index}
               key={community.id}
               nextActive={nextActive}
+              fistCommunity={followedCommunities.length !== 0 ? followedCommunities[0].url: ""}
               numberOfCommunities={followedCommunities.length}
             />
           )

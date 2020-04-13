@@ -17,7 +17,7 @@ const Card = ({ name }) => (
     </div>
   </div>
 )
-const Tab = ({ community, active, nextActive, index, numberOfCommunities }) => {
+const Tab = ({ community, active, nextActive, index, numberOfCommunities, fistCommunity }) => {
   const router = useRouter()
   const { community: selectedCommunity } = router.query
 
@@ -25,7 +25,7 @@ const Tab = ({ community, active, nextActive, index, numberOfCommunities }) => {
     if (community.url !== selectedCommunity)
       router.push(
         '/[company]/[community]/[channel]',
-        `/${COMPANY_NAME()}/${community.url}/general`,
+        `/${COMPANY_NAME()}/${fistCommunity}/general`,
         { shallow: true }
       )
   }
@@ -41,6 +41,11 @@ const Tab = ({ community, active, nextActive, index, numberOfCommunities }) => {
         __typename: 'Community',
       })
       const updatedCommunity = { ...cachedCommunity }
+      router.push(
+        '/[company]/[community]/[channel]',
+        `/${COMPANY_NAME()}/${fistCommunity.url}/general`,
+        { shallow: true }
+      )
 
       return cache.writeFragment({ fragment, updatedCommunity })
     },
