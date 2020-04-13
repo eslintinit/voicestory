@@ -42,9 +42,8 @@ export const Tab = styled.div`
   align-items: center;
   justify-content: center;
   width: ${(props) => {
-    let calculatedSize = 670 / props.numberOfCommunities
-    console.log(calculatedSize)
-    if (props.numberOfCommunities > 5) return calculatedSize + 'px'
+    const calculatedSize = 824 / props.numberOfCommunities
+    if (props.numberOfCommunities > 5) return `${calculatedSize}px`
     return '135px'
   }};
   height: 100%;

@@ -18,13 +18,11 @@ export default ({ channel, index, children }) => {
   } = useRouter()
 
   const onChangeChannel = () => {
-    if (channel.url !== `${communityUrl}/${channelUrl}`) {
+    if (channel.url !== channelUrl) {
       push(
         '/[company]/[community]/[channel]',
         `/${COMPANY_NAME()}/${communityUrl}/${channel.url}`,
-        {
-          shallow: true,
-        },
+        { shallow: true },
       )
     }
   }
