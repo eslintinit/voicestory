@@ -43,7 +43,7 @@ export default () => {
   return (
     <Landing>
       <WidgetIcon openWidget={openWidget} show={!widgetOpened} />
-      <Widget widgetUrl={widgetUrl} show={widgetOpened} />
+      <Widget widgetUrl={widgetUrl} opened={widgetOpened} />
     </Landing>
   )
 }

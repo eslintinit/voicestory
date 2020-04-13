@@ -22,6 +22,7 @@ const Tabs = () => {
       }
     },
   })
+  console.log(communities)
 
   return (
     <S.Tabs>

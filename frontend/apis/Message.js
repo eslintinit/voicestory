@@ -14,6 +14,17 @@ const MessageFragment = gql`
   }
 `
 
+const MessageUrlFragment = gql`
+  fragment MessageUrlFragment on Message {
+    channel {
+      url
+      community {
+        url
+      }
+    }
+  }
+`
+
 export const GET_MESSAGES = gql`
   query messages($communityUrl: String, $channelUrl: String) {
     messages(communityUrl: $communityUrl, channelUrl: $channelUrl) {
@@ -38,4 +49,16 @@ export const SEND_MESSAGE = gql`
     }
   }
   ${MessageFragment}
+`
+
+export const NEW_MESSAGE_SUBSCRIPTION = gql`
+  subscription newMessage($communityUrl: String!, $channelUrl: String!) {
+    newMessage(communityUrl: $communityUrl, channelUrl: $channelUrl) {
+      ...MessageFragment
+      ...MessageUrlFragment
+    }
+  }
+
+  ${MessageFragment}
+  ${MessageUrlFragment}
 `

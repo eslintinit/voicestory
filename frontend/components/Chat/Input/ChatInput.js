@@ -93,7 +93,9 @@ const ChatInput = () => {
         )}
       </S.Container>
 
+      {/*
       <DynamicTypingStatus />
+      */}
     </S.ChatInputWrapper>
   )
 }
