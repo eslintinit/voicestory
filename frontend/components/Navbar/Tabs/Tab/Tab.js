@@ -10,13 +10,11 @@ import * as S from './Tab.styled'
 import { UNFOLLOW_COMMUNITY, CommunityFragment } from 'apis/Community'
 
 import Popup from 'reactjs-popup'
-const Card = ({ community }) => (
+const Card = ({ name }) => (
   <div className="card">
     <div className="header">
-      <S.CommunityLogo src={community.image} />
-      {community.name}
+      {name}
     </div>
-    <div className="content">{community.description}</div>
   </div>
 )
 const Tab = ({ community, active, nextActive, index, numberOfCommunities }) => {
@@ -76,12 +74,14 @@ const Tab = ({ community, active, nextActive, index, numberOfCommunities }) => {
           </S.TabContent>
         </S.Tab>
       }
-      position="right top"
+      position="bottom center"
       on="hover"
       mouseLeaveDelay={300}
-      mouseEnterDelay={700}
+      arrow={false}
+
+      mouseEnterDelay={2500}
     >
-      <Card community={community} />
+      <Card name={community.name} />
     </Popup>
   )
 }
