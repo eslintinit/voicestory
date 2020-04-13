@@ -1,5 +1,5 @@
-import ContentLoader from 'react-content-loader';
-import { withTheme } from 'styled-components';
+import ContentLoader from 'react-content-loader'
+import { withTheme } from 'styled-components'
 
 export default withTheme(({ theme }) => (
   <ContentLoader
@@ -12,4 +12,4 @@ export default withTheme(({ theme }) => (
   >
     <rect x="0" y="0" rx="6" ry="6" width="36" height="36" />
   </ContentLoader>
-));
+))

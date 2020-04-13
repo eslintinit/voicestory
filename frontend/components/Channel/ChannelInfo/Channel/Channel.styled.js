@@ -1,10 +1,10 @@
-import styled from 'styled-components';
-import hashtag from 'public/icons/hashtag.svg';
-import hashtagWhite from 'public/icons/hashtag-white.svg';
+import styled from 'styled-components'
+import hashtag from 'public/icons/hashtag.svg'
+import hashtagWhite from 'public/icons/hashtag-white.svg'
 
 export const Container = styled.div`
   position: relative;
-`;
+`
 
 export const Header = styled.header`
   display: flex;
@@ -12,14 +12,14 @@ export const Header = styled.header`
   justify-content: flex-end;
   padding: 0 16px;
   margin-top: 30px;
-`;
+`
 
 export const HeaderTitle = styled.p`
   font-weight: 500;
   font-size: 17px;
   color: #111111;
   margin-right: auto;
-`;
+`
 
 export const List = styled.ul`
   font-weight: 500;
@@ -27,7 +27,7 @@ export const List = styled.ul`
   color: #1d1c1d;
   padding: 0 9px;
   margin-top: 20px;
-`;
+`
 
 export const ListItem = styled.li`
   position: relative;
@@ -42,12 +42,11 @@ export const ListItem = styled.li`
   cursor: pointer;
   color: #616061;
   user-select: none;
-  ${props =>
-      props.unread &&
-      `
+  ${(props) =>
+    props.unread &&
+    `
     color: #1d1c1d;
-  `}
-    :hover {
+  `} :hover {
     background: #ece6f5;
   }
   :active {
@@ -67,7 +66,7 @@ export const ListItem = styled.li`
     margin-bottom: 2px;
     margin-right: 13px;
   }
-  ${props =>
+  ${(props) =>
     props.active &&
     `
     background: #34378b;
@@ -80,7 +79,7 @@ export const ListItem = styled.li`
       color: #fff;
     }
   `}
-`;
+`
 
 export const UnreadCount = styled.em`
   height: 16px;
@@ -94,4 +93,4 @@ export const UnreadCount = styled.em`
   position: absolute;
   top: 8px;
   right: 8px;
-`;
+`

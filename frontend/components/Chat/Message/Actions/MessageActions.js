@@ -1,10 +1,17 @@
-import Reply from './Reply';
-import Reaction from './Reaction';
-import More from './More';
+import Reply from './Reply'
+import Reaction from './Reaction'
+import More from './More'
 
-import * as S from './MessageActions.styled';
+import * as S from './MessageActions.styled'
 
-const MessageActions = ({ onEdit, onReply, isThread, message, show, setShow }) => {
+const MessageActions = ({
+  onEdit,
+  onReply,
+  isThread,
+  message,
+  show,
+  setShow,
+}) => {
   return (
     <S.Actions show={show}>
       {!isThread && <Reply onReply={onReply} />}
@@ -17,7 +24,7 @@ const MessageActions = ({ onEdit, onReply, isThread, message, show, setShow }) =
         setShow={setShow}
       />
     </S.Actions>
-  );
-};
+  )
+}
 
-export default MessageActions;
+export default MessageActions

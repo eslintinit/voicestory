@@ -1,7 +1,7 @@
-import { ApolloLink } from 'apollo-link';
-import { ApolloClient } from 'apollo-client';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import { errorLink, requestLink, link, request } from './links';
+import { ApolloLink } from 'apollo-link'
+import { ApolloClient } from 'apollo-client'
+import { InMemoryCache } from 'apollo-cache-inmemory'
+import { errorLink, requestLink, link, request } from './links'
 
 export default function createApolloClient(initialState, ctx) {
   // The `ctx` (NextPageContext) will only be present on the server.
@@ -16,5 +16,5 @@ export default function createApolloClient(initialState, ctx) {
     ]),
     request,
     cache: new InMemoryCache().restore(initialState),
-  });
+  })
 }

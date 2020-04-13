@@ -1,72 +1,56 @@
-/* eslint-disable no-underscore-dangle */
-import { Fragment, useEffect, useState, useRef } from 'react'
+import { useEffect, useRef, Fragment } from 'react'
+import { useRouter } from 'next/router'
+import { useQuery } from '@apollo/react-hooks'
 import { groupBy } from 'lodash'
 import moment from 'moment'
+
+import { GET_MESSAGES, NEW_MESSAGE_SUBSCRIPTION } from 'apis/Message'
+
 import Message from 'components/Chat/Message/Message'
-import UnreadLabel from 'components/UI/UnreadLabel'
 import ChatBodyPlaceholder, { ChatBodyEmpty } from './ChatBodyPlaceholder'
+
 import * as S from './ChatBody.styled'
 
-const ChatBody = ({
-  onThreadOpen,
-  messages,
-  onEdit,
-  loading,
-  unreadCount,
-  scrollMessageId,
-  onReachTopEnd,
-  isFirstMessageReached,
-  onReachBottomEnd,
-  isLastMessageReached,
-  lastReadTime,
-  unreadMessagesNumber,
-  userId,
-}) => {
-  const scrollView = useRef(null)
-  const scrollMessage = useRef(null)
-  const [isFirstLoad, setFirstLoad] = useState(true)
-  const [prevChatHeight, setPrevChatHeight] = useState(0)
-  const [isFetching, setFetching] = useState(true)
-  const [isUnreadLabelVisible, setUnreadLabel] = useState(true)
+const ChatBody = () => {
+  const router = useRouter()
+  const { community: communityUrl, channel: channelUrl } = router.query
 
-  const closeUnreadLabel = () => {
-    setUnreadLabel(false)
-  }
+  const chatRef = useRef(null)
+  const chatEndRef = useRef(null)
 
-  const scrollToLastMessage = () => {
-    const chat = scrollView.current && scrollView.current._container
+  const { subscribeToMore, data: { messages = [] } = {}, loading } = useQuery(
+    GET_MESSAGES,
+    {
+      variables: {
+        communityUrl,
+        channelUrl,
+      },
+    },
+  )
 
-    chat.scrollTop = chat.scrollHeight
-  }
-
-  const scrollToMessage = messageRef => {
-    if (!messageRef.current) return
-
-    scrollView.current._container.scrollTop = messageRef.current.offsetTop - 20
-  }
+  // https://spectrum.chat/apollo/apollo-client/unsubscribe-subscribetomore~b7f64715-1a65-40d5-9147-5a6300de4e30
+  useEffect(
+    () =>
+      subscribeToMore({
+        document: NEW_MESSAGE_SUBSCRIPTION,
+        variables: {
+          communityUrl,
+          channelUrl,
+        },
+        updateQuery: (
+          { messages: oldMessages = [] },
+          { subscriptionData: { data: { newMessage } = {} } = {} },
+        ) => ({
+          messages: [...oldMessages, newMessage],
+        }),
+      }),
+    [communityUrl, channelUrl],
+  )
 
   useEffect(() => {
-    const chat = scrollView.current && scrollView.current._container
-
-    if (chat) {
-      const isScrolled = prevChatHeight !== chat.scrollTop + chat.offsetHeight
-
-      setPrevChatHeight(chat.scrollHeight)
-      if (
-        (!isFirstLoad && !isScrolled) ||
-        (!scrollMessageId && !unreadMessagesNumber)
-      ) {
-        scrollToLastMessage()
-        setFetching(false)
-      } else {
-        if (!isFirstLoad) return
-        setTimeout(() => {
-          scrollToMessage(scrollMessage)
-          setFetching(false)
-        }, 200)
-      }
-
-      setFirstLoad(false)
+    if (chatEndRef && chatEndRef.current) {
+      // TODO: only trigger if chat was scrolled down to the bottom
+      chatEndRef.current.scrollIntoView()
     }
   }, [messages.length])
 
@@ -78,142 +62,34 @@ const ChatBody = ({
     return <ChatBodyEmpty />
   }
 
-  const messagesByDay = groupBy(messages, date =>
-    moment(date)
-      .startOf('day')
-      .format()
+  const messagesByDay = groupBy(messages, (date) =>
+    moment(date).startOf('day').format(),
   )
 
-  const handleReachTop = async container => {
-    if (isFetching || isFirstLoad || isFirstMessageReached) return
-
-    const prevHeight = container.scrollHeight
-    setFetching(true)
-    const resultArray = await onReachTopEnd()
-    const afterHeight = container.scrollHeight
-
-    const scrollTop = afterHeight - prevHeight
-
-    if (scrollTop && resultArray.length) {
-      scrollView.current._container.scrollTop = scrollTop
-    }
-    setFetching(false)
-  }
-
-  const handleReachBottom = async container => {
-    if (isFetching || isLastMessageReached) return
-
-    const prevHeight = container.scrollTop
-    setFetching(true)
-    const resultArray = await onReachBottomEnd()
-
-    if (resultArray.length) {
-      scrollView.current._container.scrollTop = prevHeight
-    }
-
-    setFetching(false)
-  }
-
-  const handleScrollUp = container => {
-    if (container.scrollTop < 400) {
-      handleReachTop(container)
-    }
-  }
-
-  const handleScrollDown = container => {
-    if (
-      container.scrollHeight - (container.scrollTop + container.offsetHeight) <
-      400
-    ) {
-      handleReachBottom(container)
-    }
-  }
-
   return (
-    <>
-      <S.Container
-        ref={scrollView}
-        onYReachStart={handleReachTop}
-        onYReachEnd={handleReachBottom}
-        onScrollUp={handleScrollUp}
-        onScrollDown={handleScrollDown}
-        options={{
-          suppressScrollX: true,
-        }}
-      >
-        {Object.entries(messagesByDay).map(([date, messagesList]) => {
-          return (
-            <Fragment key={date}>
-              <S.Date date={date}>
-                <S.DateText>{moment(date).format('dddd, MMM Do')}</S.DateText>
-              </S.Date>
-              {messagesList.map((message, index, list) => {
-                const isAuthor = userId === message.author.id
-                const previousMessage = list[index - 1]
-                const nextMessage = list[index + 1]
+    <S.Container ref={chatRef}>
+      {Object.entries(messagesByDay).map(([date, messagesList]) => {
+        return (
+          <Fragment key={date}>
+            <S.Date date={date}>
+              <S.DateText>{moment(date).format('dddd, MMM Do')}</S.DateText>
+            </S.Date>
+            {messagesList.map((message, index, list) => {
+              const previousMessage = list[index - 1]
 
-                const isChild =
-                  previousMessage &&
-                  previousMessage.author.username === message.author.username
+              const isChild =
+                previousMessage &&
+                previousMessage.author.username === message.author.username
 
-                const isNextChild =
-                  nextMessage &&
-                  nextMessage.author.username === message.author.username
-
-                const isDirectLink = scrollMessageId === message.id
-                const isLastReadedMessage =
-                  new Date(message.createdAt).getTime() ===
-                  new Date(lastReadTime).getTime()
-                const isNewMessage =
-                  userId &&
-                  !isAuthor &&
-                  new Date(lastReadTime).getTime() <
-                    new Date(message.createdAt).getTime()
-
-                return (
-                  <Fragment key={message.id}>
-                    {index === list.length - unreadCount && (
-                      <S.NewMessage>
-                        <S.NewMessageText>new messages</S.NewMessageText>
-                      </S.NewMessage>
-                    )}
-                    {isDirectLink ||
-                    (!scrollMessageId && isLastReadedMessage) ? (
-                      <Message
-                        message={message}
-                        isChild={isChild}
-                        onEdit={onEdit}
-                        onThreadOpen={onThreadOpen}
-                        unread={isNewMessage}
-                        ref={scrollMessage}
-                      />
-                    ) : (
-                      <Message
-                        message={message}
-                        isChild={isChild}
-                        isFirstMessage={!isChild && isNextChild}
-                        onEdit={onEdit}
-                        onThreadOpen={onThreadOpen}
-                        unread={isNewMessage}
-                      />
-                    )}
-                  </Fragment>
-                )
-              })}
-            </Fragment>
-          )
-        })}
-      </S.Container>
-      {!!unreadMessagesNumber && isUnreadLabelVisible && (
-        <UnreadLabel
-          unreadMessagesNumber={unreadMessagesNumber}
-          onScroll={scrollToLastMessage}
-          onClose={closeUnreadLabel}
-        />
-      )}
-      {/*
-       */}
-    </>
+              return (
+                <Message message={message} isChild={isChild} key={message.id} />
+              )
+            })}
+          </Fragment>
+        )
+      })}
+      <div ref={chatEndRef} id="vs-chat-end" alt="Dummy" />
+    </S.Container>
   )
 }
 

@@ -1,86 +1,65 @@
-import { useContext } from 'react'
-import { useMutation } from '@apollo/react-hooks'
+import { useState, useContext } from 'react'
 import { UserContext } from 'context/UserContext'
+import { useRouter } from 'next/router'
+import { useEscapeToClose } from 'hooks'
+import { useMutation } from '@apollo/react-hooks'
+import useSound from 'use-sound'
 import dynamic from 'next/dynamic'
-import cuid from 'cuid'
-import { SEND_MESSAGE, GET_LAST_MESSAGES } from 'apis/Message'
+
+import { SEND_MESSAGE } from 'apis/Message'
+import { COMPANY_NAME } from 'utils/config'
+
 import plusIcon from 'public/icons/plus.svg'
-import InputComponent from './InputComponent'
 import * as S from './ChatInput.styled'
 
 const DynamicTypingStatus = dynamic(
   () => import('./TypingStatus/TypingStatus'),
-  { ssr: false }
+  { ssr: false },
 )
 
-const ChatInput = ({ dropzoneItems }) => {
+const ChatInput = () => {
+  const {
+    query: { channel: channelUrl, community: communityUrl },
+    push,
+  } = useRouter()
+
   const [sendMessage] = useMutation(SEND_MESSAGE)
-  const { user } = useContext(UserContext)
 
-  const handleSendMessage = async ({
-    body,
-    channelUrl,
-    communityUrl,
-    mentions,
-    attachments,
-    urlList,
-  }) => {
-    const message = {
-      body,
-      attachments,
-      channelUrl: `${communityUrl}/${channelUrl}`,
-      urlList,
-      mentions: mentions ? mentions.map(e => e.id) : [],
-      communityUrl,
-    }
+  useEscapeToClose(() => document.getElementById('vs-input').blur())
 
-    await sendMessage({
-      variables: message,
-      optimisticResponse: {
-        __typename: 'Mutation',
-        sendMessage: {
-          __typename: 'Message',
-          ...message,
-          id: cuid(),
-          createdAt: new Date(),
-          updatedAt: new Date(),
-          attachments: [],
-          remoteAttachments: [],
-          children: [],
-          reactions: [],
-          author: user,
+  const [body, setBody] = useState('')
+  const { user: loggedUser } = useContext(UserContext)
+
+  // const [playSoundSendMessage] = useSound('/sounds/click_snap_lo.mp3')
+
+  const onSendMessage = () => {
+    if (!loggedUser) {
+      push(`/[company]/login`, `/${COMPANY_NAME()}/login`, {
+        shallow: true,
+      })
+    } else if (body !== '') {
+      // playSoundSendMessage()
+      sendMessage({
+        variables: {
+          body,
+          communityUrl,
+          channelUrl,
         },
-      },
-      update: (proxy, { data: { sendMessage: sendMessageData } }) => {
-        const data = proxy.readQuery({
-          query: GET_LAST_MESSAGES,
-          variables: {
-            channelUrl: `${communityUrl}/${channelUrl}`,
-          },
-        })
+      })
+      setBody('')
+    }
+  }
 
-        let messagesData = { ...data }
-        if (
-          data.messages.filter(message => message.id === sendMessageData.id)
-            .length === 0
-        ) {
-          messagesData = {
-            ...data,
-            messages: [...data.messages, sendMessageData],
-          }
-        }
+  const onKeyDown = (e) => {
+    // Sending message
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault()
+      onSendMessage()
+    }
+  }
 
-        proxy.writeQuery({
-          query: GET_LAST_MESSAGES,
-          data: messagesData,
-          variables: {
-            channelUrl: `${communityUrl}/${channelUrl}`,
-          },
-        })
-      },
-    })
-
-    return true
+  const onChange = (e) => {
+    setBody(e.target.value)
   }
 
   return (
@@ -90,11 +69,33 @@ const ChatInput = ({ dropzoneItems }) => {
           <use xlinkHref={`${plusIcon}#icon-plus`} />
         </S.PlusIcon>
       </S.AddButton>
-      <InputComponent
-        onSendMessage={handleSendMessage}
-        dropzoneItems={dropzoneItems}
-      />
+
+      <S.Container>
+        <S.InputWrapper>
+          <S.Input value={body} onChange={onChange} onKeyDown={onKeyDown} />
+        </S.InputWrapper>
+
+        {loggedUser ? (
+          body !== '' && (
+            <S.SendButton onClick={onSendMessage}>Send</S.SendButton>
+          )
+        ) : (
+          <S.SendButton
+            style={{ padding: '0 16px', width: 'auto' }}
+            onClick={() =>
+              push(`/[company]/login`, `/${COMPANY_NAME()}/login`, {
+                shallow: true,
+              })
+            }
+          >
+            Login
+          </S.SendButton>
+        )}
+      </S.Container>
+
+      {/*
       <DynamicTypingStatus />
+      */}
     </S.ChatInputWrapper>
   )
 }

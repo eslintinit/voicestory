@@ -1,7 +1,8 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
-// eslint-disable-next-line
-export const WidgetIframe = styled.iframe`
+export const WidgetIframe = styled.iframe.attrs({
+  id: 'vs-iframe',
+})`
   width: 960px;
   height: 640px;
   right: 40px;
@@ -11,7 +12,7 @@ export const WidgetIframe = styled.iframe`
   flex-direction: column;
   align-items: flex-start;
 
-  background: ${props => props.theme.chatBG};
+  background: ${(props) => props.theme.chatBG};
   border: none;
   position: fixed;
   transform: scale(0);
@@ -25,12 +26,12 @@ export const WidgetIframe = styled.iframe`
   visibility: hidden;
   z-index: -3;
 
-  ${props =>
-    props.active &&
+  ${(props) =>
+    props.opened &&
     `
     opacity: 1;
     visibility: visible;
     z-index: 3;
     transform: scale(1);
   `}
-`;
+`

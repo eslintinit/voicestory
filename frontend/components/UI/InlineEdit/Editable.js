@@ -1,5 +1,5 @@
 // https://blog.logrocket.com/the-complete-guide-to-building-inline-editable-ui-in-react/
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
 
 const Editable = ({
   text,
@@ -11,34 +11,34 @@ const Editable = ({
   canEdit = true,
   ...props
 }) => {
-  const [isEditing, setEditing] = useState(false);
+  const [isEditing, setEditing] = useState(false)
 
   useEffect(() => {
     if (childRef && childRef.current && isEditing === true) {
-      childRef.current.focus();
+      childRef.current.focus()
     }
-  }, [isEditing, childRef]);
+  }, [isEditing, childRef])
 
   const handleKeyDown = (event, type) => {
-    const { key } = event;
-    const keys = ['Escape', 'Tab'];
-    const enterKey = 'Enter';
-    const allKeys = [...keys, enterKey];
+    const { key } = event
+    const keys = ['Escape', 'Tab']
+    const enterKey = 'Enter'
+    const allKeys = [...keys, enterKey]
     if (type !== 'textarea' && allKeys.indexOf(key) > -1) {
-      onSave();
-      setEditing(false);
+      onSave()
+      setEditing(false)
     }
-  };
+  }
 
   return (
     <section {...props}>
       {isEditing ? (
         <div
           onBlur={() => {
-            onSave();
-            setEditing(false);
+            onSave()
+            setEditing(false)
           }}
-          onKeyDown={e => handleKeyDown(e, type)}
+          onKeyDown={(e) => handleKeyDown(e, type)}
         >
           {children}
         </div>
@@ -48,7 +48,7 @@ const Editable = ({
         </div>
       )}
     </section>
-  );
-};
+  )
+}
 
-export default Editable;
+export default Editable

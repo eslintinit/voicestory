@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 export const SearchPanel = styled.div`
   position: absolute;
@@ -18,13 +18,13 @@ export const SearchPanel = styled.div`
   opacity: 0;
   width: 0%;
 
-  ${props =>
+  ${(props) =>
     props.show &&
     `
     opacity: 1;
     width: 100%;
   `}
-`;
+`
 export const SearchInput = styled.input.attrs({
   type: 'text',
 })`
@@ -39,7 +39,7 @@ export const SearchInput = styled.input.attrs({
   ::placeholder {
     color: #f2f7ff;
   }
-`;
+`
 export const CloseWrapper = styled.button.attrs({
   type: 'button',
 })`
@@ -49,9 +49,9 @@ export const CloseWrapper = styled.button.attrs({
   background: none;
   outline: none;
   box-shadow: none;
-`;
+`
 export const CloseIcon = styled.svg`
   fill: #fff;
   width: 14px;
   height: 14px;
-`;
+`

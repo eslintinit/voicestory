@@ -38,7 +38,6 @@ const CreateCommunity = () => {
     description: '',
     image: '',
     url: '',
-    isPrivate: false,
   }
 
   const validationSchema = yup.object().shape({
@@ -55,7 +54,7 @@ const CreateCommunity = () => {
     // image: yup.string().required('Image is required'),
   })
 
-  const handleImageInput = async e => {
+  const handleImageInput = async (e) => {
     if (e.target.validity.valid) {
       const file = e.target.files[0]
 

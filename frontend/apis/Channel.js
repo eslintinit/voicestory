@@ -1,100 +1,89 @@
-import gql from 'graphql-tag';
+import gql from 'graphql-tag'
 
-export const GET_CHANNEL_NOTIFICATIONS = gql`
-  query channelNotifications($channelUrl: String!) {
-    channelNotifications(channelUrl: $channelUrl) {
-      id
+const ChannelFragment = gql`
+  fragment ChannelFragment on Channel {
+    id
+    name
+    description
+    url
+    community {
+      url
     }
   }
-`;
+`
 
-export const MARK_CHANNEL_NOTIFICATIONS_AS_READ = gql`
-  mutation markChannelNotificationsAsRead($channelUrl: String!) {
-    markChannelNotificationsAsRead(channelUrl: $channelUrl) {
-      id
+const ChannelMembersFragment = gql`
+  fragment ChannelMembersFragment on Channel {
+    community {
+      members {
+        id
+        image
+        username
+        fullname
+      }
     }
   }
-`;
+`
 
 export const GET_CHANNELS = gql`
   query channels($communityUrl: String!) {
-    channels(communityUrl: $communityUrl) {
-      id
-      name
-      url
-      community {
-        members {
-          username
-        }
-      }
+    channels(
+      where: { communityUrl: { equals: $communityUrl } }
+      orderBy: { createdAt: asc }
+    ) {
+      ...ChannelFragment
+      ...ChannelMembersFragment
     }
   }
-`;
-
-export const GET_CHANNEL = gql`
-  query channel($url: String) {
-    channel(url: $url) {
-      id
-      name
-      url
-      description
-      community {
-        members {
-          username
-        }
-      }
-    }
-  }
-`;
+  ${ChannelFragment}
+  ${ChannelMembersFragment}
+`
 
 export const CREATE_CHANNEL = gql`
   mutation createChannel(
     $name: String!
     $description: String
     $url: String!
-    $isPrivate: Boolean
     $communityUrl: String!
   ) {
     createChannel(
-      name: $name
-      description: $description
-      url: $url
-      isPrivate: $isPrivate
-      communityUrl: $communityUrl
+      data: {
+        name: $name
+        description: $description
+        url: $url
+        community: { connect: { url: $communityUrl } }
+      }
+    ) {
+      id
+    }
+  }
+`
+
+export const UPDATE_CHANNEL = gql`
+  mutation updateChannel(
+    $description: String
+    $url: String!
+    $communityUrl: String!
+  ) {
+    updateChannel(
+      where: { communityUrl_url: { communityUrl: $communityUrl, url: $url } }
+      data: { description: $description }
     ) {
       id
       name
-      url
+      description
     }
   }
-`;
+`
 
-export const EDIT_CHANNEL = gql`
-  mutation editChannel($channelId: String!, $name: String!, $description: String) {
-    editChannel(channelId: $channelId, name: $name, description: $description) {
+export const DELETE_CHANNEL = gql`
+  mutation deleteChannel($url: String!, $communityUrl: String!) {
+    deleteChannel(
+      where: { communityUrl_url: { communityUrl: $communityUrl, url: $url } }
+    ) {
       id
       name
       description
-      url
     }
   }
-`;
-
-export const NEW_CHANNEL_MESSAGE_SUBSCRIPTION = gql`
-  subscription channelNewMessage($communityUrl: String, $tenant: String) {
-    channelNewMessage(communityUrl: $communityUrl, tenant: $tenant) {
-      id
-      name
-      url
-    }
-  }
-`;
-
-export const GET_PRIVATE_CHANNELS = gql`
-  query privateChannels {
-    privateChannels {
-      id
-      url
-    }
-  }
-`;
+`

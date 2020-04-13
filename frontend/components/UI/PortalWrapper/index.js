@@ -1,3 +1,3 @@
-import PortalWrapper from './PortalWrapper';
+import PortalWrapper from './PortalWrapper'
 
-export default PortalWrapper;
+export default PortalWrapper

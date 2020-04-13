@@ -1,3 +1,3 @@
-import MoreMenu from './MoreMenu';
+import MoreMenu from './MoreMenu'
 
-export default MoreMenu;
+export default MoreMenu

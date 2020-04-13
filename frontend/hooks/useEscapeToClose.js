@@ -1,16 +1,16 @@
-import { useEffect } from 'react';
+import { useEffect } from 'react'
 
 export default function useEscapeToClose(onClose) {
   useEffect(() => {
     function handleKeyDown(e) {
       if (e.keyCode === 27) {
-        onClose();
+        onClose()
       }
     }
-    document.addEventListener('keydown', handleKeyDown);
+    document.addEventListener('keydown', handleKeyDown)
 
     return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [onClose]);
+      document.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [onClose])
 }

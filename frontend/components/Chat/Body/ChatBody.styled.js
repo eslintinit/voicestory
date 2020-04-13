@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import PerfectScrollbar from 'react-perfect-scrollbar';
-import chatEmpty from 'public/images/fox.png';
+import styled from 'styled-components'
+import PerfectScrollbar from 'react-perfect-scrollbar'
+import chatEmpty from 'public/images/fox.png'
 
 export const Container = styled(PerfectScrollbar).attrs({
   id: 'vs-chat',
@@ -14,7 +14,7 @@ export const Container = styled(PerfectScrollbar).attrs({
       opacity: 1;
     }
   }
-`;
+`
 
 export const Date = styled.div`
   text-align: center;
@@ -24,15 +24,15 @@ export const Date = styled.div`
   margin-bottom: 20px;
   height: 19px;
   width: 929px;
-`;
+`
 
 export const DateText = styled.span`
   font-weight: 500;
   font-size: 13px;
-  color: ${props => props.theme.chatDate};
+  color: ${(props) => props.theme.chatDate};
   text-align: center;
   position: relative;
-`;
+`
 
 export const NewMessage = styled.div`
   text-align: center;
@@ -49,7 +49,7 @@ export const NewMessage = styled.div`
     top: 10px;
     z-index: -1;
   }
-`;
+`
 
 export const NewMessageText = styled.span`
   display: inline-block;
@@ -59,7 +59,7 @@ export const NewMessageText = styled.span`
   line-height: 17px;
   background: #fff;
   padding: 0 7px;
-`;
+`
 
 export const ChatEmptyContainer = styled.div`
   height: calc(100% - 140px);
@@ -69,14 +69,14 @@ export const ChatEmptyContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-`;
+`
 
 export const ChatEmptyImage = styled.img.attrs({
   alt: 'Empty',
   src: chatEmpty,
 })`
   user-select: none;
-`;
+`
 
 export const ChatEmptyText = styled.p`
   margin-top: 20px;
@@ -84,5 +84,5 @@ export const ChatEmptyText = styled.p`
   color: #131313;
   font-size: 15px;
   font-weight: 400;
-  color: ${props => props.theme.chatText};
-`;
+  color: ${(props) => props.theme.chatText};
+`

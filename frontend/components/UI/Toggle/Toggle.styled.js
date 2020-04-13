@@ -1,9 +1,9 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 export const ToggleLabel = styled.label`
   width: 54px;
   border-radius: 27px;
-  background: ${props => props.theme.checkboxBG};
+  background: ${(props) => props.theme.checkboxBG};
   cursor: pointer;
   &::after {
     content: '';
@@ -12,7 +12,7 @@ export const ToggleLabel = styled.label`
     height: 20px;
     width: 20px;
     margin: 5px;
-    background: ${props => props.theme.checkboxCircleBG};
+    background: ${(props) => props.theme.checkboxCircleBG};
     transition: 0.5s;
 
     align-items: center;
@@ -20,7 +20,7 @@ export const ToggleLabel = styled.label`
     padding: 0 5px;
     box-sizing: border-box;
   }
-`;
+`
 
 export const Toggle = styled.input`
   opacity: 0;
@@ -41,4 +41,4 @@ export const Toggle = styled.input`
       position: relative;
     }
   }
-`;
+`

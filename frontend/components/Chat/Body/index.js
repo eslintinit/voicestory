@@ -1,3 +1,3 @@
-import ChatBody from './ChatBody';
+import ChatBody from './ChatBody'
 
-export default ChatBody;
+export default ChatBody

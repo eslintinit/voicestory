@@ -1,6 +1,6 @@
-import { useModal, useKeyboardShortcut } from 'hooks';
-import SearchModal from 'components/UI/Modals/SearchModal';
-import { SearchIcon } from 'components/UI/Icons';
+import { useModal, useKeyboardShortcut } from 'hooks'
+import SearchModal from 'components/UI/Modals/SearchModal'
+import { SearchIcon } from 'components/UI/Icons'
 
 const Search = () => {
   const {
@@ -8,18 +8,22 @@ const Search = () => {
     toggle: toggleSearch,
     hide: hideSearch,
     show: showSearch,
-  } = useModal();
+  } = useModal()
 
   useKeyboardShortcut({
     f: showSearch,
-  });
+  })
 
   return (
     <>
       <SearchIcon onClick={toggleSearch} />
-      <SearchModal isShowing={isShowingSearch} toggle={toggleSearch} hide={hideSearch} />
+      <SearchModal
+        isShowing={isShowingSearch}
+        toggle={toggleSearch}
+        hide={hideSearch}
+      />
     </>
-  );
-};
+  )
+}
 
-export default Search;
+export default Search

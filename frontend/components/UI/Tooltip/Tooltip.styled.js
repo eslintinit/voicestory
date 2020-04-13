@@ -1,5 +1,5 @@
 /* eslint-disable import/prefer-default-export */
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 export const Tooltip = styled.div`
   background: #000;
@@ -23,4 +23,4 @@ export const Tooltip = styled.div`
     bottom: 0;
     transform: rotate(45deg);
   }
-`;
+`

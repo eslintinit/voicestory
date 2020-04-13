@@ -1,4 +1,4 @@
-import ContentLoader from 'react-content-loader';
+import ContentLoader from 'react-content-loader'
 
 const ChannelsPlaceholder = () => (
   <ContentLoader
@@ -13,7 +13,7 @@ const ChannelsPlaceholder = () => (
     <rect x="16" y="105" rx="4" ry="4" width="293" height="21" />
     <rect x="16" y="136" rx="4" ry="4" width="293" height="21" />
   </ContentLoader>
-);
+)
 
 export const ChannelPlaceholder = () => (
   <ContentLoader
@@ -25,6 +25,6 @@ export const ChannelPlaceholder = () => (
   >
     <rect x="7.5" y="5" rx="4" ry="4" width="310" height="21.5" />
   </ContentLoader>
-);
+)
 
-export default ChannelsPlaceholder;
+export default ChannelsPlaceholder

@@ -5,23 +5,31 @@ import { stringArg } from 'nexus'
 export const Subscription = objectType({
   name: 'Subscription',
   definition(t) {
-    /* t.field('newMessage', { */
-    /*   type: 'Message', */
-    /*   args: { channelUrl: stringArg(), tenant: stringArg() }, */
-    /*   subscribe: withFilter( */
-    /*     (_parent, { channelUrl, tenant }, ctx) => */
-    /*       ctx.pubsub.asyncIterator('NEW_MESSAGE'), */
-    /*     (payload, { channelUrl, tenant }) => { */
-    /*       return ( */
-    /*         payload.newMessage.channel.url === channelUrl && */
-    /*         payload.tenant === tenant */
-    /*       ) */
-    /*     }, */
-    /*   ), */
-    /*   resolve: (payload) => { */
-    /*     return payload.newMessage */
-    /*   }, */
-    /* }) */
+    t.field('newMessage', {
+      type: 'Message',
+      args: {
+        communityUrl: stringArg(),
+        channelUrl: stringArg(),
+      },
+      subscribe: withFilter(
+        (_parent, args, ctx) => ctx.pubsub.asyncIterator('NEW_MESSAGE'),
+        (payload, { communityUrl, channelUrl }) => {
+          const { newMessage } = payload
+
+          console.log('newMessage')
+          console.log(newMessage)
+          console.log(newMessage.channel)
+
+          return (
+            newMessage.channel.communityUrl === communityUrl &&
+            newMessage.channel.url === channelUrl
+          )
+        },
+      ),
+      resolve: (payload) => {
+        return payload.newMessage
+      },
+    })
     /* t.field('editMessage', { */
     /*   type: 'Message', */
     /*   args: { channelUrl: stringArg(), tenant: stringArg() }, */

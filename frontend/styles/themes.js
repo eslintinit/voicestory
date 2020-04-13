@@ -79,7 +79,7 @@ export const themeWhite = {
   textColorNotifications: '#616061',
   textDialogsColor: '#828282',
   border: '#e8e8e8',
-};
+}
 
 export const themeDark = {
   navbarContainerBG: '#202225',
@@ -162,4 +162,4 @@ export const themeDark = {
   textColorNotifications: '#919498',
   textDialogsColor: '#fff',
   border: '#505050',
-};
+}

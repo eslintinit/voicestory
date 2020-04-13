@@ -1,6 +1,6 @@
-import { useEffect } from 'react';
-import Checkbox from 'components/UI/Checkbox';
-import * as S from './Popup.styled';
+import { useEffect } from 'react'
+import Checkbox from 'components/UI/Checkbox'
+import * as S from './Popup.styled'
 
 const CheckboxItem = ({ item }) => {
   return (
@@ -11,31 +11,31 @@ const CheckboxItem = ({ item }) => {
       </span>
       <Checkbox checked={item.active} />
     </S.Item>
-  );
-};
+  )
+}
 
 export default ({ opened, close, items = [], style = {} }) => {
   useEffect(() => {
-    const listener = document.body.addEventListener('click', event => {
-      const popupContainer = event.target.closest('.vs-popup');
-      const iconContainer = event.target.closest('.vs-more-icon');
+    const listener = document.body.addEventListener('click', (event) => {
+      const popupContainer = event.target.closest('.vs-popup')
+      const iconContainer = event.target.closest('.vs-more-icon')
       if (!popupContainer && !iconContainer) {
-        close();
+        close()
       }
-    });
-    return () => document.body.removeEventListener('click', listener);
-  }, []);
+    })
+    return () => document.body.removeEventListener('click', listener)
+  }, [])
 
   return (
     <S.Container active={opened} className="vs-popup" style={style}>
       <S.List>
-        {items.map(item => {
+        {items.map((item) => {
           if (item.type === 'separator') {
-            return <S.Separator key={item.label} />;
+            return <S.Separator key={item.label} />
           }
 
           if (item.type === 'checkbox') {
-            return <CheckboxItem item={item} key={item.label} />;
+            return <CheckboxItem item={item} key={item.label} />
           }
 
           return (
@@ -45,9 +45,9 @@ export default ({ opened, close, items = [], style = {} }) => {
                 {item.label}
               </span>
             </S.Item>
-          );
+          )
         })}
       </S.List>
     </S.Container>
-  );
-};
+  )
+}

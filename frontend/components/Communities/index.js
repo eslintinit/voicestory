@@ -1,3 +1,3 @@
-import CommunitiesPage from './CommunitiesPage';
+import CommunitiesPage from './CommunitiesPage'
 
-export default CommunitiesPage;
+export default CommunitiesPage

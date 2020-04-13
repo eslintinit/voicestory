@@ -1,3 +1,3 @@
-import MessageActions from './MessageActions';
+import MessageActions from './MessageActions'
 
-export default MessageActions;
+export default MessageActions

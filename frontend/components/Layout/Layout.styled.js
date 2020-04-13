@@ -5,7 +5,7 @@ export const Content = styled.div`
   height: 100%;
   display: flex;
   height: calc(100vh - 42px);
-  background: ${props => props.theme.chatBG};
+  background: ${(props) => props.theme.chatBG};
 `
 
 export const Layout = styled.div.attrs({
@@ -13,6 +13,6 @@ export const Layout = styled.div.attrs({
 })`
   width: 100%;
   height: 100vh;
-  background: ${props => props.theme.chatBG};
+  background: ${(props) => props.theme.chatBG};
   font-family: 'Helvetica Neue';
 `

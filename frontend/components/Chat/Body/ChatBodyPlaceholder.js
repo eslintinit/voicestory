@@ -1,6 +1,6 @@
-import { withTheme } from 'styled-components';
-import ContentLoader from 'react-content-loader';
-import * as S from './ChatBody.styled';
+import { withTheme } from 'styled-components'
+import ContentLoader from 'react-content-loader'
+import * as S from './ChatBody.styled'
 
 // const ChatBodyPlaceholder = () => <div />;
 const ChatBodyPlaceholder = () => (
@@ -13,7 +13,7 @@ const ChatBodyPlaceholder = () => (
     <MessagePlaceholder />
     <MessagePlaceholder />
   </S.Container>
-);
+)
 
 const MessagePlaceholder = withTheme(({ theme }) => (
   <ContentLoader
@@ -28,13 +28,13 @@ const MessagePlaceholder = withTheme(({ theme }) => (
     <rect x="50" y="7" rx="4" ry="4" width="169" height="14" />
     <rect x="50" y="25" rx="4" ry="4" width="319" height="14" />
   </ContentLoader>
-));
+))
 
 export const ChatBodyEmpty = () => (
   <S.ChatEmptyContainer>
     <S.ChatEmptyImage />
     <S.ChatEmptyText>No messages...</S.ChatEmptyText>
   </S.ChatEmptyContainer>
-);
+)
 
-export default ChatBodyPlaceholder;
+export default ChatBodyPlaceholder

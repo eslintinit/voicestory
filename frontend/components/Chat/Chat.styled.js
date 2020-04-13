@@ -1,4 +1,4 @@
-import styled, { createGlobalStyle } from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components'
 
 // eslint-disable-next-line import/prefer-default-export
 // export const Container = styled.div`
@@ -14,7 +14,7 @@ export const Container = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
-  background: ${props => props.theme.chatBG};
+  background: ${(props) => props.theme.chatBG};
 
   display: flex;
   flex-flow: column;
@@ -23,7 +23,7 @@ export const Container = styled.div`
   position: relative;
   outline: none;
   overflow: hidden;
-`;
+`
 
 export const ZoomImage = createGlobalStyle`
 .ImageIcon--zoom {
@@ -34,4 +34,4 @@ export const ZoomImage = createGlobalStyle`
 .AttachmentImage--zoom {
   object-fit: cover;
 }
-`;
+`

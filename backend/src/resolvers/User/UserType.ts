@@ -13,5 +13,6 @@ export const User = objectType({
     t.model.isOnline()
     t.model.communitiesOwned({ pagination: false })
     t.model.communitiesFollowed({ pagination: false })
+    t.model.channels({ pagination: false })
   },
 })

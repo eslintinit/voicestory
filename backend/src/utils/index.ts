@@ -16,11 +16,12 @@ export function getUserId(context: Context): string {
 }
 
 export function getTenant(context: Context): string {
-  const tenantName = context.request.get('voicestory-tenant')
-  if (tenantName) {
-    return tenantName
-  }
-  return null
+  return 'voicestory'
+  /* const tenantName = context.request.get('voicestory-tenant') */
+  /* if (tenantName) { */
+  /*   return tenantName; */
+  /* } */
+  /* return null; */
 }
 
 export const isEmpty = (value: any): boolean =>

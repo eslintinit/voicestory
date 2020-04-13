@@ -1,1 +1,1 @@
-export { default } from 'components/Channel/ChannelCreate/ChannelCreate';
+export { default } from 'components/Channel/ChannelCreate/ChannelCreate'

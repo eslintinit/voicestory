@@ -8,11 +8,11 @@ export const Community = objectType({
     t.model.id()
     t.model.name()
     t.model.url()
-    t.model.isPrivate()
     t.model.image()
     t.model.description()
     t.model.author()
     t.model.members({ pagination: false })
+    t.model.channels({ pagination: false })
     t.boolean('isFollowed', {
       async resolve(_parent, _args, ctx) {
         const userId = await getUserId(ctx)

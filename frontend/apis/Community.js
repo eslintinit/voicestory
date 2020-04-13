@@ -15,6 +15,9 @@ export const GET_COMMUNITIES = gql`
   query communities {
     communities {
       ...CommunityFragment
+      members {
+        id
+      }
     }
   }
   ${CommunityFragment}

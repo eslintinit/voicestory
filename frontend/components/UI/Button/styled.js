@@ -1,7 +1,7 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 export const Button = styled.button.attrs({
-  type: props => props.type || 'button',
+  type: (props) => props.type || 'button',
   name: 'button',
 })`
   display: flex;
@@ -12,21 +12,21 @@ export const Button = styled.button.attrs({
   font-size: 15px;
   border-radius: 5px;
   padding: 0 20px;
-`;
+`
 
 export const ButtonSubtle = styled(Button)`
-  border: ${props => props.theme.buttonSubtleBorder};
-  color: ${props => props.theme.chatText};
+  border: ${(props) => props.theme.buttonSubtleBorder};
+  color: ${(props) => props.theme.chatText};
   :hover {
-    background: ${props => props.theme.buttonSubtleBG};
+    background: ${(props) => props.theme.buttonSubtleBG};
   }
   :active {
-    background: ${props => props.theme.buttonSubtleBGActive};
+    background: ${(props) => props.theme.buttonSubtleBGActive};
   }
-`;
+`
 
 export const ButtonPrimary = styled(Button).attrs({
-  type: props => props.type || 'button',
+  type: (props) => props.type || 'button',
   name: 'button',
 })`
   color: #fff;
@@ -37,27 +37,27 @@ export const ButtonPrimary = styled(Button).attrs({
   :active {
     opacity: 0.75;
   }
-  ${props =>
+  ${(props) =>
     props.disabled &&
     `
     opacity: 0.7 !important;
     background: #5296f1;
     cursor: progress;
   `}
-`;
+`
 
 export const ButtonOutline = styled(Button)`
-  color: ${props => props.theme.chatAuthor};
-  border: 1px solid ${props => props.theme.buttonOutlineBorder};
+  color: ${(props) => props.theme.chatAuthor};
+  border: 1px solid ${(props) => props.theme.buttonOutlineBorder};
   border-radius: 5px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: none;
   :hover {
-    background: ${props => props.theme.buttonOutlineBGHover};
+    background: ${(props) => props.theme.buttonOutlineBGHover};
   }
   :active {
-    background: ${props => props.theme.buttonOutlineBGActive};
+    background: ${(props) => props.theme.buttonOutlineBGActive};
   }
-`;
+`

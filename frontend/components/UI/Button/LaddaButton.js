@@ -1,5 +1,5 @@
-import LaddaButton, { S, EXPAND_RIGHT } from 'react-ladda';
-import styled from 'styled-components';
+import LaddaButton, { S, EXPAND_RIGHT } from 'react-ladda'
+import styled from 'styled-components'
 
 export const StyledLaddaButton = styled(LaddaButton).attrs({
   type: 'submit',
@@ -39,7 +39,7 @@ export const StyledLaddaButton = styled(LaddaButton).attrs({
   }
   border-radius: 5px !important;
   padding: 0 !important;
-`;
+`
 
 // eslint-disable-next-line import/prefer-default-export
 export const ButtonSpinning = ({ loading, onClick, children }) => (
@@ -59,4 +59,4 @@ export const ButtonSpinning = ({ loading, onClick, children }) => (
   >
     {children}
   </StyledLaddaButton>
-);
+)

@@ -7,7 +7,12 @@
 // });
 
 const Avatar = ({ name, src, style, ...props }) => (
-  <img alt="Avatar" src={src || `https://avatars.io/twitter/${name}`} style={style} {...props} />
-);
+  <img
+    alt="Avatar"
+    src={src || `https://avatars.io/twitter/${name}`}
+    style={style}
+    {...props}
+  />
+)
 
-export default Avatar;
+export default Avatar

@@ -1,3 +1,3 @@
-import CommunitiesList from './CommunitiesList';
+import CommunitiesList from './CommunitiesList'
 
-export default CommunitiesList;
+export default CommunitiesList

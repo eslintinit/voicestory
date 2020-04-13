@@ -4,7 +4,7 @@ import { useContext, useState, useEffect } from 'react'
 
 import { GET_COMMUNITIES } from 'apis/Community'
 
-import Tab from './Tab/Tab'
+import Tab from './Tab'
 import * as S from './Tabs.styled'
 
 const Tabs = () => {
@@ -36,6 +36,7 @@ const Tabs = () => {
       setFollowedCommunities(getFollowed(data.communities))
     }
   })
+  console.log(communities)
 
   return data && data.communities.length !== 0 ? (
     <S.Tabs>

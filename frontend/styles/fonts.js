@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from 'styled-components'
 
 export default createGlobalStyle`
   @font-face {
@@ -45,4 +45,4 @@ export default createGlobalStyle`
     font-weight: 700;
     src: url("/fonts/AvenirNextLTPro-Bold.otf") format("opentype");
   }
-`;
+`

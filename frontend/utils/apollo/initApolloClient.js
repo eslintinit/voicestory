@@ -1,8 +1,8 @@
-import createApolloClient from './createApolloClient';
+import createApolloClient from './createApolloClient'
 
 // On the client, we store the Apollo Client in the following variable.
 // This prevents the client from reinitializing between page transitions.
-let globalApolloClient = null;
+let globalApolloClient = null
 
 /**
  * Always creates a new apollo client on the server
@@ -14,15 +14,15 @@ const initApolloClient = (initialState, ctx) => {
   // Make sure to create a new client for every server-side request so that data
   // isn't shared between connections (which would be bad)
   if (typeof window === 'undefined') {
-    return createApolloClient(initialState, ctx);
+    return createApolloClient(initialState, ctx)
   }
 
   // Reuse client on the client-side
   if (!globalApolloClient) {
-    globalApolloClient = createApolloClient(initialState, ctx);
+    globalApolloClient = createApolloClient(initialState, ctx)
   }
 
-  return globalApolloClient;
-};
+  return globalApolloClient
+}
 
-export default initApolloClient;
+export default initApolloClient

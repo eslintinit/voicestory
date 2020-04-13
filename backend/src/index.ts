@@ -1,6 +1,5 @@
 const dotenv = require('dotenv')
 dotenv.config({ path: `../.env.${process.env.NODE_ENV}` })
-/* dotenv.config({ path: `./.env` }) */
 
 import { GraphQLServer, PubSub } from 'graphql-yoga'
 import { PrismaClient } from '@prisma/client'
@@ -138,5 +137,5 @@ server.start(
 )
 
 process.on('exit', async () => {
-  /* await multiTenant.disconnect() */
+  await prisma.disconnect()
 })
