@@ -9,7 +9,7 @@ import * as S from './Tab.styled'
 
 import { UNFOLLOW_COMMUNITY, CommunityFragment } from 'apis/Community'
 
-const Tab = ({ community, active, nextActive, index }) => {
+const Tab = ({ community, active, nextActive, index, numberOfCommunities }) => {
   const router = useRouter()
   const { community: selectedCommunity } = router.query
 
@@ -21,7 +21,6 @@ const Tab = ({ community, active, nextActive, index }) => {
         { shallow: true }
       )
   }
-
   useKeyboardShortcut({
     [index + 1]: onChangeTab,
   })
@@ -38,9 +37,13 @@ const Tab = ({ community, active, nextActive, index }) => {
       return cache.writeFragment({ fragment, updatedCommunity })
     },
   })
-
   return (
-    <S.Tab active={active} onClick={onChangeTab} key={community.id}>
+    <S.Tab
+      active={active}
+      onClick={onChangeTab}
+      key={community.id}
+      numberOfCommunities={numberOfCommunities}
+    >
       <S.TabContent active={active} nextActive={nextActive}>
         <S.Community>
           <S.CommunityLogo src={community.image} />

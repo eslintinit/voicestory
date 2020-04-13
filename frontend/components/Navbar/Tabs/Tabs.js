@@ -34,6 +34,7 @@ const Tabs = () => {
               index={index}
               key={community.id}
               nextActive={nextActive}
+              numberOfCommunities={communities.length}
             />
           )
         })}
