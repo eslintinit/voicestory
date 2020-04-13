@@ -41,7 +41,6 @@ export const Tab = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-
   width: ${(props) => {
     let calculatedSize = 670 / props.numberOfCommunities
     console.log(calculatedSize)

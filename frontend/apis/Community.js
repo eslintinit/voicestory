@@ -6,6 +6,7 @@ export const CommunityFragment = gql`
     url
     image
     name
+    description
     isFollowed
   }
 `
