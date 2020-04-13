@@ -24,8 +24,8 @@ const Tabs = () => {
 
         // Done for styles
         const nextActive =
-          index < communities.length - 1
-            ? communities[index + 1].url === selectedCommunity
+          index < data.communities.length - 1
+            ? data.communities[index + 1].url === selectedCommunity
             : false
 
         return (
@@ -35,7 +35,7 @@ const Tabs = () => {
             index={index}
             key={community.id}
             nextActive={nextActive}
-            numberOfCommunities={communities.length}
+            numberOfCommunities={data.communities.length}
           />
         )
       })}
