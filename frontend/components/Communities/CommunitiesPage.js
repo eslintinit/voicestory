@@ -2,6 +2,8 @@ import { useRouter } from 'next/router'
 import { useState, useContext } from 'react'
 import { UserContext } from 'context/UserContext'
 import { useEscapeToClose, useKeyboardShortcut } from 'hooks'
+import { GET_COMMUNITIES } from '../../apis/Community'
+import { useQuery } from '@apollo/react-hooks'
 
 import { COMPANY_NAME } from 'utils/config'
 import { canManageCommunity } from 'utils/permission'
@@ -48,7 +50,14 @@ const CommunitiesPage = () => {
         }
       ),
   })
-
+  const { data: { communities = [] } = {}, refetch } = useQuery(
+    GET_COMMUNITIES,
+    {
+      variables: { searchString },
+      pollInterval: 25000, // auto refetch after 20 sec
+    }
+  )
+  communities.sort((a, b) => a.isFollowed < b.isFollowed)
   return (
     <S.Container>
       <S.CommunitiesWrapper>
@@ -70,7 +79,10 @@ const CommunitiesPage = () => {
             )}
           </S.Actions>
         </S.Header>
-        <CommunitiesList searchString={searchString} />
+        <CommunitiesList
+          communities={communities}
+          searchString={searchString}
+        />
       </S.CommunitiesWrapper>
     </S.Container>
   )

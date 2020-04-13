@@ -3,52 +3,24 @@ dotenv.config({ path: `../.env.${process.env.NODE_ENV}` })
 
 import { GraphQLServer, PubSub } from 'graphql-yoga'
 import { PrismaClient } from '@prisma/client'
-import { nexusPrismaPlugin } from 'nexus-prisma'
-import { makeSchema } from 'nexus'
-/* import { makeSchema } from '@nexus/schema' */
 import { applyMiddleware } from 'graphql-middleware'
-import { join } from 'path'
-
-import * as allTypes from './resolvers'
 import { permissions } from './permissions'
 import { Context, Token } from './types'
-
-import SocialConfig from './passport'
+import SocialConfig from './config/passport'
 import { verify } from 'jsonwebtoken'
 
 import * as compression from 'compression' // compresses requests
 import * as bodyParser from 'body-parser'
 
+import { baseSchema, corsOption } from './config/index'
 const prisma = new PrismaClient()
 
-const cors = require('cors')
+import * as cors from 'cors'
 
 const pubsub = new PubSub()
 
-const baseSchema = makeSchema({
-  types: [allTypes],
-  plugins: [nexusPrismaPlugin()],
-  outputs: {
-    typegen: join(__dirname, '../generated/nexus-typegen.ts'),
-    schema: join(__dirname, '/schema.graphql'),
-  },
-  typegenAutoConfig: {
-    sources: [
-      {
-        source: '@prisma/client',
-        alias: 'prisma',
-      },
-      {
-        source: join(__dirname, 'types.ts'),
-        alias: 'ctx',
-      },
-    ],
-    contextType: 'ctx.Context',
-  },
-})
-
-/* const schema = applyMiddleware(baseSchema, permissions) */
-const schema = baseSchema
+const schema = applyMiddleware(baseSchema, permissions)
+// const schema = baseSchema
 
 const server = new GraphQLServer({
   schema,
@@ -86,20 +58,11 @@ const server = new GraphQLServer({
   },
 })
 
-// enable cors
-var corsOption = {
-  origin: true,
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  credentials: true,
-  exposedHeaders: ['x-auth-token'],
-}
-
 server.express.use('/*', cors(corsOption))
 server.express.use(compression())
 server.express.use(bodyParser.json({ type: 'application/json' }))
 server.express.use(bodyParser.urlencoded({ extended: true }))
 server.express.use(bodyParser.text({ type: 'text/html' }))
-
 SocialConfig.configure(server)
 
 server.start(

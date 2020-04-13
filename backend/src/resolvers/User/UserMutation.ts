@@ -69,21 +69,6 @@ export const login = mutationField('login', {
   },
 })
 
-export const users = mutationField('users', {
-  type: 'User',
-  list: true,
-  args: { searchString: stringArg({ nullable: true }) },
-  resolve: (parent, { searchString }, context) => {
-    return context.prisma.user.findMany({
-      where: {
-        username: {
-          contains: searchString,
-        },
-      },
-    })
-  },
-})
-
 export const logout = mutationField('logout', {
   type: 'User',
   resolve: async (parent, args, context) => {
@@ -101,3 +86,19 @@ export const logout = mutationField('logout', {
     } catch (error) {}
   },
 })
+
+/// Why is This mutationField? when it searches user ??? ?
+// export const users = mutationField('users', {
+// type: 'User',
+// list: true,
+// args: { searchString: stringArg({ nullable: true }) },
+// resolve: (parent, { searchString }, context) => {
+// return context.prisma.user.findMany({
+// where: {
+// username: {
+// contains: searchString,
+// },
+// },
+// })
+// },
+// })

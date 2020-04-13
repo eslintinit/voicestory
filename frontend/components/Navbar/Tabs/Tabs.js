@@ -1,8 +1,7 @@
 import { useRouter } from 'next/router'
-import { useQuery } from '@apollo/react-hooks'
-import { useContext } from 'react'
+import { useQuery, writeQuery } from '@apollo/react-hooks'
+import { useContext, useState, useEffect } from 'react'
 
-import { AppContext } from 'context'
 import { GET_COMMUNITIES } from 'apis/Community'
 
 import Tab from './Tab'
@@ -13,39 +12,58 @@ const Tabs = () => {
     query: { community: selectedCommunity },
   } = useRouter()
 
-  const { communitiesLoaded, setCommunitiesLoaded } = useContext(AppContext)
+  // Gets followed Communities
+  const getFollowed = (communities) =>
+    communities.filter((a) => a.isFollowed === true)
 
-  const { data: { communities = [] } = {} } = useQuery(GET_COMMUNITIES, {
-    onCompleted: () => {
-      if (!communitiesLoaded) {
-        setCommunitiesLoaded(true)
-      }
-    },
+  const [communities, setCommunities] = useState([1])
+  const { loading, data, error } = useQuery(GET_COMMUNITIES)
+  const [followedCommunities, setFollowedCommunities] = useState(
+    getFollowed(communities)
+  )
+
+  useEffect(() => {
+    // set initial communities * followedCommunities
+    if (data && communities.length !== data.communities.length) {
+      setFollowedCommunities(getFollowed(data.communities))
+      setCommunities(data.communities)
+    }
+    // updated followedCommunities on change
+    if (
+      data &&
+      followedCommunities.length !== getFollowed(data.communities).length
+    ) {
+      setFollowedCommunities(getFollowed(data.communities))
+    }
   })
   console.log(communities)
 
-  return (
+  return data && data.communities.length !== 0 ? (
     <S.Tabs>
-      {communities.map((community, index) => {
-        const active = community.url === selectedCommunity
-
-        // Done for styles
-        const nextActive =
-          index < communities.length - 1
-            ? communities[index + 1].url === selectedCommunity
-            : false
-
-        return (
-          <Tab
-            community={community}
-            active={active}
-            index={index}
-            key={community.id}
-            nextActive={nextActive}
-          />
-        )
-      })}
+      {/* see if there are followed communities  if not return all */}
+      {(!followedCommunities.length ? communities : followedCommunities).map(
+        (community, index) => {
+          const active = community.url === selectedCommunity
+          // Done for styles
+          const nextActive =
+            index < data.communities.length - 1
+              ? data.communities[index + 1].url === selectedCommunity
+              : false
+          return (
+            <Tab
+              community={community}
+              active={active}
+              index={index}
+              key={community.id}
+              nextActive={nextActive}
+              numberOfCommunities={followedCommunities.length}
+            />
+          )
+        }
+      )}
     </S.Tabs>
+  ) : (
+    ''
   )
 }
 

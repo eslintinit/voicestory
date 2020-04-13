@@ -1,12 +1,25 @@
 import { useRouter } from 'next/router'
 import { useKeyboardShortcut } from 'hooks'
+import { useMutation } from '@apollo/react-hooks'
 
 import { COMPANY_NAME } from 'utils/config'
 
 import closeSVG from 'public/icons/close.svg'
 import * as S from './Tab.styled'
 
-const Tab = ({ community, active, nextActive, index }) => {
+import { UNFOLLOW_COMMUNITY, CommunityFragment } from 'apis/Community'
+
+import Popup from 'reactjs-popup'
+const Card = ({ community }) => (
+  <div className="card">
+    <div className="header">
+      <S.CommunityLogo src={community.image} />
+      {community.name}
+    </div>
+    <div className="content">{community.description}</div>
+  </div>
+)
+const Tab = ({ community, active, nextActive, index, numberOfCommunities }) => {
   const router = useRouter()
   const { community: selectedCommunity } = router.query
 
@@ -18,30 +31,56 @@ const Tab = ({ community, active, nextActive, index }) => {
         { shallow: true }
       )
   }
-
   useKeyboardShortcut({
     [index + 1]: onChangeTab,
   })
 
+  const [unfollowCommunity] = useMutation(UNFOLLOW_COMMUNITY, {
+    update(cache, { data: { unfollowCommunity: community } }) {
+      const fragment = CommunityFragment
+      const cachedCommunity = cache.readFragment({
+        fragment,
+        __typename: 'Community',
+      })
+      const updatedCommunity = { ...cachedCommunity }
+
+      return cache.writeFragment({ fragment, updatedCommunity })
+    },
+  })
   return (
-    <S.Tab active={active} onClick={onChangeTab} key={community.id}>
-      <S.TabContent active={active} nextActive={nextActive}>
-        <S.Community>
-          <S.CommunityLogo src={community.image} />
-          <S.CommunityName active={active}>{community.name}</S.CommunityName>
-        </S.Community>
-        <S.UnsubscribeIconWrapper>
-          <S.UnsubscribeIcon
-            onClick={() => {
-              // Do: Unfollow. Update cache
-              // unfollowCommunity({ variables: { url: community.url } });
-            }}
-          >
-            <use xlinkHref={`${closeSVG}#icon-close`} />
-          </S.UnsubscribeIcon>
-        </S.UnsubscribeIconWrapper>
-      </S.TabContent>
-    </S.Tab>
+    <Popup
+      trigger={
+        <S.Tab
+          active={active}
+          numberOfCommunities={numberOfCommunities}
+          onClick={onChangeTab}
+          key={community.id}
+        >
+          <S.TabContent active={active} nextActive={nextActive}>
+            <S.Community>
+              <S.CommunityLogo src={community.image} />
+              <S.CommunityName active={active}>
+                {community.name}
+              </S.CommunityName>
+            </S.Community>
+            <S.UnsubscribeIconWrapper>
+              <S.UnsubscribeIcon
+                onClick={() => {
+                  // Do: Unfollow. Update cache
+                  unfollowCommunity({ variables: { url: community.url } })
+                }}
+              >
+                <use xlinkHref={`${closeSVG}#icon-close`} />
+              </S.UnsubscribeIcon>
+            </S.UnsubscribeIconWrapper>
+          </S.TabContent>
+        </S.Tab>
+      }
+      position="right top"
+      on="hover"
+    >
+      <Card community={community} />
+    </Popup>
   )
 }
 

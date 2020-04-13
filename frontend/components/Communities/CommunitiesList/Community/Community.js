@@ -1,10 +1,18 @@
 import { useRouter } from 'next/router'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { UserContext } from 'context/UserContext'
-import { useMutation } from '@apollo/react-hooks'
+import { useMutation, useQuery } from '@apollo/react-hooks'
+import {
+  GET_COMMUNITIES_CLIENT,
+  GET_COMMUNITIES,
+} from '../../../../apis/Community'
 
 import { COMPANY_NAME } from 'utils/config'
-import { FOLLOW_COMMUNITY, UNFOLLOW_COMMUNITY } from 'apis/Community'
+import {
+  FOLLOW_COMMUNITY,
+  UNFOLLOW_COMMUNITY,
+  CommunityFragment,
+} from 'apis/Community'
 
 import Checkbox from 'components/UI/Checkbox/CommunityCheckbox'
 import * as S from './Community.styled'
@@ -12,21 +20,49 @@ import * as S from './Community.styled'
 export default ({ community }) => {
   const router = useRouter()
   const { user } = useContext(UserContext)
-  const [followCommunity] = useMutation(FOLLOW_COMMUNITY)
-  const [unfollowCommunity] = useMutation(UNFOLLOW_COMMUNITY)
 
-  const isFollowing = true
-  // const isFollowing = user
-  //   ? community.members.map(c => c.id).indexOf(user.id) > -1
-  //   : true
+  const [followCommunity] = useMutation(FOLLOW_COMMUNITY, {
+    update(cache, { data: { followCommunity: community } }) {
+      const fragment = CommunityFragment
+      const cachedCommunity = cache.readFragment({
+        fragment,
+        __typename: 'Community',
+      })
+      const updatedCommunity = { ...cachedCommunity }
+      return cache.writeFragment({ fragment, updatedCommunity })
 
-  const onFollow = async (url) => {
-    if (isFollowing) {
-      await unfollowCommunity({ variables: { url } })
+      // MANUALLY UPDATE THE STATE, TRY AND RESOLVE
+      // https://www.apollographql.com/docs/link/links/state/#updating-the-cache
+      // let updatedCommunities = communities.map((el) => {
+      //   if (el.id === community.id) return community
+      //   return el
+      // })
+      // cache.writeQuery({
+      //   query: GET_COMMUNITIES,
+      //   data: { updatedCommunities },
+      // })
+    },
+  })
+  const [unfollowCommunity] = useMutation(UNFOLLOW_COMMUNITY, {
+    update(cache, { data: { unfollowCommunity: community } }) {
+      const fragment = CommunityFragment
+      const cachedCommunity = cache.readFragment({
+        fragment,
+        __typename: 'Community',
+      })
+      const updatedCommunity = { ...cachedCommunity }
+
+      return cache.writeFragment({ fragment, updatedCommunity })
+    },
+  })
+
+  const onFollow = async (url, isFollowed) => {
+    if (isFollowed === true) {
+      unfollowCommunity({ variables: { url } })
     } else {
-      await followCommunity({ variables: { url } })
+      followCommunity({ variables: { url } })
     }
-    // getMe();
+    return
   }
 
   const onCommunityClick = (e) => {
@@ -40,7 +76,9 @@ export default ({ community }) => {
       )
     }
   }
-
+  const { data: { communities = [] } = {} } = useQuery(GET_COMMUNITIES, {
+    variables: { searchString: '' },
+  })
   return (
     <S.Community onClick={onCommunityClick}>
       <S.Logo src={community.image} />
@@ -51,8 +89,10 @@ export default ({ community }) => {
       {user && (
         <Checkbox
           id={community.id}
-          checked={isFollowing}
-          onClick={() => (user ? onFollow(community.url) : {})}
+          checked={community.isFollowed}
+          onClick={async () => {
+            await onFollow(community.url, community.isFollowed)
+          }}
         />
       )}
     </S.Community>

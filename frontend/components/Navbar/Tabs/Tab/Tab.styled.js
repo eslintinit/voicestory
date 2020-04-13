@@ -41,7 +41,12 @@ export const Tab = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 135px;
+  width: ${(props) => {
+    let calculatedSize = 670 / props.numberOfCommunities
+    console.log(calculatedSize)
+    if (props.numberOfCommunities > 5) return calculatedSize + 'px'
+    return '135px'
+  }};
   height: 100%;
   background: ${(props) => props.theme.tabBG};
   position: relative;

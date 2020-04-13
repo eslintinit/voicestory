@@ -50,3 +50,31 @@ export const unfollowCommunity = mutationField('unfollowCommunity', {
     })
   },
 })
+
+// WE DONT NEED, crud allows this
+
+// export const deleteCommunity = mutationField('deleteCommunity', {
+//   type: 'Community',
+//   args: {
+//     communityId: stringArg(),
+//   },
+//   resolve: async (parent, { communityId }, ctx) => {
+//     const userId = getUserId(ctx)
+//     return ctx.prisma.community.delete({
+//       where: { id: communityId },
+//     })
+//   },
+// })
+
+// export const deleteCommunityByUrl = mutationField('deleteCommunityByUrl', {
+//   type: 'Community',
+//   args: {
+//     communityUrl: stringArg(),
+//   },
+//   resolve: async (parent, { communityUrl }, ctx) => {
+//     const userId = getUserId(ctx)
+//     return ctx.prisma.community.delete({
+//       where: { url: communityUrl },
+//     })
+//   },
+// })
