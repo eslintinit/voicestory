@@ -12,33 +12,54 @@ const Tabs = () => {
     query: { community: selectedCommunity },
   } = useRouter()
 
-  let [communities, setCommunities] = useState([2])
+  // Gets followed Communities
+  const getFollowed = (communities) =>
+    communities.filter((a) => a.isFollowed === true)
+
+  const [communities, setCommunities] = useState([1])
   const { loading, data, error } = useQuery(GET_COMMUNITIES)
-  return data && data.communities.length > 0 ? (
+  const [followedCommunities, setFollowedCommunities] = useState(
+    getFollowed(communities)
+  )
+
+  useEffect(() => {
+    // set initial communities * followedCommunities
+    if (data && communities.length !== data.communities.length) {
+      setFollowedCommunities(getFollowed(data.communities))
+      setCommunities(data.communities)
+    }
+    // updated followedCommunities on change
+    if (
+      data &&
+      followedCommunities.length !== getFollowed(data.communities).length
+    ) {
+      setFollowedCommunities(getFollowed(data.communities))
+    }
+  })
+
+  return data && data.communities.length !== 0 ? (
     <S.Tabs>
-      {(data.communities.filter((a) => a.isFollowed === true).length === 0
-        ? data.communities
-        : data.communities.filter((a) => a.isFollowed === true)
-      ).map((community, index) => {
-        const active = community.url === selectedCommunity
-
-        // Done for styles
-        const nextActive =
-          index < data.communities.length - 1
-            ? data.communities[index + 1].url === selectedCommunity
-            : false
-
-        return (
-          <Tab
-            community={community}
-            active={active}
-            index={index}
-            key={community.id}
-            nextActive={nextActive}
-            numberOfCommunities={data.communities.length}
-          />
-        )
-      })}
+      {/* see if there are followed communities  if not return all */}
+      {(!followedCommunities.length ? communities : followedCommunities).map(
+        (community, index) => {
+          const active = community.url === selectedCommunity
+          // Done for styles
+          const nextActive =
+            index < data.communities.length - 1
+              ? data.communities[index + 1].url === selectedCommunity
+              : false
+          return (
+            <Tab
+              community={community}
+              active={active}
+              index={index}
+              key={community.id}
+              nextActive={nextActive}
+              numberOfCommunities={followedCommunities.length}
+            />
+          )
+        }
+      )}
     </S.Tabs>
   ) : (
     ''
