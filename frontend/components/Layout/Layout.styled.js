@@ -1,18 +1,20 @@
 import styled from 'styled-components'
 
 export const Content = styled.div`
-  width: 100%;
-  height: 100%;
   display: flex;
-  height: calc(100vh - 42px);
   background: ${(props) => props.theme.chatBG};
+  width: 100%;
+  flex-basis: 100%;
 `
 
 export const Layout = styled.div.attrs({
   id: 'vs-layout',
 })`
+  display: flex;
+  flex-direction: column;
   width: 100%;
   height: 100vh;
+  overflow: hidden;
   background: ${(props) => props.theme.chatBG};
   font-family: 'Helvetica Neue';
 `

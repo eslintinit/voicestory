@@ -13,6 +13,7 @@ import styled, { createGlobalStyle } from 'styled-components'
 export const Container = styled.div`
   width: 100%;
   height: 100%;
+  max-height: calc(100vh - 42px);
   display: flex;
   background: ${(props) => props.theme.chatBG};
 
