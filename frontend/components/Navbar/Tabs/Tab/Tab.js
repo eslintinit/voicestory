@@ -23,9 +23,9 @@ const Tab = ({ community, active, nextActive, index, numberOfCommunities, fistCo
 
   const onChangeTab = () => {
     if (community.url !== selectedCommunity)
-      router.push(
+      return router.push(
         '/[company]/[community]/[channel]',
-        `/${COMPANY_NAME()}/${fistCommunity}/general`,
+        `/${COMPANY_NAME()}/${community.url}/general`,
         { shallow: true }
       )
   }
