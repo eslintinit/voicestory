@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 import { useState, useContext } from 'react'
 import { UserContext } from 'context/UserContext'
 import { useEscapeToClose, useKeyboardShortcut } from 'hooks'
-import { GET_COMMUNITIES } from '../../apis/Community'
+import { GET_COMMUNITIES_CLIENT  } from '../../apis/Community'
 import { useQuery } from '@apollo/react-hooks'
 
 import { COMPANY_NAME } from 'utils/config'
@@ -51,27 +51,28 @@ const CommunitiesPage = () => {
       ),
   })
   const { data: { communities = [] } = {}, refetch } = useQuery(
-    GET_COMMUNITIES,
+    GET_COMMUNITIES_CLIENT ,
     {
       variables: { searchString },
       pollInterval: 25000, // auto refetch after 20 sec
     }
   )
-  communities.sort((a, b) => a.isFollowed < b.isFollowed)
+  // communities.sort((a, b) => a.isFollowed < b.isFollowed)
+
   return (
     <S.Container>
       <S.CommunitiesWrapper>
         <S.Header>
           <S.Heading>Communities</S.Heading>
           <S.Actions>
-            {/*
-            <Search
+            
+            {/* <Search
               isSearch={isSearch}
               setSearch={setSearch}
               searchString={searchString}
               setSearchString={setSearchString}
-            />
-            */}
+            /> */}
+           
             {canCreateCommunity && (
               <S.PlusIconWrapper onClick={toCreateCommunity}>
                 <PlusIcon />
