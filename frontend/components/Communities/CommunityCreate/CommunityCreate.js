@@ -44,14 +44,8 @@ const CreateCommunity = () => {
     name: yup
       .string()
       .max(22, 'Must be shorter than 22 characters')
-      .matches(/^\S+$/, 'Must contain no spaces')
       .matches(/^[^.]+$/, 'Must contain no dots')
       .required('Name is required'),
-    // url: yup
-    //   .string()
-    //   .matches(/^([a-zA-Z0-9.-]+)$/, 'Must not contain special characters')
-    //   .required('Url is required'),
-    // image: yup.string().required('Image is required'),
   })
 
   const handleImageInput = async (e) => {
@@ -63,8 +57,7 @@ const CreateCommunity = () => {
   }
 
   const onSubmit = async (values, { setSubmitting, setErrors }) => {
-    let image =
-      'http://ec2-3-20-204-242.us-east-2.compute.amazonaws.com:3000/favicon.svg'
+    let { image } = values
 
     const url = values.name.toLowerCase().replace(' ', '-')
 
@@ -75,6 +68,7 @@ const CreateCommunity = () => {
         },
       } = await uploadFile({ variables: { file: communityImage } })
       image = `${awsUrl}${Key}`
+      console.log(image)
     }
 
     const { data } = await createCommunity({
@@ -97,7 +91,7 @@ const CreateCommunity = () => {
       router.push(
         `/[company]/[community]/[channel]`,
         `/${COMPANY_NAME()}/${communityUrl}/general`,
-        { shallow: true }
+        { shallow: true },
       )
     }
   }

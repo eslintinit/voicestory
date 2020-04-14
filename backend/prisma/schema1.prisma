@@ -1,14 +1,3 @@
-model File {
-  id                      String          @default(cuid()) @id
-  createdAt               DateTime        @default(now())
-  filename                String
-  mimetype                String
-  filesize                String?
-  message                 Message?
-  encoding                String
-  Key                     String          @unique
-  uploader                User
-}
 
 model Role {
   id                      String          @default(cuid()) @id

@@ -11,11 +11,10 @@ import { Community } from './Community/CommunityType'
 import { Channel } from './Channel/ChannelType'
 import { Message } from './Message/MessageType'
 
-/* import { UnreadMessagePayload } from './Message/UnreadMessageType' */
-/* import { TypingStatus } from './TypingStatus/TypingStatusType' */
+import { File } from './File/FileType'
+import { GraphQLUpload as Upload } from 'graphql-upload'
+
 /* import { Role } from './Role/RoleType' */
-/* import { File } from './File/FileType' */
-/* import { GraphQLUpload as Upload } from 'graphql-upload' */
 
 export const resolvers = {
   Query,
@@ -31,9 +30,7 @@ export const resolvers = {
   Channel,
   Message,
 
+  File,
+  Upload,
   /* Role, */
-  /* UnreadMessagePayload, */
-  /* File, */
-  /* Upload, */
-  /* TypingStatus, */
 }

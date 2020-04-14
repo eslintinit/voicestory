@@ -1,6 +1,6 @@
 import * as UserQuery from './User/UserQuery'
 import * as CommunityQuery from './Community/CommunityQuery'
-
+import * as FileQuery from './File/FileQuery'
 import * as MessageQuery from './Message/MessageQuery'
 
 import { queryType } from 'nexus'
@@ -20,12 +20,14 @@ export const crudQueries = queryType({
     t.crud.channel()
     t.crud.channels({
       filtering: true,
-      ordering: true
+      ordering: true,
     })
   },
 })
 
 export const Query = {
+  crudQueries,
+
   me: { UserQuery },
   users: { UserQuery },
   getUser: { UserQuery },
@@ -34,13 +36,12 @@ export const Query = {
   community: { CommunityQuery },
   searchCommunities: { CommunityQuery },
 
-  crudQueries,
   UserQuery,
   CommunityQuery,
   /* channel: { ChannelQuery }, */
   /* channels: { ChannelQuery }, */
 
   messages: { MessageQuery },
-  /* files: { FileQuery }, */
+  files: { FileQuery },
   /* roles: { RoleQuery }, */
 }

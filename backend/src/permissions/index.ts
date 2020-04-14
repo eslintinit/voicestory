@@ -299,6 +299,7 @@ export const permissions = shield({
     deleteCommunity: isOwner,
     followCommunity: isAuthenticatedUser,
     unfollowCommunity: isAuthenticatedUser,
+    login: anyUser,
 
     // setCurrentChannel: isAuthenticatedUser,
     // createChannel: or(isOwner, and(isAuthenticatedUser, canManageChannel)),

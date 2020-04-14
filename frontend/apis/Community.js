@@ -24,9 +24,9 @@ export const GET_COMMUNITIES = gql`
 `
 
 export const GET_COMMUNITIES_CLIENT = gql`
-  query communities {
-    communities {
-      CommunityFragment @client
+  query communities { 
+    communities { 
+      ...CommunityFragment  @client
     }
   }
   ${CommunityFragment}

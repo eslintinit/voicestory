@@ -19,7 +19,7 @@ const Tabs = () => {
   const [communities, setCommunities] = useState([1])
   const { loading, data, error } = useQuery(GET_COMMUNITIES)
   const [followedCommunities, setFollowedCommunities] = useState(
-    getFollowed(communities)
+    getFollowed(communities),
   )
 
   useEffect(() => {
@@ -36,7 +36,6 @@ const Tabs = () => {
       setFollowedCommunities(getFollowed(data.communities))
     }
   })
-  console.log(communities)
 
   return data && data.communities.length !== 0 ? (
     <S.Tabs>
@@ -56,11 +55,15 @@ const Tabs = () => {
               index={index}
               key={community.id}
               nextActive={nextActive}
-              fistCommunity={followedCommunities.length !== 0 ? followedCommunities[0].url: ""}
+              fistCommunity={
+                followedCommunities.length !== 0
+                  ? followedCommunities[0].url
+                  : ''
+              }
               numberOfCommunities={followedCommunities.length}
             />
           )
-        }
+        },
       )}
     </S.Tabs>
   ) : (

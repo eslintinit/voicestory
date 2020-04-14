@@ -1,15 +1,14 @@
 import { useRouter } from 'next/router'
 import { useKeyboardShortcut } from 'hooks'
 import { useMutation } from '@apollo/react-hooks'
+import Popup from 'reactjs-popup'
 
+import { UNFOLLOW_COMMUNITY, CommunityFragment } from 'apis/Community'
 import { COMPANY_NAME } from 'utils/config'
 
 import closeSVG from 'public/icons/close.svg'
 import * as S from './Tab.styled'
 
-import { UNFOLLOW_COMMUNITY, CommunityFragment } from 'apis/Community'
-
-import Popup from 'reactjs-popup'
 const Card = ({ name }) => (
   <div className="card">
     <div className="header">{name}</div>
@@ -25,14 +24,16 @@ const Tab = ({
 }) => {
   const router = useRouter()
   const { community: selectedCommunity } = router.query
+  console.log(community)
 
   const onChangeTab = () => {
-    if (community.url !== selectedCommunity)
-      router.push(
+    if (community.url !== selectedCommunity) {
+      return router.push(
         '/[company]/[community]/[channel]',
-        `/${COMPANY_NAME()}/${fistCommunity}/general`,
+        `/${COMPANY_NAME()}/${community.url}/general`,
         { shallow: true },
       )
+    }
   }
   useKeyboardShortcut({
     [index + 1]: onChangeTab,
@@ -55,6 +56,7 @@ const Tab = ({
       return cache.writeFragment({ fragment, updatedCommunity })
     },
   })
+
   return (
     <Popup
       trigger={
@@ -86,9 +88,8 @@ const Tab = ({
       }
       position="bottom center"
       on="hover"
-      mouseLeaveDelay={300}
       arrow={false}
-      mouseEnterDelay={2500}
+      mouseEnterDelay={1500}
     >
       <Card name={community.name} />
     </Popup>

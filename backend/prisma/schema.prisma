@@ -20,6 +20,7 @@ model User {
   communitiesFollowed     Community[]     @relation(name: "UserCommunityMember", references: [url])
   channels                Channel[]       @relation(name: "UserChannelAuthor")
   messages                Message[]       @relation(name: "MessageAuthor")
+  files                   File[]          @relation(name: "UserFile")
 }
 
 model Community {
@@ -32,6 +33,7 @@ model Community {
   author                  User?           @relation(name: "UserCommunityAuthor", fields: [authorUsername], references: [username])
   members                 User[]          @relation(name: "UserCommunityMember", references: [username])
   channels                Channel[]       @relation(name: "CommunityChannels")
+  isFollowed              Boolean
 }
 
 model Channel {
@@ -58,5 +60,20 @@ model Message {
   channel                 Channel         @relation(name: "ChannelMessages", fields: [channelId], references: [id])
   authorUsername          String
   author                  User            @relation(name: "MessageAuthor", fields: [authorUsername], references: [username])
+  files                   File[]          @relation(name: "FileMessage")
+}
+
+model File {
+  id                      String          @default(cuid()) @id
+  Key                     String          @unique
+  createdAt               DateTime        @default(now())
+  filename                String
+  mimetype                String
+  filesize                String?
+  encoding                String
+  uploaderUsername        String
+  uploader                User            @relation(name: "UserFile", fields: [uploaderUsername], references: [username])
+  messageId               String?
+  message                 Message?        @relation(name: "FileMessage", fields: [messageId], references: [id])
 }
 

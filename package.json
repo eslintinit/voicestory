@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "npm run dev --prefix backend & npm run dev --prefix frontend",
+    "generate": "graphql-codegen --config ./schema-gen/codegen.yml",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -17,5 +18,12 @@
   "bugs": {
     "url": "https://github.com/ignatif/voicestory/issues"
   },
-  "homepage": "https://github.com/ignatif/voicestory#readme"
+  "homepage": "https://github.com/ignatif/voicestory#readme",
+  "dependencies": {
+    "@graphql-codegen/cli": "^1.13.2"
+  },
+  "devDependencies": {
+    "@graphql-codegen/fragment-matcher": "1.13.2",
+    "@graphql-codegen/introspection": "^1.13.2"
+  }
 }

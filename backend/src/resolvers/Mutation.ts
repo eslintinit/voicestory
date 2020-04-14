@@ -1,12 +1,12 @@
+import { mutationType } from 'nexus'
+
 import * as UserMutation from './User/UserMutation'
 import * as CommunityMutation from './Community/CommunityMutation'
 import * as ChannelMutation from './Channel/ChannelMutation'
-
 import * as MessageMutation from './Message/MessageMutation'
 import * as TypingStatusMutation from './TypingStatus/TypingStatusMutation'
 import * as FileMutation from './File/FileMutation'
-import * as RoleMutation from './Role/RoleMutation'
-import { mutationType } from 'nexus'
+/* import * as RoleMutation from './Role/RoleMutation' */
 
 export const crudMutations = mutationType({
   definition(t) {
@@ -20,27 +20,27 @@ export const crudMutations = mutationType({
 })
 
 export const Mutation = {
+  crudMutations,
+
   users: { UserMutation },
   login: { UserMutation },
+  UserMutation,
 
   createCommunity: { CommunityMutation },
   followCommunity: { CommunityMutation },
   unfollowCommunity: { CommunityMutation },
+  CommunityMutation,
 
   // channelMutations: { ChannelMutation },
+  /* createChannel: { ChannelMutation }, */
 
   sendMessage: { MessageMutation },
   deleteMessage: { MessageMutation },
 
-  crudMutations,
-  UserMutation,
-  CommunityMutation,
-  /* createChannel: { ChannelMutation }, */
-  /* setUserTypingStatus: { TypingStatusMutation }, */
+  uploadFile: { FileMutation },
   /* createRole: { RoleMutation }, */
   /* updateRole: { RoleMutation }, */
   /* deleteRole: { RoleMutation }, */
   /* attachRoleToUser: { RoleMutation }, */
   /* deattachRoleToUser: { RoleMutation }, */
-  /* uploadFile: { FileMutation }, */
 }
