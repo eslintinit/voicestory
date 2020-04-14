@@ -13,10 +13,10 @@ const ChildMessageWrapper = ({ message, children }) => (
 const ParentMessageWrapper = ({ message, children }) => {
   return (
     <S.Container>
-      <S.Avatar src={message.author.image} name={message.author.username} />
+      <S.Avatar src={message.author.image} />
       <S.Content>
         <S.User>
-          <S.Name>{message.author.username}</S.Name>
+          <S.Name>{message.author.fullname}</S.Name>
           <S.Time>{moment(message.createdAt).format('h:mm A')}</S.Time>
         </S.User>
         {children}

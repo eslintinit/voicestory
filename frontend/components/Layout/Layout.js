@@ -18,13 +18,4 @@ const Layout = ({ children, hideLayout }) => {
   )
 }
 
-/*
-  <S.Content>
-    {children}
-    <div id="portal-root" style={{ width: '538px', minWidth: '538px', display: 'none' }} />
-  </S.Content>
-  <div id="alert-root" style={{ width: '538px', minWidth: '538px', display: 'none' }} />
-  <div id="ReactModalPortal" style={{ width: '100%', minWidth: '100%' }} />
-*/
-
 export default Layout

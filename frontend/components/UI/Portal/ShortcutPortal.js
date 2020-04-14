@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useKeyboardShortcut } from 'hooks'
+import { useKeyboardShortcut, useEscapeToClose } from 'hooks'
 
 import ShortcutsWindow from 'components/UI/Shortcuts/ShortcutsWindow'
 
@@ -12,6 +12,8 @@ export default () => {
     },
     'shiftKey',
   )
+
+  useEscapeToClose(() => setShowShortcuts(false))
 
   return (
     <>

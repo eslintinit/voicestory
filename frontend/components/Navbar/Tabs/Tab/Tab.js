@@ -12,12 +12,17 @@ import { UNFOLLOW_COMMUNITY, CommunityFragment } from 'apis/Community'
 import Popup from 'reactjs-popup'
 const Card = ({ name }) => (
   <div className="card">
-    <div className="header">
-      {name}
-    </div>
+    <div className="header">{name}</div>
   </div>
 )
-const Tab = ({ community, active, nextActive, index, numberOfCommunities, fistCommunity }) => {
+const Tab = ({
+  community,
+  active,
+  nextActive,
+  index,
+  numberOfCommunities,
+  fistCommunity,
+}) => {
   const router = useRouter()
   const { community: selectedCommunity } = router.query
 
@@ -26,7 +31,7 @@ const Tab = ({ community, active, nextActive, index, numberOfCommunities, fistCo
       router.push(
         '/[company]/[community]/[channel]',
         `/${COMPANY_NAME()}/${fistCommunity}/general`,
-        { shallow: true }
+        { shallow: true },
       )
   }
   useKeyboardShortcut({
@@ -44,7 +49,7 @@ const Tab = ({ community, active, nextActive, index, numberOfCommunities, fistCo
       router.push(
         '/[company]/[community]/[channel]',
         `/${COMPANY_NAME()}/${fistCommunity.url}/general`,
-        { shallow: true }
+        { shallow: true },
       )
 
       return cache.writeFragment({ fragment, updatedCommunity })
@@ -83,7 +88,6 @@ const Tab = ({ community, active, nextActive, index, numberOfCommunities, fistCo
       on="hover"
       mouseLeaveDelay={300}
       arrow={false}
-
       mouseEnterDelay={2500}
     >
       <Card name={community.name} />

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { useKeyboardShortcut } from 'hooks'
 // Commented yet because it's causing console error
-// import useSound from 'use-sound'
+import useSound from 'use-sound'
 
 import { COMPANY_NAME } from 'utils/config'
 
@@ -15,7 +15,7 @@ const Navbar = () => {
   const { route, push } = useRouter()
   const [showMore, setShowMore] = useState(false)
 
-  // const [playSoundWidgetClose] = useSound('/sounds/card_deal.mp3')
+  const [playSoundWidgetClose] = useSound('/sounds/card_deal.mp3')
 
   useKeyboardShortcut({
     t: () => {
@@ -30,7 +30,7 @@ const Navbar = () => {
   })
 
   const closeWidget = () => {
-    // playSoundWidgetClose()
+    playSoundWidgetClose()
     window.parent.postMessage({ message: 'close-widget' }, '*')
   }
 

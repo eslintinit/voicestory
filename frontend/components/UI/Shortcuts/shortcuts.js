@@ -30,7 +30,7 @@ const shortcuts = [
       {
         label: 'Back',
         description: 'Description',
-        keys: ['Esc'],
+        keys: ['⎋'],
       },
     ],
   },
@@ -100,7 +100,7 @@ const shortcuts = [
       {
         label: 'Delete',
         description: 'When selected',
-        keys: ['D'],
+        keys: ['⌫'],
       },
       {
         label: 'Share',
@@ -120,12 +120,12 @@ const shortcuts = [
       {
         label: 'Send message',
         description: 'description',
-        keys: ['Enter'],
+        keys: ['↩'],
       },
       {
         label: 'New line',
         description: 'description',
-        keys: ['⇧', 'Enter'],
+        keys: ['⇧', '↩'],
       },
       {
         label: 'Add file',
@@ -140,12 +140,12 @@ const shortcuts = [
       {
         label: 'Confirm action',
         description: 'description',
-        keys: ['Enter'],
+        keys: ['↩'],
       },
       {
         label: 'Close modal',
         description: 'description',
-        keys: ['Esc'],
+        keys: ['⎋'],
       },
     ],
   },

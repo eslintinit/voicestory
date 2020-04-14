@@ -53,7 +53,7 @@ const ModalMore = ({ opened, close }) => {
                 `/${COMPANY_NAME()}/settings/members`,
                 {
                   shallow: true,
-                }
+                },
               )
               close()
             }}
@@ -72,7 +72,7 @@ const ModalMore = ({ opened, close }) => {
                 `/${COMPANY_NAME()}/settings/roles`,
                 {
                   shallow: true,
-                }
+                },
               )
               close()
             }}
@@ -91,7 +91,7 @@ const ModalMore = ({ opened, close }) => {
                 `/${COMPANY_NAME()}/settings/profile`,
                 {
                   shallow: true,
-                }
+                },
               )
               close()
             }}
