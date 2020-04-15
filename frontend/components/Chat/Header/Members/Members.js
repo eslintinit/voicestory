@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { UserIcon } from 'components/UI/Icons'
-// import Members from 'components/Channel/ChannelInfo/Members/Members'
+import MembersPortal from './MembersPortal'
 import * as S from './Members.styled'
 
 export default ({ membersCount }) => {
@@ -14,9 +14,7 @@ export default ({ membersCount }) => {
         </S.UserIcon>
         <S.MembersCount>{membersCount}</S.MembersCount>
       </S.Members>
-      {/*
-      <Members show={showMembers} onClose={() => setShowMembers(false)} />
-      */}
+      <MembersPortal show={showMembers} onClose={() => setShowMembers(false)} />
     </>
   )
 }

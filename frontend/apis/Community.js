@@ -24,9 +24,9 @@ export const GET_COMMUNITIES = gql`
 `
 
 export const GET_COMMUNITIES_CLIENT = gql`
-  query communities { 
-    communities { 
-      ...CommunityFragment  @client
+  query communities {
+    communities {
+      ...CommunityFragment @client
     }
   }
   ${CommunityFragment}
@@ -34,7 +34,7 @@ export const GET_COMMUNITIES_CLIENT = gql`
 
 export const GET_COMMUNITY = gql`
   query community($url: String) {
-    community(url: $url) {
+    community(where: { url: $url }) {
       id
       url
       image
@@ -47,9 +47,6 @@ export const GET_COMMUNITY = gql`
         username
         isOnline
         image
-      }
-      notifications {
-        id
       }
     }
   }

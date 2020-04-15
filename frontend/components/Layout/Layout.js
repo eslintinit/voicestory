@@ -12,7 +12,14 @@ const Layout = ({ children, hideLayout }) => {
   return (
     <S.Layout data-hj-suppress>
       <Navbar />
-      <S.Content>{children}</S.Content>
+      <S.Content>
+        {children}
+
+        <div
+          id="portal-root"
+          style={{ width: '538px', minWidth: '538px', display: 'none' }}
+        />
+      </S.Content>
       <ShortcutPortal />
     </S.Layout>
   )
