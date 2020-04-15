@@ -24,7 +24,7 @@ const UserProvider = ({ children }) => {
       fetchPolicy: 'network-only',
       onCompleted: () => {
         localStorage.setItem('tenant', COMPANY_NAME())
-        setUser(me1)
+        if (me1 !== undefined && me1 !== '') setUser(me1)
         if (!userLoaded) {
           dispatch('USER_LOADED')
         }
@@ -35,7 +35,8 @@ const UserProvider = ({ children }) => {
 
   const signin = (token) => {
     // Store the token in cookie 30 days
-    Cookies.set('token', token, { expires: 30 })
+    if (token !== undefined && token !== '')
+      Cookies.set('token', token, { expires: 30 })
     fetchOnly()
     return back()
   }
@@ -53,6 +54,7 @@ const UserProvider = ({ children }) => {
       window.localStorage.setItem('logout', Date.now())
       localStorage.removeItem('user')
     }
+    location.reload()
   }
 
   useEffect(() => {
