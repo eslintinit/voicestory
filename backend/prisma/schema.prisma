@@ -29,11 +29,11 @@ model Community {
   url                     String          @unique
   image                   String?
   description             String?
+  isFollowed              Boolean?        @default(false)
   authorUsername          String?
   author                  User?           @relation(name: "UserCommunityAuthor", fields: [authorUsername], references: [username])
   members                 User[]          @relation(name: "UserCommunityMember", references: [username])
   channels                Channel[]       @relation(name: "CommunityChannels")
-  isFollowed              Boolean
 }
 
 model Channel {

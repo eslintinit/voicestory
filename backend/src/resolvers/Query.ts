@@ -13,6 +13,7 @@ export const crudQueries = queryType({
       ordering: true,
     })
     // Enable crud for PRIVATE COMMUNITIES
+    t.crud.community()
     t.crud.communities({
       filtering: true,
       ordering: true,
