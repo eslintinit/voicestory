@@ -16,45 +16,36 @@ const UserProvider = ({ children }) => {
   } = useContext(AppContext)
   const [logoutUser] = useMutation(LOGOUT)
 
-  const { push } = useRouter()
+  const { back } = useRouter()
 
-  const [fetchMe, { data: { me, loading } = {} }] = useLazyQuery(GET_ME, {
-    fetchPolicy: 'network-only',
-    onCompleted: () => {
-      localStorage.setItem('tenant', COMPANY_NAME())
-      setUser(me)
-      push(
-        `/[company]/[community]/[channel]`,
-        `/${COMPANY_NAME()}/general/general`,
-        {
-          shallow: true,
-        },
-      )
+  const [fetchOnly, { data: { me: me1, loading } = {} }] = useLazyQuery(
+    GET_ME,
+    {
+      fetchPolicy: 'network-only',
+      onCompleted: () => {
+        localStorage.setItem('tenant', COMPANY_NAME())
+        if (me1 !== undefined && me1 !== '') setUser(me1)
+        if (!userLoaded) {
+          dispatch('USER_LOADED')
+        }
+        return ''
+      },
     },
-  })
-
-  const [fetchOnly, { data: { me: me1 } = {} }] = useLazyQuery(GET_ME, {
-    fetchPolicy: 'network-only',
-    onCompleted: () => {
-      localStorage.setItem('tenant', COMPANY_NAME())
-      setUser(me1)
-      if (!userLoaded) {
-        dispatch('USER_LOADED')
-      }
-    },
-  })
+  )
 
   const signin = (token) => {
     // Store the token in cookie 30 days
-    Cookies.set('token', token, { expires: 30 })
-    fetchMe()
+    if (token !== undefined && token !== '')
+      Cookies.set('token', token, { expires: 30 })
+    fetchOnly()
+    return back()
   }
 
   const logout = async () => {
     try {
       await logoutUser({})
     } catch (error) {
-      alert(error)
+      return alert(error)
     }
 
     Cookies.remove('token')
@@ -63,6 +54,7 @@ const UserProvider = ({ children }) => {
       window.localStorage.setItem('logout', Date.now())
       localStorage.removeItem('user')
     }
+    location.reload()
   }
 
   useEffect(() => {

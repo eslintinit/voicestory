@@ -33,9 +33,6 @@ npm-debug.log*
 
 # graphql codegen
 nexus-typegen.ts
-schema-gen.graphql
-graphql.schema.json
-schema-gen/
-backend/src/schema.graphql
 backend/src/generated/nexus-typegen.ts
 backend/generated/nexus-typegen.ts
+frontend/utils/apollo/graphql.schema.json

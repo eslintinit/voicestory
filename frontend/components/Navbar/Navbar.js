@@ -16,7 +16,7 @@ const Navbar = () => {
   const { route, push } = useRouter()
   const [showProfilePopup, setShowProfilePopup] = useState(false)
 
-  const [playSoundWidgetClose] = useSound('/sounds/card_deal.mp3')
+  // const [playSoundWidgetClose] = useSound('/sounds/card_deal.mp3')
 
   useKeyboardShortcut({
     t: () => {
@@ -31,7 +31,7 @@ const Navbar = () => {
   })
 
   const closeWidget = () => {
-    playSoundWidgetClose()
+    // playSoundWidgetClose()
     window.parent.postMessage({ message: 'close-widget' }, '*')
   }
 
