@@ -25,12 +25,17 @@ migrations/
 npm-debug.log*
 **/node_modules
 
-backend/.env
-backend/src/schema.graphql
-backend/generated/nexus-typegen.ts
-
 # env
 .env
 .env.development
 .env.staging
 .env.production
+
+# graphql codegen
+nexus-typegen.ts
+schema-gen.graphql
+graphql.schema.json
+schema-gen/
+backend/src/schema.graphql
+backend/src/generated/nexus-typegen.ts
+backend/generated/nexus-typegen.ts
