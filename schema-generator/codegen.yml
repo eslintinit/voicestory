@@ -1,0 +1,7 @@
+overwrite: true
+schema: "http://localhost:4000/graphql"
+documents: "backend/src/schema-gen.graphql"
+generates:
+  frontend/utils/apollo/graphql.schema.json:
+    plugins:
+      - "introspection"
