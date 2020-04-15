@@ -10,7 +10,10 @@ const UserContext = createContext()
 
 const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null)
-  const { userLoaded, setUserLoaded } = useContext(AppContext)
+  const {
+    appState: { userLoaded },
+    dispatch,
+  } = useContext(AppContext)
   const [logoutUser] = useMutation(LOGOUT)
 
   const { push } = useRouter()
@@ -25,7 +28,7 @@ const UserProvider = ({ children }) => {
         `/${COMPANY_NAME()}/general/general`,
         {
           shallow: true,
-        }
+        },
       )
     },
   })
@@ -36,7 +39,7 @@ const UserProvider = ({ children }) => {
       localStorage.setItem('tenant', COMPANY_NAME())
       setUser(me1)
       if (!userLoaded) {
-        setUserLoaded(true)
+        dispatch('USER_LOADED')
       }
     },
   })

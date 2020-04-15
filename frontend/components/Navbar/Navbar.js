@@ -7,13 +7,14 @@ import useSound from 'use-sound'
 import { COMPANY_NAME } from 'utils/config'
 
 import { ProfileIcon as MoreIcon, CloseIcon } from 'components/UI/Icons'
+import ProfilePopup from './ProfilePopup'
 import Tabs from './Tabs'
 
 import * as S from './Navbar.styled'
 
 const Navbar = () => {
   const { route, push } = useRouter()
-  const [showMore, setShowMore] = useState(false)
+  const [showProfilePopup, setShowProfilePopup] = useState(false)
 
   const [playSoundWidgetClose] = useSound('/sounds/card_deal.mp3')
 
@@ -46,9 +47,15 @@ const Navbar = () => {
         <S.Icons>
           <S.IconBox last>
             <MoreIcon
-              onClick={() => setShowMore(!showMore)}
-              active={showMore}
+              onClick={() => setShowProfilePopup(!showProfilePopup)}
+              active={showProfilePopup}
             />
+            {showProfilePopup && (
+              <ProfilePopup
+                opened={showProfilePopup}
+                close={() => setShowProfilePopup(false)}
+              />
+            )}
           </S.IconBox>
         </S.Icons>
       </S.IconsWrapper>

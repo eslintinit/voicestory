@@ -1,5 +1,5 @@
 import Navbar from 'components/Navbar'
-import ShortcutPortal from 'components/UI/Portal/ShortcutPortal'
+import ShortcutsWindow from 'components/UI/Shortcuts/ShortcutsWindow'
 // import Loader from 'components/UI/Loader'
 
 import * as S from './Layout.styled'
@@ -15,12 +15,13 @@ const Layout = ({ children, hideLayout }) => {
       <S.Content>
         {children}
 
+        {/* Done for members portal. Let's find a more elegent solution later */}
         <div
           id="portal-root"
           style={{ width: '538px', minWidth: '538px', display: 'none' }}
         />
       </S.Content>
-      <ShortcutPortal />
+      <ShortcutsWindow />
     </S.Layout>
   )
 }
