@@ -20,8 +20,14 @@ export const createCommunity = mutationField('createCommunity', {
         image,
         description,
         /* isPrivate, */
-        /* author: { connect: { id: userId } }, */
-        /* members: { connect: { id: userId } }, */
+        author: { connect: { id: userId } },
+        members: { connect: { id: userId } },
+        channels: {
+          create: {
+            name: 'general',
+            url: 'general',
+          },
+        },
       },
     })
   },
