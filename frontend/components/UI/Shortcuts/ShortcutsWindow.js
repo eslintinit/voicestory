@@ -1,12 +1,26 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import { AppContext } from 'context'
+import { useKeyboardShortcut, useEscapeToClose } from 'hooks'
 import FocusTrap from 'focus-trap-react'
 import Shortcut from './Shortcut'
 import * as S from './ShortcutsWindow.styled'
 
-import shortcutTabs from './shortcuts'
+import shortcutTabs from './shortcutsList'
 
 const ShortcutsWindow = ({ close }) => {
+  const { showShortcuts, setShowShortcuts } = useContext(AppContext)
   const [activeTab, setActiveTab] = useState('Essential')
+
+  useKeyboardShortcut(
+    {
+      '?': () => setShowShortcuts(!showShortcuts),
+    },
+    'shiftKey',
+  )
+
+  useEscapeToClose(() => setShowShortcuts(false))
+
+  if (!showShortcuts) return null
 
   return (
     <FocusTrap>

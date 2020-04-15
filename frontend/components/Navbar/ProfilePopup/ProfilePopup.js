@@ -1,21 +1,26 @@
 import { useEffect, useContext } from 'react'
-import Router from 'next/router'
+import { useRouter } from 'next/router'
 import { UserContext } from 'context/UserContext'
+import { AppContext } from 'context'
 import { COMPANY_NAME } from 'utils/config'
+import useDarkMode from 'use-dark-mode'
+
+import Toggle from 'components/UI/Toggle/Toggle'
 import {
   SettingsIcon,
   UsersIcon,
   RolesIcon,
   DarkModeIcon,
 } from 'components/UI/Icons'
-import Toggle from 'components/UI/Toggle/Toggle'
-import useDarkMode from 'use-dark-mode'
+import emojiIcon from 'public/icons/smile.svg'
 
 import * as S from './ProfilePopup.styled'
 
 const ModalMore = ({ opened, close }) => {
   const { user, logout } = useContext(UserContext)
-  const { value: isDarkMode, toggle } = useDarkMode(false)
+  const { toggleShortcuts } = useContext(AppContext)
+  const { value: isDarkMode, toggle: toggleDarkMode } = useDarkMode(false)
+  const { push } = useRouter()
 
   useEffect(() => {
     const listener = document.body.addEventListener('click', (event) => {
@@ -33,6 +38,19 @@ const ModalMore = ({ opened, close }) => {
     close()
   }
 
+  const toSettings = () => {
+    push('/[company]/settings/profile', `/${COMPANY_NAME()}/settings/profile`)
+    close()
+  }
+  const toRoles = () => {
+    push('/[company]/settings/roles', `/${COMPANY_NAME()}/settings/roles`)
+    close()
+  }
+  const toMembers = () => {
+    push('/[company]/settings/members', `/${COMPANY_NAME()}/settings/members`)
+    close()
+  }
+
   return (
     <S.Container opened={opened} id="modal-more">
       {user && (
@@ -46,18 +64,7 @@ const ModalMore = ({ opened, close }) => {
       )}
       <S.Content style={!user ? { border: 'none' } : {}}>
         {user && (
-          <S.MenuItem
-            onClick={() => {
-              Router.push(
-                '/[company]/settings/members',
-                `/${COMPANY_NAME()}/settings/members`,
-                {
-                  shallow: true,
-                },
-              )
-              close()
-            }}
-          >
+          <S.MenuItem onClick={toMembers}>
             <S.UsersIcon>
               <UsersIcon />
             </S.UsersIcon>
@@ -65,18 +72,7 @@ const ModalMore = ({ opened, close }) => {
           </S.MenuItem>
         )}
         {user && (
-          <S.MenuItem
-            onClick={() => {
-              Router.push(
-                '/[company]/settings/roles',
-                `/${COMPANY_NAME()}/settings/roles`,
-                {
-                  shallow: true,
-                },
-              )
-              close()
-            }}
-          >
+          <S.MenuItem onClick={toRoles}>
             <S.RolesIcon>
               <RolesIcon />
             </S.RolesIcon>
@@ -84,38 +80,27 @@ const ModalMore = ({ opened, close }) => {
           </S.MenuItem>
         )}
         {user && (
-          <S.MenuItem
-            onClick={() => {
-              Router.push(
-                '/[company]/settings/profile',
-                `/${COMPANY_NAME()}/settings/profile`,
-                {
-                  shallow: true,
-                },
-              )
-              close()
-            }}
-          >
+          <S.MenuItem onClick={toSettings}>
             <SettingsIcon />
             <span>Settings</span>
           </S.MenuItem>
         )}
-        <S.MenuItem
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}
-        >
+        <S.MenuItem onClick={toggleShortcuts}>
+          <S.EmojiIcon>
+            <use xlinkHref={`${emojiIcon}#icon-smile`} />
+          </S.EmojiIcon>
+          <span>Shortcuts</span>
+        </S.MenuItem>
+        <S.MenuItem darkMode>
           <div>
             <DarkModeIcon />
             <span>Dark mode</span>
           </div>
-          <Toggle onChange={toggle} value={isDarkMode} />
+          <Toggle value={isDarkMode} onChange={toggleDarkMode} />
         </S.MenuItem>
       </S.Content>
       {user && (
-        <S.Footer onClick={() => onLogout()}>
+        <S.Footer onClick={onLogout}>
           <span>Log out</span>
         </S.Footer>
       )}

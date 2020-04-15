@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react'
+import { useEffect, useContext } from 'react'
 import { useRouter } from 'next/router'
 import { useLazyQuery } from '@apollo/react-hooks'
 import { useKeyboardShortcut } from 'hooks'
@@ -22,14 +22,17 @@ const ChatHeader = () => {
     push,
   } = useRouter()
 
-  const { channelsLoaded, setChannelsLoaded } = useContext(AppContext)
+  const {
+    appState: { channelsLoaded },
+    dispatch,
+  } = useContext(AppContext)
   const [getChannels, { data: { channels = [] } = {}, loading }] = useLazyQuery(
     GET_CHANNELS,
     {
       variables: { communityUrl },
       onCompleted: () => {
         if (!channelsLoaded) {
-          setChannelsLoaded(true)
+          dispatch('CHANNELS_LOADED')
         }
       },
     },

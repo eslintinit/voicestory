@@ -18,7 +18,7 @@ export const Container = styled.div`
   opacity: 0;
   position: fixed;
   top: 50px;
-  left: 50px;
+  left: 22px;
   border-radius: 8px;
   font-size: 0.95rem;
   z-index: 5;
@@ -107,6 +107,14 @@ export const MenuItem = styled.div`
       opacity: 0.7;
     }
   }
+  ${(props) =>
+    props.darkMode &&
+    `
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+  `}
 `
 
 export const ToggleWrapper = styled.div`
@@ -129,6 +137,15 @@ export const RolesIcon = styled.svg`
   margin-right: 8px;
   width: 18px;
   height: 16px;
+
+  fill: #989ba0;
+`
+
+export const EmojiIcon = styled.svg`
+  margin-right: 8px;
+  width: 18px;
+  height: 16px;
+  margin-bottom: 1px;
 
   fill: #989ba0;
 `

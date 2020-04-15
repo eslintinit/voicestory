@@ -1,13 +1,15 @@
 import { ApolloLink } from 'apollo-link'
 import { ApolloClient } from 'apollo-client'
-import { InMemoryCache, IntrospectionFragmentMatcher } from 'apollo-cache-inmemory'
+import {
+  InMemoryCache,
+  IntrospectionFragmentMatcher,
+} from 'apollo-cache-inmemory'
 import { errorLink, requestLink, link, request } from './links'
-import introspectionQueryResultData from './graphql.schema.json';
-
+import introspectionQueryResultData from './graphql.schema.json'
 
 const fragmentMatcher = new IntrospectionFragmentMatcher({
-  introspectionQueryResultData
-});
+  introspectionQueryResultData,
+})
 export default function createApolloClient(initialState, ctx) {
   // The `ctx` (NextPageContext) will only be present on the server.
   // use it to extract auth headers (ctx.req) or similar.
