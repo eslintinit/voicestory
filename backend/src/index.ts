@@ -4,7 +4,7 @@ dotenv.config({ path: `../.env.${process.env.NODE_ENV}` })
 import { GraphQLServer, PubSub } from 'graphql-yoga'
 import { PrismaClient } from '@prisma/client'
 import { applyMiddleware } from 'graphql-middleware'
-import { permissions } from './permissions'
+// import { permissions } from './permissions'
 import { Context, Token } from './types'
 import SocialConfig from './config/passport'
 import { verify } from 'jsonwebtoken'
@@ -19,7 +19,8 @@ import * as cors from 'cors'
 
 const pubsub = new PubSub()
 
-const schema = applyMiddleware(baseSchema, permissions)
+// const schema = applyMiddleware(baseSchema, permissions)
+const schema = baseSchema
 // const schema = baseSchema
 
 const server = new GraphQLServer({
