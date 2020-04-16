@@ -16,7 +16,7 @@ const UserProvider = ({ children }) => {
   } = useContext(AppContext)
   const [logoutUser] = useMutation(LOGOUT)
 
-  const { back } = useRouter()
+  const { back, push } = useRouter()
 
   const [fetchOnly, { data: { me: me1, loading } = {} }] = useLazyQuery(
     GET_ME,
@@ -32,13 +32,18 @@ const UserProvider = ({ children }) => {
       },
     },
   )
-
+  // saves token at Cookie and redirects the user
   const signin = (token) => {
     // Store the token in cookie 30 days
     if (token !== undefined && token !== '')
       Cookies.set('token', token, { expires: 30 })
     fetchOnly()
-    return back()
+    let domainReferer = new URL(document.referrer).hostname
+    let appDomain = new URL(process.env.FRONTEND_URL).hostname
+    // if user is sigin from some community return to community
+    if (domainReferer === appDomain) return back()
+    // else return to general chat
+    else return push('/')
   }
 
   const logout = async () => {
