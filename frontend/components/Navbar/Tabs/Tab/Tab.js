@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 import { useKeyboardShortcut } from 'hooks'
 import { useMutation } from '@apollo/react-hooks'
 import Popup from 'reactjs-popup'
-
+import { useState, useEffect } from 'react'
 import { UNFOLLOW_COMMUNITY, CommunityFragment } from 'apis/Community'
 import { COMPANY_NAME } from 'utils/config'
 
@@ -24,7 +24,7 @@ const Tab = ({
 }) => {
   const router = useRouter()
   const { community: selectedCommunity } = router.query
-  console.log(community)
+  const [communityLoaded, setCommunityLoaded] = useState(false)
 
   const onChangeTab = () => {
     if (community.url !== selectedCommunity) {
@@ -57,6 +57,11 @@ const Tab = ({
     },
   })
 
+  useEffect(() => {
+    if (selectedCommunity && community && community.url === selectedCommunity)
+      setCommunityLoaded(true)
+  }, [])
+
   return (
     <Popup
       trigger={
@@ -77,7 +82,9 @@ const Tab = ({
               <S.UnsubscribeIcon
                 onClick={() => {
                   // Do: Unfollow. Update cache
-                  unfollowCommunity({ variables: { url: community.url } })
+                  if (communityLoaded)
+                    unfollowCommunity({ variables: { url: community.url } })
+                  setCommunityLoaded(true)
                 }}
               >
                 <use xlinkHref={`${closeSVG}#icon-close`} />
