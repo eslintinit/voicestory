@@ -58,7 +58,13 @@ const CommunitiesPage = () => {
       pollInterval: 25000, // auto refetch after 20 sec
     },
   )
-  // communities.sort((a, b) => a.isFollowed < b.isFollowed)
+
+  communities.forEach((el) => {
+    if (el.isFollowed) {
+      communities.splice(communities.indexOf(el), 1)
+      communities.unshift(el)
+    }
+  })
 
   return (
     <S.Container>
