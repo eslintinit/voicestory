@@ -11,7 +11,7 @@ const channelsShortcutMap = {
   3: 'r',
 }
 
-export default ({ channel, index, children }) => {
+export default ({ channel, index }) => {
   const {
     query: { community: communityUrl, channel: channelUrl },
     push,
@@ -34,9 +34,10 @@ export default ({ channel, index, children }) => {
   return (
     <S.Channel
       onClick={() => onChangeChannel()}
+      onFocus={() => onChangeChannel()}
       active={channel.url === channelUrl}
     >
-      {children}
+      {`#${channel.name}`}
     </S.Channel>
   )
 }

@@ -20,7 +20,8 @@
   },
   "homepage": "https://github.com/ignatif/voicestory#readme",
   "dependencies": {
-    "@graphql-codegen/cli": "^1.13.2"
+    "@graphql-codegen/cli": "^1.13.2",
+    "graphql": "^15.0.0"
   },
   "devDependencies": {
     "@graphql-codegen/fragment-matcher": "1.13.2",

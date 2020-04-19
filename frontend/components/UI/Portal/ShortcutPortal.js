@@ -10,7 +10,7 @@ export default () => {
     {
       '?': () => setShowShortcuts(!showShortcuts),
     },
-    'shiftKey',
+    { modKey: 'shiftKey' },
   )
 
   useEscapeToClose(() => setShowShortcuts(false))

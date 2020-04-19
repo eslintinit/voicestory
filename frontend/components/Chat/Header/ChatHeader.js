@@ -42,6 +42,48 @@ const ChatHeader = () => {
     getChannels()
   }, [communityUrl])
 
+  const selectedChannelIndex = channels.findIndex(
+    (channel) => channel.url === channelUrl,
+  )
+
+  const toNextChannel = () => {
+    const isLastChannel = selectedChannelIndex === channels.length - 1
+    let nextUrl
+
+    if (isLastChannel) {
+      // To first channel
+      nextUrl = channels[0].url
+    } else {
+      // to next
+      nextUrl = channels[selectedChannelIndex + 1].url
+    }
+
+    push(
+      `/[company]/[community]/[channel]`,
+      `/${COMPANY_NAME()}/${communityUrl}/${nextUrl}`,
+      { shallow: true },
+    )
+  }
+
+  const toPreviousChannel = () => {
+    const isFirstChannel = selectedChannelIndex === 0
+    let nextUrl
+
+    if (isFirstChannel) {
+      // To last channel
+      nextUrl = channels[channels.length - 1].url
+    } else {
+      // to next
+      nextUrl = channels[selectedChannelIndex - 1].url
+    }
+
+    push(
+      `/[company]/[community]/[channel]`,
+      `/${COMPANY_NAME()}/${communityUrl}/${nextUrl}`,
+      { shallow: true },
+    )
+  }
+
   // const getSelectedChannel = () =>
   // const [selectedChannel, setSelectedChannel] = useState(null)
 
@@ -55,6 +97,27 @@ const ChatHeader = () => {
         },
       ),
   })
+
+  // tab
+  useKeyboardShortcut(
+    {
+      '9': toNextChannel,
+    },
+    {
+      eventType: 'keyup',
+    },
+  )
+
+  // shift + tab
+  useKeyboardShortcut(
+    {
+      '9': toPreviousChannel,
+    },
+    {
+      eventType: 'keyup',
+      modKey: 'shiftKey',
+    },
+  )
 
   if (loading) {
     return <ChatHeaderPlaceholder />

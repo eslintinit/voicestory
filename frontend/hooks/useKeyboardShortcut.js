@@ -1,21 +1,31 @@
 import { useEffect } from 'react'
 
-export default function useKeyboardShortcut(keyMap, modKey = 'ctrlKey') {
+export default function useKeyboardShortcut(
+  keyMap,
+  options = {
+    modKey: 'ctrlKey',
+    eventType: 'keypress',
+  },
+) {
   useEffect(() => {
+    const { modKey, eventType } = options
     function handleKeyPress(e) {
-      if (!e[modKey]) {
+      if (modKey && !e[modKey]) {
         return
       }
 
-      const callback = keyMap[e.key]
+      const callback =
+        keyMap[
+          eventType === 'keydown' || eventType === 'keyup' ? e.keyCode : e.key
+        ]
       if (callback) {
         callback()
       }
     }
-    document.addEventListener('keypress', handleKeyPress)
+    document.addEventListener(eventType, handleKeyPress)
 
     return () => {
-      document.removeEventListener('keypress', handleKeyPress)
+      document.removeEventListener(eventType, handleKeyPress)
     }
   })
 }
