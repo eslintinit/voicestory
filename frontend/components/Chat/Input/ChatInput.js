@@ -72,7 +72,13 @@ const ChatInput = () => {
 
       <S.Container>
         <S.InputWrapper>
-          <S.Input value={body} onChange={onChange} onKeyDown={onKeyDown} />
+          <S.Input
+            value={body}
+            onChange={onChange}
+            onKeyDown={onKeyDown}
+            autoFocus
+            autoComplete="off"
+          />
         </S.InputWrapper>
 
         {loggedUser ? (

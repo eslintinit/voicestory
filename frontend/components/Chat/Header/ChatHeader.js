@@ -84,38 +84,32 @@ const ChatHeader = () => {
     )
   }
 
-  // const getSelectedChannel = () =>
-  // const [selectedChannel, setSelectedChannel] = useState(null)
-
-  useKeyboardShortcut({
-    n: () =>
-      push(
-        `/[company]/[community]/new-channel`,
-        `/${COMPANY_NAME()}/${communityUrl}/new-channel`,
-        {
-          shallow: true,
-        },
-      ),
-  })
-
-  // tab
+  // shift +
   useKeyboardShortcut(
     {
-      '9': toNextChannel,
+      '+': () =>
+        push(
+          `/[company]/[community]/new-channel`,
+          `/${COMPANY_NAME()}/${communityUrl}/new-channel`,
+          {
+            shallow: true,
+          },
+        ),
     },
     {
-      eventType: 'keyup',
+      modKey: 'shiftKey',
     },
   )
 
-  // shift + tab
+  // shift ← / →
   useKeyboardShortcut(
     {
-      '9': toPreviousChannel,
+      ArrowRight: toNextChannel,
+      ArrowLeft: toPreviousChannel,
     },
     {
-      eventType: 'keyup',
       modKey: 'shiftKey',
+      eventType: 'keydown',
     },
   )
 

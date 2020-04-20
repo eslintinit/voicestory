@@ -14,6 +14,7 @@ export const Channel = styled.li`
       : props.unread
       ? props.theme.channelUnread
       : props.theme.channelUnread};
+  background: ${(props) => props.theme.chatBG};
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;

@@ -9,6 +9,17 @@ export default () => {
   const widgetUrl = `${process.env.FRONTEND_URL}/voicestory/general/general`
   const [widgetOpened, setWidgetOpened] = useState(true)
 
+  // useKeyboardShortcut(
+  //   {
+  //     Escape: () => alert('escape'),
+  //   },
+  //   {
+  //     modKey: null,
+  //     eventType: 'keyup',
+  //     attr: 'key'
+  //   },
+  // )
+
   const [playSoundWidgetOpen] = useSound('/sounds/card_drop.mp3')
 
   const openWidget = () => {

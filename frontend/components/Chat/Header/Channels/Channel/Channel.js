@@ -34,7 +34,6 @@ export default ({ channel, index }) => {
   return (
     <S.Channel
       onClick={() => onChangeChannel()}
-      onFocus={() => onChangeChannel()}
       active={channel.url === channelUrl}
     >
       {`#${channel.name}`}

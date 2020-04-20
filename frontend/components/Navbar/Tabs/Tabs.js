@@ -86,10 +86,11 @@ const Tabs = () => {
     )
   }
 
+  // ← →
   useKeyboardShortcut(
     {
-      '37': toPreviousCommunity,
-      '39': toNextCommunity,
+      ArrowRight: toNextCommunity,
+      ArrowLeft: toPreviousCommunity,
     },
     {
       modKey: null,
