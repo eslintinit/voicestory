@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useRouter } from 'next/router'
-import { useKeyboardShortcut } from 'hooks'
+import { useKeyboardShortcut, useDoubleKeyPress } from 'hooks'
 // Commented yet because it's causing console error
 import useSound from 'use-sound'
 
@@ -16,7 +16,8 @@ const Navbar = () => {
   const { route, push } = useRouter()
   const [showProfilePopup, setShowProfilePopup] = useState(false)
 
-  // const [playSoundWidgetClose] = useSound('/sounds/card_deal.mp3')
+  const [playSoundWidgetOpen] = useSound('/sounds/card_drop.mp3')
+  const [playSoundWidgetClose] = useSound('/sounds/card_deal.mp3')
 
   useKeyboardShortcut({
     t: () => {
@@ -30,10 +31,25 @@ const Navbar = () => {
     },
   })
 
+  const openWidget = () => {
+    playSoundWidgetOpen()
+    window.parent.postMessage({ message: 'open-widget' }, '*')
+  }
+
   const closeWidget = () => {
-    // playSoundWidgetClose()
+    playSoundWidgetClose()
     window.parent.postMessage({ message: 'close-widget' }, '*')
   }
+
+  useDoubleKeyPress({
+    key: 'Enter',
+    onDoublePress: openWidget,
+  })
+
+  useDoubleKeyPress({
+    key: 'Escape',
+    onDoublePress: closeWidget,
+  })
 
   const toCommunities = () => {
     push(`/[company]/communities`, `/${COMPANY_NAME()}/communities`, {
