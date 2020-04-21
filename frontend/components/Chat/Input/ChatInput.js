@@ -1,7 +1,7 @@
 import { useState, useContext } from 'react'
 import { UserContext } from 'context/UserContext'
 import { useRouter } from 'next/router'
-import { useEscapeToClose } from 'hooks'
+import { useEscapeToClose, useKeyboardShortcut } from 'hooks'
 import { useMutation } from '@apollo/react-hooks'
 import useSound from 'use-sound'
 import dynamic from 'next/dynamic'
@@ -26,6 +26,16 @@ const ChatInput = () => {
   const [sendMessage] = useMutation(SEND_MESSAGE)
 
   useEscapeToClose(() => document.getElementById('vs-input').blur())
+
+  useKeyboardShortcut(
+    {
+      Enter: () => document.getElementById('vs-input').focus(),
+    },
+    {
+      modKey: null,
+      // event: 'keydown',
+    },
+  )
 
   const [body, setBody] = useState('')
   const { user: loggedUser } = useContext(UserContext)

@@ -5,6 +5,7 @@ export default function useKeyboardShortcut(keyMap, options = {}) {
     const { modKey = 'ctrlKey', eventType = 'keypress', attr = 'key' } = options
 
     const handler = (event) => {
+      // console.log(event)
       if (modKey && !event[modKey]) {
         return
       }
