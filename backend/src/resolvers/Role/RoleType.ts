@@ -6,8 +6,8 @@ export const Role = objectType({
     t.model.id()
     t.model.createdAt()
     t.model.title()
-    t.model.roleSettings()
+    t.model.permissions()
     t.model.color()
     t.model.users()
-  }
-});
+  },
+})

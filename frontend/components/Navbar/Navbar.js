@@ -51,6 +51,18 @@ const Navbar = () => {
     onDoublePress: closeWidget,
   })
 
+  const startCommunity = () =>
+    push(`/[company]/communities/new`, `/${COMPANY_NAME()}/$/communities/new`)
+
+  useKeyboardShortcut(
+    {
+      '+': startCommunity,
+    },
+    {
+      modKey: 'shiftKey',
+    },
+  )
+
   const toCommunities = () => {
     push(`/[company]/communities`, `/${COMPANY_NAME()}/communities`, {
       shallow: true,

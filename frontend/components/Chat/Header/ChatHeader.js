@@ -87,7 +87,7 @@ const ChatHeader = () => {
   // shift +
   useKeyboardShortcut(
     {
-      '+': () =>
+      n: () =>
         push(
           `/[company]/[community]/new-channel`,
           `/${COMPANY_NAME()}/${communityUrl}/new-channel`,

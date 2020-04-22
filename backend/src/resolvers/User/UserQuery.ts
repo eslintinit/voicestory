@@ -48,18 +48,18 @@ export const getUser = queryField('getUser', {
 })
 
 // CAN BE REPLACED WITH .CRUD
-// export const users = queryField('users', {
-//   type: 'User',
-//   list: true,
-//   args: { searchString: stringArg({ nullable: true }) },
-//   resolve: (parent, { searchString }: any, ctx) => {
-//     return ctx.prisma.user.findMany({
-//       where: {
-//         username: {
-//           contains: searchString,
-//         },
-//       },
-//       orderBy: { username: 'asc' },
-//     })
-//   },
-// })
+export const users = queryField('users', {
+  type: 'User',
+  list: true,
+  args: { searchString: stringArg({ nullable: true }) },
+  resolve: (parent, { searchString }: any, ctx) => {
+    return ctx.prisma.user.findMany({
+      where: {
+        username: {
+          contains: searchString,
+        },
+      },
+      orderBy: { username: 'asc' },
+    })
+  },
+})

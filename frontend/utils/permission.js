@@ -14,8 +14,8 @@ export const canManageCommunity = (user) => {
   if (isEmpty(user)) return false
   if (isOwner(user)) return true
   let hasPermission = false
-  user.role.forEach((role) => {
-    if (role.roleSettings.includes('manage_community')) {
+  user.roles.forEach((role) => {
+    if (role.permissions.includes('manage_community')) {
       hasPermission = true
     }
   })
@@ -27,8 +27,8 @@ export const canManageRole = (user) => {
   if (isEmpty(user)) return false
   if (isOwner(user)) return true
   let hasPermission = false
-  user.role.forEach((role) => {
-    if (role.roleSettings.includes('manage_role')) {
+  user.roles.forEach((role) => {
+    if (role.permissions.includes('manage_role')) {
       hasPermission = true
     }
   })
@@ -40,8 +40,8 @@ export const canManageChannel = (user) => {
   if (isEmpty(user)) return false
   if (isOwner(user)) return true
   let hasPermission = false
-  user.role.forEach((role) => {
-    if (role.roleSettings.includes('manage_channel')) {
+  user.roles.forEach((role) => {
+    if (role.permissions.includes('manage_channel')) {
       hasPermission = true
     }
   })
@@ -53,8 +53,8 @@ export const canDeleteMessage = (user, message) => {
   if (isEmpty(user)) return false
   if (isOwner(user)) return true
   let hasPermission = false
-  user.role.forEach((role) => {
-    if (role.roleSettings.includes('delete_message')) {
+  user.roles.forEach((role) => {
+    if (role.permissions.includes('delete_message')) {
       hasPermission = true
     }
   })

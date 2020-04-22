@@ -43,7 +43,7 @@ const canManageCommunity = rule()(async (parent, { id }, context) => {
 
     let result = false
     roles.forEach((role: any) => {
-      if (role.roleSettings.includes('manage_community')) {
+      if (role.permissions.includes('manage_community')) {
         result = true
       }
     })
@@ -69,7 +69,7 @@ const canManageChannel = rule()(async (parent, { id }, context) => {
 
     let result = false
     roles.forEach((role: any) => {
-      if (role.roleSettings.includes('manage_channel')) {
+      if (role.permissions.includes('manage_channel')) {
         result = true
       }
     })
@@ -95,7 +95,7 @@ const canManageRole = rule()(async (parent, { id }, context) => {
 
     let result = false
     roles.forEach((role: any) => {
-      if (role.roleSettings.includes('manage_role')) {
+      if (role.permissions.includes('manage_role')) {
         result = true
       }
     })
@@ -122,7 +122,7 @@ const canChatPermission = rule()(async (parent, { id }, context) => {
 
     let result = false
     roles.forEach((role: any) => {
-      if (role.roleSettings.includes('chat_permission')) {
+      if (role.permissions.includes('chat_permission')) {
         result = true
       }
     })
@@ -149,7 +149,7 @@ const canUploadImage = rule()(async (parent, { id }, context) => {
 
     let result = false
     roles.forEach((role: any) => {
-      if (role.roleSettings.includes('upload_image')) {
+      if (role.permissions.includes('upload_image')) {
         result = true
       }
     })
@@ -175,7 +175,7 @@ const canPostLinks = rule()(async (parent, { id }, context) => {
       .role()
     let result = false
     roles.forEach((role: any) => {
-      if (role.roleSettings.includes('post_links')) {
+      if (role.permissions.includes('post_links')) {
         result = true
       }
     })
@@ -202,7 +202,7 @@ const canDeleteMessage = rule()(async (parent, { messageId }, context) => {
       .role()
 
     roles.forEach((role: any) => {
-      if (role.roleSettings.includes('delete_message')) {
+      if (role.permissions.includes('delete_message')) {
         result = true
       }
     })

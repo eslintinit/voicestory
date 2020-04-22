@@ -1,7 +1,8 @@
 import * as UserQuery from './User/UserQuery'
+import * as RoleQuery from './Role/RoleQuery'
 import * as CommunityQuery from './Community/CommunityQuery'
-import * as FileQuery from './File/FileQuery'
 import * as MessageQuery from './Message/MessageQuery'
+import * as FileQuery from './File/FileQuery'
 
 import { queryType } from 'nexus'
 
@@ -44,5 +45,5 @@ export const Query = {
 
   messages: { MessageQuery },
   files: { FileQuery },
-  /* roles: { RoleQuery }, */
+  roles: { RoleQuery },
 }

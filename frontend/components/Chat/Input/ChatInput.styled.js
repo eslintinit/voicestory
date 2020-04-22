@@ -95,7 +95,6 @@ export const Input = styled.input.attrs({
   font-size: 15px;
   color: ${(props) => props.theme.chatText};
   line-height: 26px;
-  margin-left: 10px;
   border: none;
 `
 

@@ -21,6 +21,7 @@ model User {
   channels                Channel[]       @relation(name: "UserChannelAuthor")
   messages                Message[]       @relation(name: "MessageAuthor")
   files                   File[]          @relation(name: "UserFile")
+  roles                   Role[]          @relation(name: "UserRole", references: [id])
 }
 
 model Community {
@@ -75,5 +76,15 @@ model File {
   uploader                User            @relation(name: "UserFile", fields: [uploaderUsername], references: [username])
   messageId               String?
   message                 Message?        @relation(name: "FileMessage", fields: [messageId], references: [id])
+}
+
+
+model Role {
+  id                      String          @default(cuid()) @id
+  createdAt               DateTime        @default(now())
+  title                   String          @unique
+  permissions             String
+  color                   String
+  users                   User[]          @relation(name: "UserRole", references: [username])
 }
 

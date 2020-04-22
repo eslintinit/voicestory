@@ -79,9 +79,7 @@ export interface NexusGenInputs {
     some?: NexusGenInputs['ChannelWhereInput'] | null; // ChannelWhereInput
   }
   ChannelOrderByInput: { // input type
-    author?: NexusGenEnums['OrderByArg'] | null; // OrderByArg
     authorUsername?: NexusGenEnums['OrderByArg'] | null; // OrderByArg
-    community?: NexusGenEnums['OrderByArg'] | null; // OrderByArg
     communityUrl?: NexusGenEnums['OrderByArg'] | null; // OrderByArg
     createdAt?: NexusGenEnums['OrderByArg'] | null; // OrderByArg
     description?: NexusGenEnums['OrderByArg'] | null; // OrderByArg
@@ -267,7 +265,6 @@ export interface NexusGenInputs {
     some?: NexusGenInputs['CommunityWhereInput'] | null; // CommunityWhereInput
   }
   CommunityOrderByInput: { // input type
-    author?: NexusGenEnums['OrderByArg'] | null; // OrderByArg
     authorUsername?: NexusGenEnums['OrderByArg'] | null; // OrderByArg
     description?: NexusGenEnums['OrderByArg'] | null; // OrderByArg
     id?: NexusGenEnums['OrderByArg'] | null; // OrderByArg
@@ -742,6 +739,86 @@ export interface NexusGenInputs {
     notIn?: string[] | null; // [String!]
     startsWith?: string | null; // String
   }
+  RoleCreateManyWithoutUsersInput: { // input type
+    connect?: NexusGenInputs['RoleWhereUniqueInput'][] | null; // [RoleWhereUniqueInput!]
+    create?: NexusGenInputs['RoleCreateWithoutUsersInput'][] | null; // [RoleCreateWithoutUsersInput!]
+  }
+  RoleCreateWithoutUsersInput: { // input type
+    color: string; // String!
+    createdAt?: any | null; // DateTime
+    id?: string | null; // String
+    permissions: string; // String!
+    title: string; // String!
+  }
+  RoleFilter: { // input type
+    every?: NexusGenInputs['RoleWhereInput'] | null; // RoleWhereInput
+    none?: NexusGenInputs['RoleWhereInput'] | null; // RoleWhereInput
+    some?: NexusGenInputs['RoleWhereInput'] | null; // RoleWhereInput
+  }
+  RoleScalarWhereInput: { // input type
+    AND?: NexusGenInputs['RoleScalarWhereInput'][] | null; // [RoleScalarWhereInput!]
+    color?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
+    id?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    NOT?: NexusGenInputs['RoleScalarWhereInput'][] | null; // [RoleScalarWhereInput!]
+    OR?: NexusGenInputs['RoleScalarWhereInput'][] | null; // [RoleScalarWhereInput!]
+    permissions?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    title?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    users?: NexusGenInputs['UserFilter'] | null; // UserFilter
+  }
+  RoleUpdateManyDataInput: { // input type
+    color?: string | null; // String
+    createdAt?: any | null; // DateTime
+    id?: string | null; // String
+    permissions?: string | null; // String
+    title?: string | null; // String
+  }
+  RoleUpdateManyWithWhereNestedInput: { // input type
+    data: NexusGenInputs['RoleUpdateManyDataInput']; // RoleUpdateManyDataInput!
+    where: NexusGenInputs['RoleScalarWhereInput']; // RoleScalarWhereInput!
+  }
+  RoleUpdateManyWithoutUsersInput: { // input type
+    connect?: NexusGenInputs['RoleWhereUniqueInput'][] | null; // [RoleWhereUniqueInput!]
+    create?: NexusGenInputs['RoleCreateWithoutUsersInput'][] | null; // [RoleCreateWithoutUsersInput!]
+    delete?: NexusGenInputs['RoleWhereUniqueInput'][] | null; // [RoleWhereUniqueInput!]
+    deleteMany?: NexusGenInputs['RoleScalarWhereInput'][] | null; // [RoleScalarWhereInput!]
+    disconnect?: NexusGenInputs['RoleWhereUniqueInput'][] | null; // [RoleWhereUniqueInput!]
+    set?: NexusGenInputs['RoleWhereUniqueInput'][] | null; // [RoleWhereUniqueInput!]
+    update?: NexusGenInputs['RoleUpdateWithWhereUniqueWithoutUsersInput'][] | null; // [RoleUpdateWithWhereUniqueWithoutUsersInput!]
+    updateMany?: NexusGenInputs['RoleUpdateManyWithWhereNestedInput'][] | null; // [RoleUpdateManyWithWhereNestedInput!]
+    upsert?: NexusGenInputs['RoleUpsertWithWhereUniqueWithoutUsersInput'][] | null; // [RoleUpsertWithWhereUniqueWithoutUsersInput!]
+  }
+  RoleUpdateWithWhereUniqueWithoutUsersInput: { // input type
+    data: NexusGenInputs['RoleUpdateWithoutUsersDataInput']; // RoleUpdateWithoutUsersDataInput!
+    where: NexusGenInputs['RoleWhereUniqueInput']; // RoleWhereUniqueInput!
+  }
+  RoleUpdateWithoutUsersDataInput: { // input type
+    color?: string | null; // String
+    createdAt?: any | null; // DateTime
+    id?: string | null; // String
+    permissions?: string | null; // String
+    title?: string | null; // String
+  }
+  RoleUpsertWithWhereUniqueWithoutUsersInput: { // input type
+    create: NexusGenInputs['RoleCreateWithoutUsersInput']; // RoleCreateWithoutUsersInput!
+    update: NexusGenInputs['RoleUpdateWithoutUsersDataInput']; // RoleUpdateWithoutUsersDataInput!
+    where: NexusGenInputs['RoleWhereUniqueInput']; // RoleWhereUniqueInput!
+  }
+  RoleWhereInput: { // input type
+    AND?: NexusGenInputs['RoleWhereInput'][] | null; // [RoleWhereInput!]
+    color?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
+    id?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    NOT?: NexusGenInputs['RoleWhereInput'][] | null; // [RoleWhereInput!]
+    OR?: NexusGenInputs['RoleWhereInput'][] | null; // [RoleWhereInput!]
+    permissions?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    title?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    users?: NexusGenInputs['UserFilter'] | null; // UserFilter
+  }
+  RoleWhereUniqueInput: { // input type
+    id?: string | null; // String
+    title?: string | null; // String
+  }
   StringFilter: { // input type
     contains?: string | null; // String
     endsWith?: string | null; // String
@@ -786,6 +863,7 @@ export interface NexusGenInputs {
     image?: string | null; // String
     isOnline?: boolean | null; // Boolean
     messages?: NexusGenInputs['MessageCreateManyWithoutAuthorInput'] | null; // MessageCreateManyWithoutAuthorInput
+    roles?: NexusGenInputs['RoleCreateManyWithoutUsersInput'] | null; // RoleCreateManyWithoutUsersInput
     social?: string | null; // String
     username: string; // String!
   }
@@ -800,6 +878,7 @@ export interface NexusGenInputs {
     image?: string | null; // String
     isOnline?: boolean | null; // Boolean
     messages?: NexusGenInputs['MessageCreateManyWithoutAuthorInput'] | null; // MessageCreateManyWithoutAuthorInput
+    roles?: NexusGenInputs['RoleCreateManyWithoutUsersInput'] | null; // RoleCreateManyWithoutUsersInput
     social?: string | null; // String
     username: string; // String!
   }
@@ -814,6 +893,7 @@ export interface NexusGenInputs {
     image?: string | null; // String
     isOnline?: boolean | null; // Boolean
     messages?: NexusGenInputs['MessageCreateManyWithoutAuthorInput'] | null; // MessageCreateManyWithoutAuthorInput
+    roles?: NexusGenInputs['RoleCreateManyWithoutUsersInput'] | null; // RoleCreateManyWithoutUsersInput
     social?: string | null; // String
     username: string; // String!
   }
@@ -828,6 +908,7 @@ export interface NexusGenInputs {
     image?: string | null; // String
     isOnline?: boolean | null; // Boolean
     messages?: NexusGenInputs['MessageCreateManyWithoutAuthorInput'] | null; // MessageCreateManyWithoutAuthorInput
+    roles?: NexusGenInputs['RoleCreateManyWithoutUsersInput'] | null; // RoleCreateManyWithoutUsersInput
     social?: string | null; // String
     username: string; // String!
   }
@@ -842,6 +923,7 @@ export interface NexusGenInputs {
     id?: string | null; // String
     image?: string | null; // String
     isOnline?: boolean | null; // Boolean
+    roles?: NexusGenInputs['RoleCreateManyWithoutUsersInput'] | null; // RoleCreateManyWithoutUsersInput
     social?: string | null; // String
     username: string; // String!
   }
@@ -875,6 +957,7 @@ export interface NexusGenInputs {
     messages?: NexusGenInputs['MessageFilter'] | null; // MessageFilter
     NOT?: NexusGenInputs['UserScalarWhereInput'][] | null; // [UserScalarWhereInput!]
     OR?: NexusGenInputs['UserScalarWhereInput'][] | null; // [UserScalarWhereInput!]
+    roles?: NexusGenInputs['RoleFilter'] | null; // RoleFilter
     social?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
     username?: NexusGenInputs['StringFilter'] | null; // StringFilter
   }
@@ -946,6 +1029,7 @@ export interface NexusGenInputs {
     image?: string | null; // String
     isOnline?: boolean | null; // Boolean
     messages?: NexusGenInputs['MessageUpdateManyWithoutAuthorInput'] | null; // MessageUpdateManyWithoutAuthorInput
+    roles?: NexusGenInputs['RoleUpdateManyWithoutUsersInput'] | null; // RoleUpdateManyWithoutUsersInput
     social?: string | null; // String
     username?: string | null; // String
   }
@@ -960,6 +1044,7 @@ export interface NexusGenInputs {
     image?: string | null; // String
     isOnline?: boolean | null; // Boolean
     messages?: NexusGenInputs['MessageUpdateManyWithoutAuthorInput'] | null; // MessageUpdateManyWithoutAuthorInput
+    roles?: NexusGenInputs['RoleUpdateManyWithoutUsersInput'] | null; // RoleUpdateManyWithoutUsersInput
     social?: string | null; // String
     username?: string | null; // String
   }
@@ -974,6 +1059,7 @@ export interface NexusGenInputs {
     image?: string | null; // String
     isOnline?: boolean | null; // Boolean
     messages?: NexusGenInputs['MessageUpdateManyWithoutAuthorInput'] | null; // MessageUpdateManyWithoutAuthorInput
+    roles?: NexusGenInputs['RoleUpdateManyWithoutUsersInput'] | null; // RoleUpdateManyWithoutUsersInput
     social?: string | null; // String
     username?: string | null; // String
   }
@@ -988,6 +1074,7 @@ export interface NexusGenInputs {
     image?: string | null; // String
     isOnline?: boolean | null; // Boolean
     messages?: NexusGenInputs['MessageUpdateManyWithoutAuthorInput'] | null; // MessageUpdateManyWithoutAuthorInput
+    roles?: NexusGenInputs['RoleUpdateManyWithoutUsersInput'] | null; // RoleUpdateManyWithoutUsersInput
     social?: string | null; // String
     username?: string | null; // String
   }
@@ -1002,6 +1089,7 @@ export interface NexusGenInputs {
     id?: string | null; // String
     image?: string | null; // String
     isOnline?: boolean | null; // Boolean
+    roles?: NexusGenInputs['RoleUpdateManyWithoutUsersInput'] | null; // RoleUpdateManyWithoutUsersInput
     social?: string | null; // String
     username?: string | null; // String
   }
@@ -1041,6 +1129,7 @@ export interface NexusGenInputs {
     messages?: NexusGenInputs['MessageFilter'] | null; // MessageFilter
     NOT?: NexusGenInputs['UserWhereInput'][] | null; // [UserWhereInput!]
     OR?: NexusGenInputs['UserWhereInput'][] | null; // [UserWhereInput!]
+    roles?: NexusGenInputs['RoleFilter'] | null; // RoleFilter
     social?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
     username?: NexusGenInputs['StringFilter'] | null; // StringFilter
   }
@@ -1071,6 +1160,7 @@ export interface NexusGenRootTypes {
     user: NexusGenRootTypes['User']; // User!
   }
   Query: {};
+  Role: prisma.Role;
   Subscription: {};
   TwitterPayload: { // root type
     bio: string; // String!
@@ -1186,6 +1276,18 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
   MessageWhereUniqueInput: NexusGenInputs['MessageWhereUniqueInput'];
   NullableBooleanFilter: NexusGenInputs['NullableBooleanFilter'];
   NullableStringFilter: NexusGenInputs['NullableStringFilter'];
+  RoleCreateManyWithoutUsersInput: NexusGenInputs['RoleCreateManyWithoutUsersInput'];
+  RoleCreateWithoutUsersInput: NexusGenInputs['RoleCreateWithoutUsersInput'];
+  RoleFilter: NexusGenInputs['RoleFilter'];
+  RoleScalarWhereInput: NexusGenInputs['RoleScalarWhereInput'];
+  RoleUpdateManyDataInput: NexusGenInputs['RoleUpdateManyDataInput'];
+  RoleUpdateManyWithWhereNestedInput: NexusGenInputs['RoleUpdateManyWithWhereNestedInput'];
+  RoleUpdateManyWithoutUsersInput: NexusGenInputs['RoleUpdateManyWithoutUsersInput'];
+  RoleUpdateWithWhereUniqueWithoutUsersInput: NexusGenInputs['RoleUpdateWithWhereUniqueWithoutUsersInput'];
+  RoleUpdateWithoutUsersDataInput: NexusGenInputs['RoleUpdateWithoutUsersDataInput'];
+  RoleUpsertWithWhereUniqueWithoutUsersInput: NexusGenInputs['RoleUpsertWithWhereUniqueWithoutUsersInput'];
+  RoleWhereInput: NexusGenInputs['RoleWhereInput'];
+  RoleWhereUniqueInput: NexusGenInputs['RoleWhereUniqueInput'];
   StringFilter: NexusGenInputs['StringFilter'];
   UserCreateManyWithoutCommunitiesFollowedInput: NexusGenInputs['UserCreateManyWithoutCommunitiesFollowedInput'];
   UserCreateOneWithoutChannelsInput: NexusGenInputs['UserCreateOneWithoutChannelsInput'];
@@ -1267,10 +1369,14 @@ export interface NexusGenFieldTypes {
     updatedAt: any; // DateTime!
   }
   Mutation: { // field return type
+    attachRoleToUser: NexusGenRootTypes['User']; // User!
     createChannel: NexusGenRootTypes['Channel']; // Channel!
     createCommunity: NexusGenRootTypes['Community']; // Community!
+    createRole: NexusGenRootTypes['Role']; // Role!
+    deattachRoleToUser: NexusGenRootTypes['User']; // User!
     deleteChannel: NexusGenRootTypes['Channel'] | null; // Channel
     deleteCommunity: NexusGenRootTypes['Community'] | null; // Community
+    deleteRole: NexusGenRootTypes['Role']; // Role!
     followCommunity: NexusGenRootTypes['Community']; // Community!
     login: NexusGenRootTypes['AuthPayload']; // AuthPayload!
     logout: NexusGenRootTypes['User']; // User!
@@ -1278,6 +1384,7 @@ export interface NexusGenFieldTypes {
     unfollowCommunity: NexusGenRootTypes['Community']; // Community!
     updateChannel: NexusGenRootTypes['Channel'] | null; // Channel
     updateCommunity: NexusGenRootTypes['Community'] | null; // Community
+    updateRole: NexusGenRootTypes['Role']; // Role!
     uploadFile: NexusGenRootTypes['File']; // File!
   }
   OnlinePayload: { // field return type
@@ -1294,7 +1401,16 @@ export interface NexusGenFieldTypes {
     getUser: NexusGenRootTypes['TwitterPayload']; // TwitterPayload!
     me: NexusGenRootTypes['User']; // User!
     messages: NexusGenRootTypes['Message'][]; // [Message!]!
+    roles: NexusGenRootTypes['Role'][]; // [Role!]!
     userFiles: NexusGenRootTypes['File'][]; // [File!]!
+    users: NexusGenRootTypes['User'][]; // [User!]!
+  }
+  Role: { // field return type
+    color: string; // String!
+    createdAt: any; // DateTime!
+    id: string; // String!
+    permissions: string; // String!
+    title: string; // String!
     users: NexusGenRootTypes['User'][]; // [User!]!
   }
   Subscription: { // field return type
@@ -1316,6 +1432,7 @@ export interface NexusGenFieldTypes {
     id: string; // String!
     image: string | null; // String
     isOnline: boolean; // Boolean!
+    roles: NexusGenRootTypes['Role'][]; // [Role!]!
     social: string | null; // String
     username: string; // String!
   }
@@ -1323,6 +1440,10 @@ export interface NexusGenFieldTypes {
 
 export interface NexusGenArgTypes {
   Mutation: {
+    attachRoleToUser: { // args
+      roleId: string; // String!
+      userId: string; // String!
+    }
     createChannel: { // args
       data: NexusGenInputs['ChannelCreateInput']; // ChannelCreateInput!
     }
@@ -1333,11 +1454,23 @@ export interface NexusGenArgTypes {
       name?: string | null; // String
       url?: string | null; // String
     }
+    createRole: { // args
+      color?: string | null; // String
+      permissions?: string | null; // String
+      title?: string | null; // String
+    }
+    deattachRoleToUser: { // args
+      roleId: string; // String!
+      userId: string; // String!
+    }
     deleteChannel: { // args
       where: NexusGenInputs['ChannelWhereUniqueInput']; // ChannelWhereUniqueInput!
     }
     deleteCommunity: { // args
       where: NexusGenInputs['CommunityWhereUniqueInput']; // CommunityWhereUniqueInput!
+    }
+    deleteRole: { // args
+      id?: string | null; // String
     }
     followCommunity: { // args
       url?: string | null; // String
@@ -1363,6 +1496,12 @@ export interface NexusGenArgTypes {
     updateCommunity: { // args
       data: NexusGenInputs['CommunityUpdateInput']; // CommunityUpdateInput!
       where: NexusGenInputs['CommunityWhereUniqueInput']; // CommunityWhereUniqueInput!
+    }
+    updateRole: { // args
+      color?: string | null; // String
+      id?: string | null; // String
+      permissions?: string | null; // String
+      title?: string | null; // String
     }
     uploadFile: { // args
       file?: any | null; // Upload
@@ -1408,13 +1547,16 @@ export interface NexusGenArgTypes {
       userId?: string | null; // ID
     }
     users: { // args
+      searchString?: string | null; // String
+    }
+  }
+  Role: {
+    users: { // args
       after?: NexusGenInputs['UserWhereUniqueInput'] | null; // UserWhereUniqueInput
       before?: NexusGenInputs['UserWhereUniqueInput'] | null; // UserWhereUniqueInput
       first?: number | null; // Int
       last?: number | null; // Int
-      orderBy?: NexusGenInputs['UserOrderByInput'] | null; // UserOrderByInput
       skip?: number | null; // Int
-      where?: NexusGenInputs['UserWhereInput'] | null; // UserWhereInput
     }
   }
   Subscription: {
@@ -1430,9 +1572,9 @@ export interface NexusGenAbstractResolveReturnTypes {
 
 export interface NexusGenInheritedFields {}
 
-export type NexusGenObjectNames = "AuthPayload" | "Channel" | "Community" | "File" | "Message" | "Mutation" | "OnlinePayload" | "Query" | "Subscription" | "TwitterPayload" | "User";
+export type NexusGenObjectNames = "AuthPayload" | "Channel" | "Community" | "File" | "Message" | "Mutation" | "OnlinePayload" | "Query" | "Role" | "Subscription" | "TwitterPayload" | "User";
 
-export type NexusGenInputNames = "BooleanFilter" | "ChannelCreateInput" | "ChannelCreateManyWithoutAuthorInput" | "ChannelCreateManyWithoutCommunityInput" | "ChannelCreateOneWithoutMessagesInput" | "ChannelCreateWithoutAuthorInput" | "ChannelCreateWithoutCommunityInput" | "ChannelCreateWithoutMessagesInput" | "ChannelFilter" | "ChannelOrderByInput" | "ChannelScalarWhereInput" | "ChannelUpdateInput" | "ChannelUpdateManyDataInput" | "ChannelUpdateManyWithWhereNestedInput" | "ChannelUpdateManyWithoutAuthorInput" | "ChannelUpdateManyWithoutCommunityInput" | "ChannelUpdateOneRequiredWithoutMessagesInput" | "ChannelUpdateWithWhereUniqueWithoutAuthorInput" | "ChannelUpdateWithWhereUniqueWithoutCommunityInput" | "ChannelUpdateWithoutAuthorDataInput" | "ChannelUpdateWithoutCommunityDataInput" | "ChannelUpdateWithoutMessagesDataInput" | "ChannelUpsertWithWhereUniqueWithoutAuthorInput" | "ChannelUpsertWithWhereUniqueWithoutCommunityInput" | "ChannelUpsertWithoutMessagesInput" | "ChannelWhereInput" | "ChannelWhereUniqueInput" | "CommunityCreateManyWithoutAuthorInput" | "CommunityCreateManyWithoutMembersInput" | "CommunityCreateOneWithoutChannelsInput" | "CommunityCreateWithoutAuthorInput" | "CommunityCreateWithoutChannelsInput" | "CommunityCreateWithoutMembersInput" | "CommunityFilter" | "CommunityOrderByInput" | "CommunityScalarWhereInput" | "CommunityUpdateInput" | "CommunityUpdateManyDataInput" | "CommunityUpdateManyWithWhereNestedInput" | "CommunityUpdateManyWithoutAuthorInput" | "CommunityUpdateManyWithoutMembersInput" | "CommunityUpdateOneWithoutChannelsInput" | "CommunityUpdateWithWhereUniqueWithoutAuthorInput" | "CommunityUpdateWithWhereUniqueWithoutMembersInput" | "CommunityUpdateWithoutAuthorDataInput" | "CommunityUpdateWithoutChannelsDataInput" | "CommunityUpdateWithoutMembersDataInput" | "CommunityUpsertWithWhereUniqueWithoutAuthorInput" | "CommunityUpsertWithWhereUniqueWithoutMembersInput" | "CommunityUpsertWithoutChannelsInput" | "CommunityUrlUrlCompoundUniqueInput" | "CommunityWhereInput" | "CommunityWhereUniqueInput" | "DateTimeFilter" | "FileCreateManyWithoutMessageInput" | "FileCreateManyWithoutUploaderInput" | "FileCreateWithoutMessageInput" | "FileCreateWithoutUploaderInput" | "FileFilter" | "FileScalarWhereInput" | "FileUpdateManyDataInput" | "FileUpdateManyWithWhereNestedInput" | "FileUpdateManyWithoutMessageInput" | "FileUpdateManyWithoutUploaderInput" | "FileUpdateWithWhereUniqueWithoutMessageInput" | "FileUpdateWithWhereUniqueWithoutUploaderInput" | "FileUpdateWithoutMessageDataInput" | "FileUpdateWithoutUploaderDataInput" | "FileUpsertWithWhereUniqueWithoutMessageInput" | "FileUpsertWithWhereUniqueWithoutUploaderInput" | "FileWhereInput" | "FileWhereUniqueInput" | "MessageCreateManyWithoutAuthorInput" | "MessageCreateManyWithoutChannelInput" | "MessageCreateOneWithoutFilesInput" | "MessageCreateWithoutAuthorInput" | "MessageCreateWithoutChannelInput" | "MessageCreateWithoutFilesInput" | "MessageFilter" | "MessageScalarWhereInput" | "MessageUpdateManyDataInput" | "MessageUpdateManyWithWhereNestedInput" | "MessageUpdateManyWithoutAuthorInput" | "MessageUpdateManyWithoutChannelInput" | "MessageUpdateOneWithoutFilesInput" | "MessageUpdateWithWhereUniqueWithoutAuthorInput" | "MessageUpdateWithWhereUniqueWithoutChannelInput" | "MessageUpdateWithoutAuthorDataInput" | "MessageUpdateWithoutChannelDataInput" | "MessageUpdateWithoutFilesDataInput" | "MessageUpsertWithWhereUniqueWithoutAuthorInput" | "MessageUpsertWithWhereUniqueWithoutChannelInput" | "MessageUpsertWithoutFilesInput" | "MessageWhereInput" | "MessageWhereUniqueInput" | "NullableBooleanFilter" | "NullableStringFilter" | "StringFilter" | "UserCreateManyWithoutCommunitiesFollowedInput" | "UserCreateOneWithoutChannelsInput" | "UserCreateOneWithoutCommunitiesOwnedInput" | "UserCreateOneWithoutFilesInput" | "UserCreateOneWithoutMessagesInput" | "UserCreateWithoutChannelsInput" | "UserCreateWithoutCommunitiesFollowedInput" | "UserCreateWithoutCommunitiesOwnedInput" | "UserCreateWithoutFilesInput" | "UserCreateWithoutMessagesInput" | "UserFilter" | "UserOrderByInput" | "UserScalarWhereInput" | "UserUpdateManyDataInput" | "UserUpdateManyWithWhereNestedInput" | "UserUpdateManyWithoutCommunitiesFollowedInput" | "UserUpdateOneRequiredWithoutFilesInput" | "UserUpdateOneRequiredWithoutMessagesInput" | "UserUpdateOneWithoutChannelsInput" | "UserUpdateOneWithoutCommunitiesOwnedInput" | "UserUpdateWithWhereUniqueWithoutCommunitiesFollowedInput" | "UserUpdateWithoutChannelsDataInput" | "UserUpdateWithoutCommunitiesFollowedDataInput" | "UserUpdateWithoutCommunitiesOwnedDataInput" | "UserUpdateWithoutFilesDataInput" | "UserUpdateWithoutMessagesDataInput" | "UserUpsertWithWhereUniqueWithoutCommunitiesFollowedInput" | "UserUpsertWithoutChannelsInput" | "UserUpsertWithoutCommunitiesOwnedInput" | "UserUpsertWithoutFilesInput" | "UserUpsertWithoutMessagesInput" | "UserWhereInput" | "UserWhereUniqueInput";
+export type NexusGenInputNames = "BooleanFilter" | "ChannelCreateInput" | "ChannelCreateManyWithoutAuthorInput" | "ChannelCreateManyWithoutCommunityInput" | "ChannelCreateOneWithoutMessagesInput" | "ChannelCreateWithoutAuthorInput" | "ChannelCreateWithoutCommunityInput" | "ChannelCreateWithoutMessagesInput" | "ChannelFilter" | "ChannelOrderByInput" | "ChannelScalarWhereInput" | "ChannelUpdateInput" | "ChannelUpdateManyDataInput" | "ChannelUpdateManyWithWhereNestedInput" | "ChannelUpdateManyWithoutAuthorInput" | "ChannelUpdateManyWithoutCommunityInput" | "ChannelUpdateOneRequiredWithoutMessagesInput" | "ChannelUpdateWithWhereUniqueWithoutAuthorInput" | "ChannelUpdateWithWhereUniqueWithoutCommunityInput" | "ChannelUpdateWithoutAuthorDataInput" | "ChannelUpdateWithoutCommunityDataInput" | "ChannelUpdateWithoutMessagesDataInput" | "ChannelUpsertWithWhereUniqueWithoutAuthorInput" | "ChannelUpsertWithWhereUniqueWithoutCommunityInput" | "ChannelUpsertWithoutMessagesInput" | "ChannelWhereInput" | "ChannelWhereUniqueInput" | "CommunityCreateManyWithoutAuthorInput" | "CommunityCreateManyWithoutMembersInput" | "CommunityCreateOneWithoutChannelsInput" | "CommunityCreateWithoutAuthorInput" | "CommunityCreateWithoutChannelsInput" | "CommunityCreateWithoutMembersInput" | "CommunityFilter" | "CommunityOrderByInput" | "CommunityScalarWhereInput" | "CommunityUpdateInput" | "CommunityUpdateManyDataInput" | "CommunityUpdateManyWithWhereNestedInput" | "CommunityUpdateManyWithoutAuthorInput" | "CommunityUpdateManyWithoutMembersInput" | "CommunityUpdateOneWithoutChannelsInput" | "CommunityUpdateWithWhereUniqueWithoutAuthorInput" | "CommunityUpdateWithWhereUniqueWithoutMembersInput" | "CommunityUpdateWithoutAuthorDataInput" | "CommunityUpdateWithoutChannelsDataInput" | "CommunityUpdateWithoutMembersDataInput" | "CommunityUpsertWithWhereUniqueWithoutAuthorInput" | "CommunityUpsertWithWhereUniqueWithoutMembersInput" | "CommunityUpsertWithoutChannelsInput" | "CommunityUrlUrlCompoundUniqueInput" | "CommunityWhereInput" | "CommunityWhereUniqueInput" | "DateTimeFilter" | "FileCreateManyWithoutMessageInput" | "FileCreateManyWithoutUploaderInput" | "FileCreateWithoutMessageInput" | "FileCreateWithoutUploaderInput" | "FileFilter" | "FileScalarWhereInput" | "FileUpdateManyDataInput" | "FileUpdateManyWithWhereNestedInput" | "FileUpdateManyWithoutMessageInput" | "FileUpdateManyWithoutUploaderInput" | "FileUpdateWithWhereUniqueWithoutMessageInput" | "FileUpdateWithWhereUniqueWithoutUploaderInput" | "FileUpdateWithoutMessageDataInput" | "FileUpdateWithoutUploaderDataInput" | "FileUpsertWithWhereUniqueWithoutMessageInput" | "FileUpsertWithWhereUniqueWithoutUploaderInput" | "FileWhereInput" | "FileWhereUniqueInput" | "MessageCreateManyWithoutAuthorInput" | "MessageCreateManyWithoutChannelInput" | "MessageCreateOneWithoutFilesInput" | "MessageCreateWithoutAuthorInput" | "MessageCreateWithoutChannelInput" | "MessageCreateWithoutFilesInput" | "MessageFilter" | "MessageScalarWhereInput" | "MessageUpdateManyDataInput" | "MessageUpdateManyWithWhereNestedInput" | "MessageUpdateManyWithoutAuthorInput" | "MessageUpdateManyWithoutChannelInput" | "MessageUpdateOneWithoutFilesInput" | "MessageUpdateWithWhereUniqueWithoutAuthorInput" | "MessageUpdateWithWhereUniqueWithoutChannelInput" | "MessageUpdateWithoutAuthorDataInput" | "MessageUpdateWithoutChannelDataInput" | "MessageUpdateWithoutFilesDataInput" | "MessageUpsertWithWhereUniqueWithoutAuthorInput" | "MessageUpsertWithWhereUniqueWithoutChannelInput" | "MessageUpsertWithoutFilesInput" | "MessageWhereInput" | "MessageWhereUniqueInput" | "NullableBooleanFilter" | "NullableStringFilter" | "RoleCreateManyWithoutUsersInput" | "RoleCreateWithoutUsersInput" | "RoleFilter" | "RoleScalarWhereInput" | "RoleUpdateManyDataInput" | "RoleUpdateManyWithWhereNestedInput" | "RoleUpdateManyWithoutUsersInput" | "RoleUpdateWithWhereUniqueWithoutUsersInput" | "RoleUpdateWithoutUsersDataInput" | "RoleUpsertWithWhereUniqueWithoutUsersInput" | "RoleWhereInput" | "RoleWhereUniqueInput" | "StringFilter" | "UserCreateManyWithoutCommunitiesFollowedInput" | "UserCreateOneWithoutChannelsInput" | "UserCreateOneWithoutCommunitiesOwnedInput" | "UserCreateOneWithoutFilesInput" | "UserCreateOneWithoutMessagesInput" | "UserCreateWithoutChannelsInput" | "UserCreateWithoutCommunitiesFollowedInput" | "UserCreateWithoutCommunitiesOwnedInput" | "UserCreateWithoutFilesInput" | "UserCreateWithoutMessagesInput" | "UserFilter" | "UserOrderByInput" | "UserScalarWhereInput" | "UserUpdateManyDataInput" | "UserUpdateManyWithWhereNestedInput" | "UserUpdateManyWithoutCommunitiesFollowedInput" | "UserUpdateOneRequiredWithoutFilesInput" | "UserUpdateOneRequiredWithoutMessagesInput" | "UserUpdateOneWithoutChannelsInput" | "UserUpdateOneWithoutCommunitiesOwnedInput" | "UserUpdateWithWhereUniqueWithoutCommunitiesFollowedInput" | "UserUpdateWithoutChannelsDataInput" | "UserUpdateWithoutCommunitiesFollowedDataInput" | "UserUpdateWithoutCommunitiesOwnedDataInput" | "UserUpdateWithoutFilesDataInput" | "UserUpdateWithoutMessagesDataInput" | "UserUpsertWithWhereUniqueWithoutCommunitiesFollowedInput" | "UserUpsertWithoutChannelsInput" | "UserUpsertWithoutCommunitiesOwnedInput" | "UserUpsertWithoutFilesInput" | "UserUpsertWithoutMessagesInput" | "UserWhereInput" | "UserWhereUniqueInput";
 
 export type NexusGenEnumNames = "OrderByArg";
 

@@ -49,10 +49,17 @@ export const SEARCH_USERS = gql`
   query users($searchString: String) {
     users(searchString: $searchString) {
       ...UserFragment
+      roles {
+        id
+        permissions
+        title
+        color
+      }
     }
   }
   ${UserFragment}
 `
+
 export const LOGIN = gql`
   mutation login(
     $username: String!

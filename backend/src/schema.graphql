@@ -85,9 +85,7 @@ input ChannelFilter {
 }
 
 input ChannelOrderByInput {
-  author: OrderByArg
   authorUsername: OrderByArg
-  community: OrderByArg
   communityUrl: OrderByArg
   createdAt: OrderByArg
   description: OrderByArg
@@ -310,7 +308,6 @@ input CommunityFilter {
 }
 
 input CommunityOrderByInput {
-  author: OrderByArg
   authorUsername: OrderByArg
   description: OrderByArg
   id: OrderByArg
@@ -852,10 +849,14 @@ input MessageWhereUniqueInput {
 }
 
 type Mutation {
+  attachRoleToUser(roleId: String!, userId: String!): User!
   createChannel(data: ChannelCreateInput!): Channel!
   createCommunity(description: String, image: String, isPrivate: Boolean, name: String, url: String): Community!
+  createRole(color: String, permissions: String, title: String): Role!
+  deattachRoleToUser(roleId: String!, userId: String!): User!
   deleteChannel(where: ChannelWhereUniqueInput!): Channel
   deleteCommunity(where: CommunityWhereUniqueInput!): Community
+  deleteRole(id: String): Role!
   followCommunity(url: String): Community!
   login(email: String, fullname: String, social: String!, username: String!): AuthPayload!
   logout: User!
@@ -863,6 +864,7 @@ type Mutation {
   unfollowCommunity(url: String): Community!
   updateChannel(data: ChannelUpdateInput!, where: ChannelWhereUniqueInput!): Channel
   updateCommunity(data: CommunityUpdateInput!, where: CommunityWhereUniqueInput!): Community
+  updateRole(color: String, id: String, permissions: String, title: String): Role!
   uploadFile(file: Upload): File!
 }
 
@@ -905,8 +907,110 @@ type Query {
   getUser(username: String!): TwitterPayload!
   me: User!
   messages(channelUrl: String, communityUrl: String): [Message!]!
+  roles: [Role!]!
   userFiles(after: ID, userId: ID): [File!]!
-  users(after: UserWhereUniqueInput, before: UserWhereUniqueInput, first: Int, last: Int, orderBy: UserOrderByInput, skip: Int, where: UserWhereInput): [User!]!
+  users(searchString: String): [User!]!
+}
+
+type Role {
+  color: String!
+  createdAt: DateTime!
+  id: String!
+  permissions: String!
+  title: String!
+  users(after: UserWhereUniqueInput, before: UserWhereUniqueInput, first: Int, last: Int, skip: Int): [User!]!
+}
+
+input RoleCreateManyWithoutUsersInput {
+  connect: [RoleWhereUniqueInput!]
+  create: [RoleCreateWithoutUsersInput!]
+}
+
+input RoleCreateWithoutUsersInput {
+  color: String!
+  createdAt: DateTime
+  id: String
+  permissions: String!
+  title: String!
+}
+
+input RoleFilter {
+  every: RoleWhereInput
+  none: RoleWhereInput
+  some: RoleWhereInput
+}
+
+input RoleScalarWhereInput {
+  AND: [RoleScalarWhereInput!]
+  color: StringFilter
+  createdAt: DateTimeFilter
+  id: StringFilter
+  NOT: [RoleScalarWhereInput!]
+  OR: [RoleScalarWhereInput!]
+  permissions: StringFilter
+  title: StringFilter
+  users: UserFilter
+}
+
+input RoleUpdateManyDataInput {
+  color: String
+  createdAt: DateTime
+  id: String
+  permissions: String
+  title: String
+}
+
+input RoleUpdateManyWithoutUsersInput {
+  connect: [RoleWhereUniqueInput!]
+  create: [RoleCreateWithoutUsersInput!]
+  delete: [RoleWhereUniqueInput!]
+  deleteMany: [RoleScalarWhereInput!]
+  disconnect: [RoleWhereUniqueInput!]
+  set: [RoleWhereUniqueInput!]
+  update: [RoleUpdateWithWhereUniqueWithoutUsersInput!]
+  updateMany: [RoleUpdateManyWithWhereNestedInput!]
+  upsert: [RoleUpsertWithWhereUniqueWithoutUsersInput!]
+}
+
+input RoleUpdateManyWithWhereNestedInput {
+  data: RoleUpdateManyDataInput!
+  where: RoleScalarWhereInput!
+}
+
+input RoleUpdateWithoutUsersDataInput {
+  color: String
+  createdAt: DateTime
+  id: String
+  permissions: String
+  title: String
+}
+
+input RoleUpdateWithWhereUniqueWithoutUsersInput {
+  data: RoleUpdateWithoutUsersDataInput!
+  where: RoleWhereUniqueInput!
+}
+
+input RoleUpsertWithWhereUniqueWithoutUsersInput {
+  create: RoleCreateWithoutUsersInput!
+  update: RoleUpdateWithoutUsersDataInput!
+  where: RoleWhereUniqueInput!
+}
+
+input RoleWhereInput {
+  AND: [RoleWhereInput!]
+  color: StringFilter
+  createdAt: DateTimeFilter
+  id: StringFilter
+  NOT: [RoleWhereInput!]
+  OR: [RoleWhereInput!]
+  permissions: StringFilter
+  title: StringFilter
+  users: UserFilter
+}
+
+input RoleWhereUniqueInput {
+  id: String
+  title: String
 }
 
 input StringFilter {
@@ -947,6 +1051,7 @@ type User {
   id: String!
   image: String
   isOnline: Boolean!
+  roles: [Role!]!
   social: String
   username: String!
 }
@@ -987,6 +1092,7 @@ input UserCreateWithoutChannelsInput {
   image: String
   isOnline: Boolean
   messages: MessageCreateManyWithoutAuthorInput
+  roles: RoleCreateManyWithoutUsersInput
   social: String
   username: String!
 }
@@ -1002,6 +1108,7 @@ input UserCreateWithoutCommunitiesFollowedInput {
   image: String
   isOnline: Boolean
   messages: MessageCreateManyWithoutAuthorInput
+  roles: RoleCreateManyWithoutUsersInput
   social: String
   username: String!
 }
@@ -1017,6 +1124,7 @@ input UserCreateWithoutCommunitiesOwnedInput {
   image: String
   isOnline: Boolean
   messages: MessageCreateManyWithoutAuthorInput
+  roles: RoleCreateManyWithoutUsersInput
   social: String
   username: String!
 }
@@ -1032,6 +1140,7 @@ input UserCreateWithoutFilesInput {
   image: String
   isOnline: Boolean
   messages: MessageCreateManyWithoutAuthorInput
+  roles: RoleCreateManyWithoutUsersInput
   social: String
   username: String!
 }
@@ -1047,6 +1156,7 @@ input UserCreateWithoutMessagesInput {
   id: String
   image: String
   isOnline: Boolean
+  roles: RoleCreateManyWithoutUsersInput
   social: String
   username: String!
 }
@@ -1083,6 +1193,7 @@ input UserScalarWhereInput {
   messages: MessageFilter
   NOT: [UserScalarWhereInput!]
   OR: [UserScalarWhereInput!]
+  roles: RoleFilter
   social: NullableStringFilter
   username: StringFilter
 }
@@ -1158,6 +1269,7 @@ input UserUpdateWithoutChannelsDataInput {
   image: String
   isOnline: Boolean
   messages: MessageUpdateManyWithoutAuthorInput
+  roles: RoleUpdateManyWithoutUsersInput
   social: String
   username: String
 }
@@ -1173,6 +1285,7 @@ input UserUpdateWithoutCommunitiesFollowedDataInput {
   image: String
   isOnline: Boolean
   messages: MessageUpdateManyWithoutAuthorInput
+  roles: RoleUpdateManyWithoutUsersInput
   social: String
   username: String
 }
@@ -1188,6 +1301,7 @@ input UserUpdateWithoutCommunitiesOwnedDataInput {
   image: String
   isOnline: Boolean
   messages: MessageUpdateManyWithoutAuthorInput
+  roles: RoleUpdateManyWithoutUsersInput
   social: String
   username: String
 }
@@ -1203,6 +1317,7 @@ input UserUpdateWithoutFilesDataInput {
   image: String
   isOnline: Boolean
   messages: MessageUpdateManyWithoutAuthorInput
+  roles: RoleUpdateManyWithoutUsersInput
   social: String
   username: String
 }
@@ -1218,6 +1333,7 @@ input UserUpdateWithoutMessagesDataInput {
   id: String
   image: String
   isOnline: Boolean
+  roles: RoleUpdateManyWithoutUsersInput
   social: String
   username: String
 }
@@ -1268,6 +1384,7 @@ input UserWhereInput {
   messages: MessageFilter
   NOT: [UserWhereInput!]
   OR: [UserWhereInput!]
+  roles: RoleFilter
   social: NullableStringFilter
   username: StringFilter
 }

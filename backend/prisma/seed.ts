@@ -15,19 +15,19 @@ async function main() {
         create: [
           {
             title: 'Admin',
-            roleSettings:
+            permissions:
               'manage_community,manage_channel,manage_role,chat_permission,upload_image,post_links,delete_message',
             color: '#9B59B6',
           },
           {
             title: 'Manager',
-            roleSettings:
+            permissions:
               'manage_community,manage_channel,chat_permission,upload_image,post_links,delete_message',
             color: '#3398DB',
           },
           {
             title: 'Member',
-            roleSettings:
+            permissions:
               'manage_community,manage_channel,chat_permission,upload_image,post_links',
             color: '#2FCC71',
           },
