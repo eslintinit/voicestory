@@ -68,4 +68,4 @@ class MyApp extends App {
   }
 }
 
-export default withApollo()(MyApp)
+export default withApollo({ ssr: true })(MyApp)

@@ -14,7 +14,12 @@ export default ({ membersCount }) => {
         </S.UserIcon>
         <S.MembersCount>{membersCount}</S.MembersCount>
       </S.Members>
-      <MembersPortal show={showMembers} onClose={() => setShowMembers(false)} />
+      {showMembers && (
+        <MembersPortal
+          show={showMembers}
+          onClose={() => setShowMembers(false)}
+        />
+      )}
     </>
   )
 }

@@ -1,9 +1,7 @@
-import { useEffect, useContext } from 'react'
 import { useRouter } from 'next/router'
-import { useLazyQuery } from '@apollo/react-hooks'
+import { useQuery } from '@apollo/react-hooks'
 import { useKeyboardShortcut } from 'hooks'
 
-import { AppContext } from 'context'
 import { COMPANY_NAME } from 'utils/config'
 import { GET_CHANNELS } from 'apis/Channel'
 
@@ -22,25 +20,11 @@ const ChatHeader = () => {
     push,
   } = useRouter()
 
-  const {
-    appState: { channelsLoaded },
-    dispatch,
-  } = useContext(AppContext)
-  const [getChannels, { data: { channels = [] } = {}, loading }] = useLazyQuery(
-    GET_CHANNELS,
-    {
-      variables: { communityUrl },
-      onCompleted: () => {
-        if (!channelsLoaded) {
-          dispatch('CHANNELS_LOADED')
-        }
-      },
+  const { data: { channels = [] } = {}, loading } = useQuery(GET_CHANNELS, {
+    variables: {
+      communityUrl,
     },
-  )
-
-  useEffect(() => {
-    getChannels()
-  }, [communityUrl])
+  })
 
   const selectedChannelIndex = channels.findIndex(
     (channel) => channel.url === channelUrl,
