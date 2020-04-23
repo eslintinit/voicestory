@@ -1,36 +1,44 @@
+const ENTER = '↩'
+const META = '⌘'
+const SHIFT = '⇧'
+const CTRL = '⌃'
+const ALT = '⌥'
+const BACKSPACE = '⌫'
+const ESCAPE = '⎋'
+
+const ARROW_RIGHT = '→'
+const ARROW_LEFT = '←'
+const ARROW_UP = '↑'
+const ARROW_DOWN = '↓'
+
 const shortcuts = [
   {
     name: 'Essential',
     shortcuts: [
       {
-        label: 'Open Spotlight',
-        description: 'Description',
-        keys: ['⌃', 'K'],
-      },
-      {
         label: 'Open widget',
-        description: 'Description',
-        keys: ['⌥', 'O'],
+        description: 'Open Voicestory chat',
+        keys: [ENTER, ENTER],
       },
       {
         label: 'Close widget',
-        description: 'Description',
-        keys: ['⌥', 'W'],
+        description: 'Close Voicestory chat',
+        keys: [ESCAPE, ESCAPE],
       },
       {
         label: 'Show shortcuts',
-        description: 'Description',
-        keys: ['⌃', '?'],
+        description: 'Show available keyboard shortcuts',
+        keys: [META, '?'],
       },
       {
-        label: 'Next tab',
-        description: 'Description',
-        keys: ['Tab'],
+        label: 'Focus',
+        description: 'Focus input',
+        keys: [ENTER],
       },
       {
         label: 'Back',
-        description: 'Description',
-        keys: ['⎋'],
+        description: 'Go back',
+        keys: [ESCAPE],
       },
     ],
   },
@@ -39,23 +47,23 @@ const shortcuts = [
     shortcuts: [
       {
         label: 'Browse communities',
-        description: 'Description',
-        keys: ['⌃', 'B'],
+        description: 'Browser available communities',
+        keys: [SHIFT, '+'],
       },
       {
         label: 'Start community',
-        description: 'From communities page',
-        keys: ['⌃', 'N'],
+        description: 'Start a new community',
+        keys: [SHIFT, '+'],
       },
       {
         label: 'Next community',
-        description: 'Description',
-        keys: ['Tab'],
+        description: 'Move to next community',
+        keys: [ARROW_RIGHT],
       },
       {
         label: 'Previous community',
-        description: 'Description',
-        keys: ['⇧', 'Tab'],
+        description: 'Move to the previous community',
+        keys: [ARROW_LEFT],
       },
     ],
   },
@@ -78,14 +86,19 @@ const shortcuts = [
     name: 'Channels',
     shortcuts: [
       {
-        label: 'Open channel',
-        description: 'Open channel 1 / 2 / 3 / 4',
-        keys: ['⌃', ['Q', 'W', 'E', 'R']],
+        label: 'Next channel',
+        description: 'Move to next channel',
+        keys: [SHIFT, ARROW_RIGHT],
+      },
+      {
+        label: 'Previous channel',
+        description: 'Move to the previous channel',
+        keys: [SHIFT, ARROW_LEFT],
       },
       {
         label: 'New channel',
         description: 'Description',
-        keys: ['⌃', 'N'],
+        keys: [CTRL, 'N'],
       },
     ],
   },
@@ -100,7 +113,7 @@ const shortcuts = [
       {
         label: 'Delete',
         description: 'When selected',
-        keys: ['⌫'],
+        keys: [BACKSPACE],
       },
       {
         label: 'Share',
@@ -120,17 +133,17 @@ const shortcuts = [
       {
         label: 'Send message',
         description: 'description',
-        keys: ['↩'],
+        keys: [ENTER],
       },
       {
         label: 'New line',
         description: 'description',
-        keys: ['⇧', '↩'],
+        keys: [SHIFT, ENTER],
       },
       {
         label: 'Add file',
         description: 'description',
-        keys: ['⌃', 'A'],
+        keys: [CTRL, 'A'],
       },
     ],
   },
@@ -140,12 +153,12 @@ const shortcuts = [
       {
         label: 'Confirm action',
         description: 'description',
-        keys: ['↩'],
+        keys: [ENTER],
       },
       {
         label: 'Close modal',
         description: 'description',
-        keys: ['⎋'],
+        keys: [ESCAPE],
       },
     ],
   },

@@ -32,8 +32,8 @@ export const Tabs = styled.div`
 
 export const Tab = styled.button`
   flex: 1;
-  background: #202225;
-  color: #d4d4d4;
+  background: ${(props) => props.theme.navbarContainerBG};
+  color: #7d7d7d;
   font-size: 13px;
   font-weight: 500;
   border-bottom: 1px solid #444;
@@ -42,7 +42,8 @@ export const Tab = styled.button`
   ${(props) =>
     props.active &&
     `
-    border-bottom-color: #202225;
+    border-bottom-color: ${props.theme.tabBg};
+    color: ${props.theme.activeTabText};
     border-right: 1px solid #444;
     border-left: 1px solid #444;
   `}

@@ -11,9 +11,15 @@ const ShortcutsWindow = ({ close }) => {
   const { showShortcuts, setShowShortcuts } = useContext(AppContext)
   const [activeTab, setActiveTab] = useState('Essential')
 
-  useKeyboardShortcut({
-    '?': () => setShowShortcuts(!showShortcuts),
-  })
+  useKeyboardShortcut(
+    {
+      '/': () => setShowShortcuts(!showShortcuts),
+    },
+    {
+      eventType: 'keydown',
+      modKey: 'metaKey',
+    },
+  )
 
   useEscapeToClose(() => setShowShortcuts(false))
 

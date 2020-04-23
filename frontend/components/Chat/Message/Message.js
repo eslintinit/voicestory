@@ -1,15 +1,34 @@
-import { transformMessage } from 'utils/helper'
+import { useContext } from 'react'
+import { ChatContext } from 'context'
 
-import Wrapper from './Wrapper'
+import Actions from './Actions'
+import { ChildMessage, ParentMessage } from './Wrapper'
 
 import * as S from './Message.styled'
 
-const Message = ({ message, isChild }) => {
+const Message = ({ message, isChild, index }) => {
+  const { focusedMessageIndex, focusMessage, unfocusMessage } = useContext(
+    ChatContext,
+  )
+
+  const tabIndex = index + 1
+
+  const isFocused = focusedMessageIndex === tabIndex
+
   return (
-    <S.Container>
-      <Wrapper message={message} isChild={isChild}>
-        <S.Body child={isChild}>{transformMessage(message.body)}</S.Body>
-      </Wrapper>
+    <S.Container
+      tabIndex={tabIndex}
+      id={`message-${tabIndex}`}
+      onMouseEnter={() => focusMessage(tabIndex)}
+      onMouseLeave={() => unfocusMessage(tabIndex)}
+    >
+      {isChild ? (
+        <ChildMessage message={message} />
+      ) : (
+        <ParentMessage message={message} />
+      )}
+
+      {isFocused && <Actions />}
     </S.Container>
   )
 }

@@ -93,3 +93,17 @@ export const Avatar = styled(DefaultAvatar).attrs({
   height: 36px;
   border-radius: 3px;
 `
+
+export const Body = styled.div`
+  font-weight: 400;
+  font-size: 15px;
+  color: ${(props) => props.theme.chatText};
+  line-height: 150%;
+  max-width: 700px;
+  ${(props) =>
+    !props.child &&
+    `
+    margin-top: 1px;
+    margin-bottom: -2px;
+  `}
+`

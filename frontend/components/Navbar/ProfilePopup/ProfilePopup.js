@@ -18,7 +18,7 @@ import * as S from './ProfilePopup.styled'
 
 const ModalMore = ({ opened, close }) => {
   const { user, logout } = useContext(UserContext)
-  const { toggleShortcuts } = useContext(AppContext)
+  const { toggleShortcuts: toggleShortcutsWindow } = useContext(AppContext)
   const { value: isDarkMode, toggle: toggleDarkMode } = useDarkMode(false)
   const { push } = useRouter()
 
@@ -42,12 +42,19 @@ const ModalMore = ({ opened, close }) => {
     push('/[company]/settings/profile', `/${COMPANY_NAME()}/settings/profile`)
     close()
   }
+
   const toRoles = () => {
     push('/[company]/settings/roles', `/${COMPANY_NAME()}/settings/roles`)
     close()
   }
+
   const toMembers = () => {
     push('/[company]/settings/members', `/${COMPANY_NAME()}/settings/members`)
+    close()
+  }
+
+  const toggleShortcuts = () => {
+    toggleShortcutsWindow()
     close()
   }
 

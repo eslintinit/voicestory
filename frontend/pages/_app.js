@@ -5,6 +5,7 @@ import * as Sentry from '@sentry/node'
 
 import AppProvider from 'context/AppContext'
 import UserProvider from 'context/UserContext'
+import ChatProvider from 'context/ChatContext'
 
 import Layout from 'components/Layout'
 
@@ -20,7 +21,9 @@ Sentry.init({
 const Providers = ({ children }) => (
   <AppProvider>
     <UserProvider>
-      <ThemeProvider>{children}</ThemeProvider>
+      <ChatProvider>
+        <ThemeProvider>{children}</ThemeProvider>
+      </ChatProvider>
     </UserProvider>
   </AppProvider>
 )

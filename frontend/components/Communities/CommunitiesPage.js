@@ -51,6 +51,15 @@ const CommunitiesPage = () => {
       ),
   })
 
+  useKeyboardShortcut(
+    {
+      '+': toCreateCommunity,
+    },
+    {
+      modKey: 'shiftKey',
+    },
+  )
+
   const { data: { communities = [] } = {}, refetch } = useQuery(
     GET_COMMUNITIES_CLIENT,
     {

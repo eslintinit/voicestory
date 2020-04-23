@@ -1,19 +1,21 @@
-import Reply from './Reply'
-import Reaction from './Reaction'
-import More from './More'
+// import Reply from './Reply'
+// import Reaction from './Reaction'
+// import More from './More'
 
+import { DeleteIcon } from 'components/UI/Icons'
 import * as S from './MessageActions.styled'
 
 const MessageActions = ({
-  onEdit,
-  onReply,
-  isThread,
-  message,
+  // onEdit,
+  // onReply,
+  // isThread,
+  // message,
   show,
-  setShow,
+  // setShow,
 }) => {
   return (
     <S.Actions show={show}>
+      {/*
       {!isThread && <Reply onReply={onReply} />}
       <Reaction messageId={message.id} setShow={setShow} />
       <More
@@ -23,6 +25,17 @@ const MessageActions = ({
         messageAuthor={message.author}
         setShow={setShow}
       />
+      */}
+      <S.Action
+        aria-label="Delete"
+        type="button"
+        name="button"
+        onClick={() => alert('delete')}
+      >
+        <S.DeleteIcon>
+          <DeleteIcon />
+        </S.DeleteIcon>
+      </S.Action>
     </S.Actions>
   )
 }

@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import { MessageContainer } from '../Message.styled'
 
 export const Actions = styled.div`
   position: absolute;
@@ -38,4 +37,12 @@ export const TooltipWrapper = styled.div`
   ${Action}:hover & {
     display: block;
   }
+`
+
+export const DeleteIcon = styled.svg`
+  width: 21px;
+  height: 21px;
+  fill: #525252;
+  stroke: none;
+  transform: scale(0.8);
 `

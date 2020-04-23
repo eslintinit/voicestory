@@ -82,7 +82,12 @@ const ChatBody = () => {
                 previousMessage.author.username === message.author.username
 
               return (
-                <Message message={message} isChild={isChild} key={message.id} />
+                <Message
+                  message={message}
+                  index={index}
+                  isChild={isChild}
+                  key={message.id}
+                />
               )
             })}
           </Fragment>
