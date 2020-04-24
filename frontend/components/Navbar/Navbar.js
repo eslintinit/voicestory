@@ -7,6 +7,7 @@ import useSound from 'use-sound'
 import { COMPANY_NAME } from 'utils/config'
 
 import { ProfileIcon as MoreIcon, CloseIcon } from 'components/UI/Icons'
+import PlusSVG from 'public/icons/new-plus-community.svg'
 import ProfilePopup from './ProfilePopup'
 import Tabs from './Tabs'
 
@@ -89,7 +90,11 @@ const Navbar = () => {
 
       <Tabs />
 
-      <S.AddCommunity onClick={toCommunities} />
+      <S.AddCommunityButton onClick={toCommunities} n>
+        <S.AddCommunityIconWrapper>
+          <use xlinkHref={`${PlusSVG}#icon-plus`} />
+        </S.AddCommunityIconWrapper>
+      </S.AddCommunityButton>
 
       <CloseIcon onClick={closeWidget} id="vs-close-widget" />
     </S.Container>

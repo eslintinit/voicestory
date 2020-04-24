@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useState, useContext } from 'react'
 import { ChatContext } from 'context'
 
 import Actions from './Actions'
@@ -7,6 +7,7 @@ import { ChildMessage, ParentMessage } from './Wrapper'
 import * as S from './Message.styled'
 
 const Message = ({ message, isChild, index }) => {
+  const [isEditing, setEditing] = useState(false)
   const { focusedMessageIndex, focusMessage, unfocusMessage } = useContext(
     ChatContext,
   )
@@ -14,7 +15,9 @@ const Message = ({ message, isChild, index }) => {
   const tabIndex = index + 1
 
   const isFocused = focusedMessageIndex === tabIndex
+  // const isFocused = tabIndex === 1
 
+  // onFocusOut={() => unfocusMessage(tabIndex)}
   return (
     <S.Container
       tabIndex={tabIndex}
@@ -23,12 +26,26 @@ const Message = ({ message, isChild, index }) => {
       onMouseLeave={() => unfocusMessage(tabIndex)}
     >
       {isChild ? (
-        <ChildMessage message={message} />
+        <ChildMessage
+          message={message}
+          isEditing={isEditing}
+          setEditing={setEditing}
+        />
       ) : (
-        <ParentMessage message={message} />
+        <ParentMessage
+          message={message}
+          isEditing={isEditing}
+          setEditing={setEditing}
+        />
       )}
 
-      {isFocused && <Actions />}
+      {isFocused && (
+        <Actions
+          message={message}
+          isEditing={isEditing}
+          setEditing={setEditing}
+        />
+      )}
     </S.Container>
   )
 }

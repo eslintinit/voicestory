@@ -12,6 +12,10 @@ const MoreIcon = styled.svg.attrs({
   :hover {
     opacity: 0.85;
   }
+  :active {
+    transform: translateY(-2px);
+    transition: 0.1s;
+  }
 `
 
 export default ({ onClick, active, style }) => (

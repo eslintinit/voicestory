@@ -27,6 +27,7 @@ const ChatInput = () => {
 
   useEscapeToClose(() => document.getElementById('vs-input').blur())
 
+  // TODO: if not editing // doing other stuff
   useKeyboardShortcut(
     {
       Enter: () => document.getElementById('vs-input').focus(),

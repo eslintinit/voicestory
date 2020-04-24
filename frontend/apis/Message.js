@@ -62,3 +62,20 @@ export const NEW_MESSAGE_SUBSCRIPTION = gql`
   ${MessageFragment}
   ${MessageUrlFragment}
 `
+
+export const DELETE_MESSAGE = gql`
+  mutation deleteMessage($id: String!) {
+    deleteMessage(id: $id) {
+      id
+    }
+  }
+`
+
+export const EDIT_MESSAGE = gql`
+  mutation editMessage($messageId: String!, $body: String!) {
+    editMessage(body: $body, messageId: $messageId) {
+      id
+      body
+    }
+  }
+`

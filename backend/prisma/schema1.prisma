@@ -1,9 +1,0 @@
-
-model Role {
-  id                      String          @default(cuid()) @id
-  createdAt               DateTime        @default(now())
-  title                   String          @unique
-  roleSettings            String
-  color                   String
-  users                   User[]          @relation(name: "UserRoles")
-}

@@ -1,40 +1,45 @@
-// import Reply from './Reply'
-// import Reaction from './Reaction'
-// import More from './More'
+import { useState } from 'react'
+import { useKeyboardShortcut } from 'hooks'
+import { EditIcon, DeleteIcon } from 'components/UI/Icons'
 
-import { DeleteIcon } from 'components/UI/Icons'
+import DeleteModal from './DeleteModal'
 import * as S from './MessageActions.styled'
 
-const MessageActions = ({
-  // onEdit,
-  // onReply,
-  // isThread,
-  // message,
-  show,
-  // setShow,
-}) => {
+const MessageActions = ({ message, isEditing, setEditing }) => {
+  const [showDeleteModal, setShowDeleteModal] = useState(false)
+
+  useKeyboardShortcut(
+    {
+      Backspace: () => !isEditing && setShowDeleteModal(true),
+      d: () => !isEditing && setShowDeleteModal(true),
+      e: () => !isEditing && setEditing(true),
+    },
+    {
+      modKey: null,
+      eventType: 'keydown',
+    },
+  )
+
+  if (isEditing) return null
+
   return (
-    <S.Actions show={show}>
-      {/*
-      {!isThread && <Reply onReply={onReply} />}
-      <Reaction messageId={message.id} setShow={setShow} />
-      <More
-        isThread={isThread}
-        onEdit={onEdit}
-        messageId={message.id}
-        messageAuthor={message.author}
-        setShow={setShow}
-      />
-      */}
-      <S.Action
-        aria-label="Delete"
-        type="button"
-        name="button"
-        onClick={() => alert('delete')}
-      >
+    <S.Actions className="vs-message-actions">
+      <S.Action aria-label="Edit" onClick={() => setEditing(true)}>
+        <S.EditIcon>
+          <EditIcon />
+        </S.EditIcon>
+      </S.Action>
+
+      <S.Action aria-label="Delete" onClick={() => setShowDeleteModal(true)}>
         <S.DeleteIcon>
           <DeleteIcon />
         </S.DeleteIcon>
+        {showDeleteModal && (
+          <DeleteModal
+            message={message}
+            close={() => setShowDeleteModal(false)}
+          />
+        )}
       </S.Action>
     </S.Actions>
   )

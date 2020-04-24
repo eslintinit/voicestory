@@ -1,4 +1,6 @@
 export const themeWhite = {
+  PRIMARY: '#69a9ff',
+
   navbarContainerBG: '#f4f7fa',
   tabBG: '#f4f7fa',
   tabBGHover: '#eff2f5',
@@ -45,8 +47,8 @@ export const themeWhite = {
 
   buttonSubtleBG: 'transparent',
   buttonSubtleBorder: '1px solid #bababa',
-  buttonSubtleBGHover: '#f6f6f6',
-  buttonSubtleBGActive: '#e6e4e4',
+  buttonSubtleBGHover: '#ececec',
+  buttonSubtleBGActive: '#dfdede',
   buttonOutlineBGHover: '#ececec',
   buttonOutlineBGActive: '#dfdede',
   buttonOutlineBorder: '#c4c4c4',
@@ -62,6 +64,11 @@ export const themeWhite = {
   communityBorder: '#e2e2e2',
   communityBorderHover: '#f8f8f8',
   communityFollowButton: '#d6d9dc',
+
+  editInputBG: '#fff',
+  editInputBorderColor: '#d4d6da',
+
+  addCommunityButtonBGHover: '#d6d6d6',
 
   // old:
   background: '#fff',
@@ -82,6 +89,8 @@ export const themeWhite = {
 }
 
 export const themeDark = {
+  PRIMARY: '#69a9ff',
+
   navbarContainerBG: '#202225',
   tabBG: '#202225',
   tabBGHover: '#272a2d',
@@ -126,10 +135,10 @@ export const themeDark = {
 
   sectionTitle: '#74757a',
 
-  buttonSubtleBG: '#3F4147',
-  buttonSubtleBorder: 'none',
-  buttonSubtleBGHover: '#3F4147',
-  buttonSubtleBGActive: '#3F4147',
+  buttonSubtleBG: 'transparent',
+  buttonSubtleBorder: '1px solid #757575',
+  buttonSubtleBGHover: '#000',
+  buttonSubtleBGActive: '#111',
   buttonOutlineBGHover: '#000',
   buttonOutlineBGActive: '#111',
   buttonOutlineBorder: '#757575',
@@ -137,7 +146,7 @@ export const themeDark = {
   checkboxBG: '#606060',
   checkboxCircleBG: '#2f3136',
 
-  iconColor: '#95989C',
+  iconColor: '#8e9195',
 
   titleColor: '#fff',
   subtitleColor: '#939393',
@@ -145,6 +154,11 @@ export const themeDark = {
   communityBorder: '#37393E',
   communityBorderHover: '#37393E',
   communityFollowButton: '#3c3f48',
+
+  editInputBG: '#202225',
+  editInputBorderColor: 'rgba(225, 225, 225, 0.2);',
+
+  addCommunityButtonBGHover: '#2f3136',
 
   // old:
   background: '#2f3136',

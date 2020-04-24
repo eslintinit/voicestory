@@ -19,6 +19,10 @@ const MoreIcon = styled.svg`
     `
     fill: #69a9ff;
   `}
+  :active {
+    transform: translateY(-2px);
+    transition: 0.1s;
+  }
 `
 
 export default ({ onClick, active }) => (

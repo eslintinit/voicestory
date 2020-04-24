@@ -1,9 +1,12 @@
-import { useState, createContext } from 'react'
-import { useKeyboardShortcut } from 'hooks'
+import { useState, useEffect, createContext } from 'react'
+import { useRouter } from 'next/router'
 
 const ChatContext = createContext()
 
 const ChatProvider = ({ children }) => {
+  const router = useRouter()
+  const { community: communityUrl, channel: channelUrl } = router.query
+
   const [focusedMessageIndex, setFocusedMessageIndex] = useState(null)
 
   const focusMessage = (messageIndex) => {
@@ -23,39 +26,9 @@ const ChatProvider = ({ children }) => {
     }
   }
 
-  const focusNextMessage = () => {
-    const nextMessageIndex = focusedMessageIndex + 1
-    const nextMessage = document.getElementById(`message-${nextMessageIndex}`)
-
-    if (nextMessage) {
-      setFocusedMessageIndex(nextMessageIndex)
-      nextMessage.focus()
-    }
-  }
-
-  const focusPreviousMessage = () => {
-    const previousMessageIndex = focusedMessageIndex - 1
-    const previousMessage = document.getElementById(
-      `message-${previousMessageIndex}`,
-    )
-
-    if (previousMessage) {
-      setFocusedMessageIndex(previousMessageIndex)
-      previousMessage.focus()
-    }
-  }
-
-  // ← →
-  useKeyboardShortcut(
-    {
-      ArrowUp: focusPreviousMessage,
-      ArrowDown: focusNextMessage,
-    },
-    {
-      modKey: null,
-      eventType: 'keydown',
-    },
-  )
+  useEffect(() => {
+    setFocusedMessageIndex(null)
+  }, [communityUrl, channelUrl])
 
   return (
     <ChatContext.Provider
@@ -64,8 +37,6 @@ const ChatProvider = ({ children }) => {
         setFocusedMessageIndex,
         focusMessage,
         unfocusMessage,
-        focusNextMessage,
-        focusPreviousMessage,
       }}
     >
       {children}

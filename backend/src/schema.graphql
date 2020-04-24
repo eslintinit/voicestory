@@ -856,7 +856,9 @@ type Mutation {
   deattachRoleToUser(roleId: String!, userId: String!): User!
   deleteChannel(where: ChannelWhereUniqueInput!): Channel
   deleteCommunity(where: CommunityWhereUniqueInput!): Community
+  deleteMessage(id: String): Message!
   deleteRole(id: String): Role!
+  editMessage(body: String, messageId: String): Message!
   followCommunity(url: String): Community!
   login(email: String, fullname: String, social: String!, username: String!): AuthPayload!
   logout: User!

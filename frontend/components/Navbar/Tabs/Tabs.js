@@ -113,7 +113,7 @@ const Tabs = () => {
             community={community}
             active={active}
             index={index}
-            key={community.id}
+            key={`${community.id}-${index}`}
             nextActive={nextActive}
             fistCommunity={
               followedCommunities.length !== 0 ? followedCommunities[0].url : ''

@@ -69,7 +69,6 @@ const Tab = ({
           active={active}
           numberOfCommunities={numberOfCommunities}
           onClick={onChangeTab}
-          key={community.id}
         >
           <S.TabContent active={active} nextActive={nextActive}>
             <S.Community>

@@ -14,6 +14,10 @@ export const ButtonPrimary = ({ children, disabled, type, ...props }) => (
   </S.ButtonPrimary>
 )
 
+export const ButtonDanger = ({ children, ...props }) => (
+  <S.ButtonDanger {...props}>{children}</S.ButtonDanger>
+)
+
 export const ButtonOutline = ({ children, disabled, ...props }) => (
   <S.ButtonOutline {...props} disabled={disabled}>
     {children}

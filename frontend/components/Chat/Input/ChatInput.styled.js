@@ -24,6 +24,10 @@ export const AddButton = styled.button`
   :hover {
     opacity: 0.75;
   }
+  :active {
+    transform: translateY(-2px);
+    transition: 0.1s;
+  }
 `
 
 export const PlusIcon = styled.svg`

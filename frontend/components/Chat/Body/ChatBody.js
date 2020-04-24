@@ -1,9 +1,11 @@
-import { useEffect, useRef, Fragment } from 'react'
+import { useEffect, useContext, useRef, Fragment } from 'react'
 import { useRouter } from 'next/router'
 import { useQuery } from '@apollo/react-hooks'
+import { useKeyboardShortcut } from 'hooks'
 import { groupBy } from 'lodash'
 import moment from 'moment'
 
+import { ChatContext } from 'context'
 import { GET_MESSAGES, NEW_MESSAGE_SUBSCRIPTION } from 'apis/Message'
 
 import Message from 'components/Chat/Message/Message'
@@ -12,6 +14,10 @@ import ChatBodyPlaceholder, { ChatBodyEmpty } from './ChatBodyPlaceholder'
 import * as S from './ChatBody.styled'
 
 const ChatBody = () => {
+  const { focusedMessageIndex, setFocusedMessageIndex } = useContext(
+    ChatContext,
+  )
+
   const router = useRouter()
   const { community: communityUrl, channel: channelUrl } = router.query
 
@@ -46,6 +52,23 @@ const ChatBody = () => {
       }),
     [communityUrl, channelUrl],
   )
+  // useEffect(
+  //   () =>
+  //     subscribeToMore({
+  //       document: NEW_MESSAGE_SUBSCRIPTION,
+  //       variables: {
+  //         communityUrl,
+  //         channelUrl,
+  //       },
+  //       updateQuery: (
+  //         { messages: oldMessages = [] },
+  //         { subscriptionData: { data: { newMessage } = {} } = {} },
+  //       ) => ({
+  //         messages: [...oldMessages, newMessage],
+  //       }),
+  //     }),
+  //   [communityUrl, channelUrl],
+  // )
 
   useEffect(() => {
     if (chatEndRef && chatEndRef.current) {
@@ -53,6 +76,51 @@ const ChatBody = () => {
       chatEndRef.current.scrollIntoView()
     }
   }, [messages.length])
+
+  const focusNextMessage = () => {
+    const nextMessageIndex = focusedMessageIndex + 1
+    const nextMessage = document.getElementById(`message-${nextMessageIndex}`)
+
+    if (nextMessage) {
+      setFocusedMessageIndex(nextMessageIndex)
+      nextMessage.focus()
+    }
+  }
+
+  const focusPreviousMessage = () => {
+    // If no message is currently selected - select last message
+    if (!focusedMessageIndex) {
+      const lastMessageIndex = messages.length
+      const lastMessage = document.getElementById(`message-${lastMessageIndex}`)
+
+      if (lastMessage) {
+        setFocusedMessageIndex(lastMessageIndex)
+        lastMessage.focus()
+      }
+    }
+
+    const previousMessageIndex = focusedMessageIndex - 1
+    const previousMessage = document.getElementById(
+      `message-${previousMessageIndex}`,
+    )
+
+    if (previousMessage) {
+      setFocusedMessageIndex(previousMessageIndex)
+      previousMessage.focus()
+    }
+  }
+
+  // ← →
+  useKeyboardShortcut(
+    {
+      ArrowUp: focusPreviousMessage,
+      ArrowDown: focusNextMessage,
+    },
+    {
+      modKey: null,
+      eventType: 'keydown',
+    },
+  )
 
   if (loading) {
     return <ChatBodyPlaceholder />

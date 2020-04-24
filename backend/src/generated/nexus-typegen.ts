@@ -1376,7 +1376,9 @@ export interface NexusGenFieldTypes {
     deattachRoleToUser: NexusGenRootTypes['User']; // User!
     deleteChannel: NexusGenRootTypes['Channel'] | null; // Channel
     deleteCommunity: NexusGenRootTypes['Community'] | null; // Community
+    deleteMessage: NexusGenRootTypes['Message']; // Message!
     deleteRole: NexusGenRootTypes['Role']; // Role!
+    editMessage: NexusGenRootTypes['Message']; // Message!
     followCommunity: NexusGenRootTypes['Community']; // Community!
     login: NexusGenRootTypes['AuthPayload']; // AuthPayload!
     logout: NexusGenRootTypes['User']; // User!
@@ -1469,8 +1471,15 @@ export interface NexusGenArgTypes {
     deleteCommunity: { // args
       where: NexusGenInputs['CommunityWhereUniqueInput']; // CommunityWhereUniqueInput!
     }
+    deleteMessage: { // args
+      id?: string | null; // String
+    }
     deleteRole: { // args
       id?: string | null; // String
+    }
+    editMessage: { // args
+      body?: string | null; // String
+      messageId?: string | null; // String
     }
     followCommunity: { // args
       url?: string | null; // String

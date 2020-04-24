@@ -44,7 +44,6 @@ export const Avatar = styled(DefaultAvatar).attrs({
   width: 36px;
   height: 36px;
   border-radius: 3px;
-  background-color: #dde0e2;
   background-size: cover;
   flex-shrink: 0;
   margin-right: 8px;

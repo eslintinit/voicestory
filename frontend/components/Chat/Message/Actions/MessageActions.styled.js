@@ -5,10 +5,13 @@ export const Actions = styled.div`
   right: 60px;
   top: -15px;
   z-index: 1;
-  display: flex;
+  display: none;
 `
 
-export const Action = styled.button`
+export const Action = styled.button.attrs({
+  type: 'button',
+  name: 'button',
+})`
   width: 34px;
   height: 30px;
   background: ${(props) => props.theme.messageActionBG};
@@ -23,6 +26,10 @@ export const Action = styled.button`
   position: relative;
   :hover {
     background: ${(props) => props.theme.messageActionBGHover};
+  }
+  :active {
+    transform: translateY(-2px);
+    transition: 0.1s;
   }
 `
 
@@ -40,9 +47,21 @@ export const TooltipWrapper = styled.div`
 `
 
 export const DeleteIcon = styled.svg`
-  width: 21px;
-  height: 21px;
-  fill: #525252;
-  stroke: none;
-  transform: scale(0.8);
+  width: 17px;
+  height: 17px;
+  fill: transparent;
+  stroke: ${(props) => props.theme.iconColor};
+  :hover {
+    stroke: ${(props) => props.theme.PRIMARY};
+  }
+`
+
+export const EditIcon = styled.svg`
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: ${(props) => props.theme.iconColor};
+  :hover {
+    stroke: ${(props) => props.theme.PRIMARY};
+  }
 `

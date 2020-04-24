@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import PlusSVG from 'public/icons/new-plus-community.svg'
 
 export const Container = styled.div`
   display: flex;
@@ -55,19 +54,32 @@ export const IconBox = styled.div`
   `}
 `
 
-export const AddCommunity = styled.div`
+export const AddCommunityButton = styled.div`
   cursor: pointer;
-  display: block;
-  width: 15px;
-  height: 15px;
-  background-image: url(${PlusSVG});
-  background-repeat: no-repeat;
-  background-position: center;
   outline: none;
-  margin: 11px;
-  margin-left: 2px;
-  cursor: pointer;
+  padding: 0;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+
   :hover {
-    opacity: 0.85;
+    background: ${(props) => props.theme.addCommunityButtonBGHover};
+    transition: 0.2s;
   }
+  :active {
+    transform: translateY(-2px);
+    transition: 0.1s;
+  }
+`
+
+export const AddCommunityIconWrapper = styled.svg`
+  stroke: none;
+  fill: #69a9ff;
+  height: 14px;
+  width: 14px;
 `
