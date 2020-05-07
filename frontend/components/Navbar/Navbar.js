@@ -1,6 +1,10 @@
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { useKeyboardShortcut, useDoubleKeyPress } from 'hooks'
+import { useContext } from 'react'
+import { UserContext } from 'context/UserContext'
+import Cookies from 'js-cookie'
+
 // Commented yet because it's causing console error
 import useSound from 'use-sound'
 
@@ -13,6 +17,7 @@ import Tabs from './Tabs'
 import * as S from './Navbar.styled'
 
 const Navbar = () => {
+  const { user, logout } = useContext(UserContext)
   const { route, push } = useRouter()
   const [showProfilePopup, setShowProfilePopup] = useState(false)
 
@@ -39,6 +44,17 @@ const Navbar = () => {
   const closeWidget = () => {
     playSoundWidgetClose()
     window.parent.postMessage({ message: 'close-widget' }, '*')
+  }
+
+  if(user && user.blocked === '1') { 
+    console.log(user);
+    Cookies.remove('token')
+    if (window) {
+      window.localStorage.setItem('logout', Date.now())
+      localStorage.removeItem('user')
+    }
+    location.reload()
+    closeWidget()
   }
 
   useDoubleKeyPress({

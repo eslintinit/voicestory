@@ -4,6 +4,7 @@ import { UserContext } from 'context/UserContext'
 import { AppContext } from 'context'
 import { COMPANY_NAME } from 'utils/config'
 import useDarkMode from 'use-dark-mode'
+import { isOwner } from 'utils/permission'
 
 import Toggle from 'components/UI/Toggle/Toggle'
 import {
@@ -71,7 +72,7 @@ const ModalMore = ({ opened, close }) => {
             <span>Members</span>
           </S.MenuItem>
         )}
-        {user && (
+        {user && isOwner(user) && (
           <S.MenuItem onClick={toRoles}>
             <S.RolesIcon>
               <RolesIcon />

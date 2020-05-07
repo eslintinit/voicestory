@@ -50,6 +50,21 @@ export const Body = styled.div`
   padding: 0 24px;
   width: calc(100% - 48px);
   min-height: calc(100% - 149px);
+  height: calc(100% - 150px);
+  overflow: scroll;
+  ::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; 
+  }
+`;
+
+export const FormContainer = styled.div`
+  overflow-y: scroll 
+  height: 300px
+  ::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; 
+  }
 `;
 export const SectionTitle = styled.h4`
   margin-top: 29px;

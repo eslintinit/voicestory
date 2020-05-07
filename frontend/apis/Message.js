@@ -10,6 +10,10 @@ const MessageFragment = gql`
       username
       fullname
       image
+      owner
+      blockedCommunities
+      blockedChannels
+      blocked
     }
   }
 `

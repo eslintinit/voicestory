@@ -1050,6 +1050,10 @@ type User {
   fullname: String
   id: String!
   image: String
+  blockedCommunities: String
+  blockedChannels: String
+  blocked: String!
+  owner: String!
   isOnline: Boolean!
   roles: [Role!]!
   social: String
@@ -1090,6 +1094,10 @@ input UserCreateWithoutChannelsInput {
   fullname: String
   id: String
   image: String
+  blockedCommunities: String
+  blockedChannels: String
+  blocked: String
+  owner: String
   isOnline: Boolean
   messages: MessageCreateManyWithoutAuthorInput
   roles: RoleCreateManyWithoutUsersInput
@@ -1106,6 +1114,10 @@ input UserCreateWithoutCommunitiesFollowedInput {
   fullname: String
   id: String
   image: String
+  blockedCommunities: String
+  blockedChannels: String
+  blocked: String
+  owner: String
   isOnline: Boolean
   messages: MessageCreateManyWithoutAuthorInput
   roles: RoleCreateManyWithoutUsersInput
@@ -1122,6 +1134,10 @@ input UserCreateWithoutCommunitiesOwnedInput {
   fullname: String
   id: String
   image: String
+  blockedCommunities: String
+  blockedChannels: String
+  blocked: String
+  owner: String
   isOnline: Boolean
   messages: MessageCreateManyWithoutAuthorInput
   roles: RoleCreateManyWithoutUsersInput
@@ -1138,6 +1154,10 @@ input UserCreateWithoutFilesInput {
   fullname: String
   id: String
   image: String
+  blockedCommunities: String
+  blockedChannels: String
+  blocked: String
+  owner: String
   isOnline: Boolean
   messages: MessageCreateManyWithoutAuthorInput
   roles: RoleCreateManyWithoutUsersInput
@@ -1155,6 +1175,10 @@ input UserCreateWithoutMessagesInput {
   fullname: String
   id: String
   image: String
+  blockedCommunities: String
+  blockedChannels: String
+  blocked: String
+  owner: String
   isOnline: Boolean
   roles: RoleCreateManyWithoutUsersInput
   social: String
@@ -1189,6 +1213,10 @@ input UserScalarWhereInput {
   fullname: NullableStringFilter
   id: StringFilter
   image: NullableStringFilter
+  blockedCommunities: NullableStringFilter
+  blockedChannels: NullableStringFilter
+  blocked: StringFilter
+  owner: StringFilter
   isOnline: BooleanFilter
   messages: MessageFilter
   NOT: [UserScalarWhereInput!]
@@ -1204,6 +1232,10 @@ input UserUpdateManyDataInput {
   fullname: String
   id: String
   image: String
+  blockedCommunities: String
+  blockedChannels: String
+  blocked: String
+  owner: String
   isOnline: Boolean
   social: String
   username: String
@@ -1267,6 +1299,10 @@ input UserUpdateWithoutChannelsDataInput {
   fullname: String
   id: String
   image: String
+  blockedCommunities: String
+  blockedChannels: String
+  blocked: String
+  owner: String
   isOnline: Boolean
   messages: MessageUpdateManyWithoutAuthorInput
   roles: RoleUpdateManyWithoutUsersInput
@@ -1283,6 +1319,10 @@ input UserUpdateWithoutCommunitiesFollowedDataInput {
   fullname: String
   id: String
   image: String
+  blockedCommunities: String
+  blockedChannels: String
+  blocked: String
+  owner: String
   isOnline: Boolean
   messages: MessageUpdateManyWithoutAuthorInput
   roles: RoleUpdateManyWithoutUsersInput
@@ -1299,6 +1339,10 @@ input UserUpdateWithoutCommunitiesOwnedDataInput {
   fullname: String
   id: String
   image: String
+  blockedCommunities: String
+  blockedChannels: String
+  blocked: String
+  owner: String
   isOnline: Boolean
   messages: MessageUpdateManyWithoutAuthorInput
   roles: RoleUpdateManyWithoutUsersInput
@@ -1315,6 +1359,10 @@ input UserUpdateWithoutFilesDataInput {
   fullname: String
   id: String
   image: String
+  blockedCommunities: String
+  blockedChannels: String
+  blocked: String
+  owner: String
   isOnline: Boolean
   messages: MessageUpdateManyWithoutAuthorInput
   roles: RoleUpdateManyWithoutUsersInput
@@ -1332,6 +1380,10 @@ input UserUpdateWithoutMessagesDataInput {
   fullname: String
   id: String
   image: String
+  blockedCommunities: String
+  blockedChannels: String
+  blocked: String
+  owner: String
   isOnline: Boolean
   roles: RoleUpdateManyWithoutUsersInput
   social: String
@@ -1380,6 +1432,10 @@ input UserWhereInput {
   fullname: NullableStringFilter
   id: StringFilter
   image: NullableStringFilter
+  blockedCommunities: NullableStringFilter
+  blockedChannels: NullableStringFilter
+  blocked: StringFilter
+  owner: StringFilter
   isOnline: BooleanFilter
   messages: MessageFilter
   NOT: [UserWhereInput!]

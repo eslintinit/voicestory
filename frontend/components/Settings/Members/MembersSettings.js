@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useMutation, useLazyQuery } from '@apollo/react-hooks'
-import { SEARCH_USERS } from 'apis/User'
+import { SEARCH_USERS, BLOCK, UNBLOCK } from 'apis/User'
 import {
   GET_ROLES,
   ATTACH_ROLE_TO_USER,
@@ -50,6 +50,9 @@ const Members = () => {
     },
   })
 
+  const [block] = useMutation(BLOCK, {})
+  const [unblock] = useMutation(UNBLOCK, {})
+
   useEffect(() => {
     if (filterString === '') {
       setFilteredUsers(users)
@@ -80,6 +83,23 @@ const Members = () => {
     } else {
       await attachRoleToUser({
         variables: { userId: user.id, roleId: role.id },
+        errorPolicy: 'all',
+      })
+    }
+  }
+
+  /*
+  Event Functions
+  */
+  const toggleUserBlock = async (user) => {
+    if (user.blocked === '0') {
+      await block({
+        variables: { id: user.id },
+        errorPolicy: 'all',
+      })
+    } else {
+      await unblock({
+        variables: { id: user.id },
         errorPolicy: 'all',
       })
     }
@@ -117,7 +137,7 @@ const Members = () => {
         </S.Header>
         <S.Body>
           {filteredUsers.map((user) => (
-            <Member user={user} roles={roles} toggleUserRole={toggleUserRole} />
+            <Member user={user} roles={roles} toggleUserBlock={toggleUserBlock} toggleUserRole={toggleUserRole} />
           ))}
         </S.Body>
       </S.Content>

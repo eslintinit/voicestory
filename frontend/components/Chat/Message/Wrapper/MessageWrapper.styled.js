@@ -93,3 +93,11 @@ export const Avatar = styled(DefaultAvatar).attrs({
   height: 36px;
   border-radius: 3px;
 `
+
+export const ChatActions = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-self: center;
+  position: relative;
+  float: right;
+`

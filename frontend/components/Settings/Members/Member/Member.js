@@ -1,45 +1,60 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { MoreIcon } from 'components/UI/Icons'
+import { UserContext } from 'context/UserContext'
 import MorePopup from './MorePopup'
 import * as S from './Member.styled'
+import { isOwner, canManageRole } from 'utils/permission'
 
-export default ({ user, roles, toggleUserRole }) => (
-  <S.Member key={user.id}>
-    <S.User>
-      <S.Avatar src={user.image} name={user.username} />
-      <S.UserInfo>
-        <S.Name>{user.fullname}</S.Name>
-        <S.OnlineStatus online={user.isOnline} />
-        <S.Username>{`@${user.username}`}</S.Username>
-      </S.UserInfo>
-    </S.User>
-    <S.Options>
-      <Roles user={user} />
-      <More user={user} roles={roles} toggleUserRole={toggleUserRole} />
-    </S.Options>
-  </S.Member>
-)
+export default ({ user, roles, toggleUserBlock, toggleUserRole }) => {
+  const me = useContext(UserContext).user;
 
-const Roles = ({ user }) => {
-  // const isOwner = user.owner === '1';
-  const isOwner = false
-
-  return isOwner ? (
-    <S.Role>Owner</S.Role>
-  ) : (
-    user.roles.sort().map((role) => (
-      <S.Role key={role.id}>
-        <S.RoleColor color={role.color} />
-        {role.title}
-      </S.Role>
-    ))
+  return (
+    <S.Member key={user.id}>
+      <S.User>
+        <S.Avatar src={user.image} name={user.username} />
+        <S.UserInfo>
+          <S.Name>{user.fullname}</S.Name>
+          <S.OnlineStatus online={user.isOnline} />
+          <S.Username>{`@${user.username}`}</S.Username>
+        </S.UserInfo>
+      </S.User>
+      <S.Options>
+        <Roles me={me} user={user} />
+        <More me={me} user={user} roles={roles} toggleUserBlock={toggleUserBlock} toggleUserRole={toggleUserRole} />
+      </S.Options>
+    </S.Member>
   )
 }
 
-const More = ({ user, roles, toggleUserRole }) => {
+
+
+const Roles = ({ me, user }) => {
+  if(me.id === user.id) {
+    return (
+      <S.Role></S.Role>
+    )
+  }
+  else if(isOwner(user)) {
+    return (
+      <S.Role>Owner</S.Role>
+    )
+  }
+  else {
+    return (
+      user.roles.sort().map((role) => (
+        <S.Role key={role.id}>
+          <S.RoleColor color={role.color} />
+          {role.title}
+        </S.Role>
+      ))
+    )
+  }
+}
+
+const More = ({ me, user, roles, toggleUserBlock, toggleUserRole }) => {
   const [showPopup, setShowPopup] = useState(false)
   // const isOwner = user.owner === '1'
-  const isOwner = false
+  // const isOwner = false
 
   useEffect(() => {
     const listener = document.body.addEventListener('click', (event) => {
@@ -51,9 +66,13 @@ const More = ({ user, roles, toggleUserRole }) => {
     })
     return () => document.body.removeEventListener('click', listener)
   }, [])
-
+  
   return (
-    !isOwner && (
+    (
+      ( isOwner(me) && me.id !== user.id ) ||
+      ( !isOwner(me) && canManageRole(me) && me.id !== user.id )
+    ) && !isOwner(user) &&
+    (
       <>
         <MoreIcon
           active={showPopup}
@@ -63,8 +82,10 @@ const More = ({ user, roles, toggleUserRole }) => {
         <MorePopup
           show={showPopup}
           close={() => setShowPopup(false)}
+          me={me}
           user={user}
           roles={roles}
+          toggleUserBlock={toggleUserBlock}
           toggleUserRole={toggleUserRole}
         />
       </>

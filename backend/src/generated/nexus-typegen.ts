@@ -861,6 +861,7 @@ export interface NexusGenInputs {
     fullname?: string | null; // String
     id?: string | null; // String
     image?: string | null; // String
+    owner?: string; // String    
     isOnline?: boolean | null; // Boolean
     messages?: NexusGenInputs['MessageCreateManyWithoutAuthorInput'] | null; // MessageCreateManyWithoutAuthorInput
     roles?: NexusGenInputs['RoleCreateManyWithoutUsersInput'] | null; // RoleCreateManyWithoutUsersInput
@@ -876,6 +877,7 @@ export interface NexusGenInputs {
     fullname?: string | null; // String
     id?: string | null; // String
     image?: string | null; // String
+    owner?: string; // String
     isOnline?: boolean | null; // Boolean
     messages?: NexusGenInputs['MessageCreateManyWithoutAuthorInput'] | null; // MessageCreateManyWithoutAuthorInput
     roles?: NexusGenInputs['RoleCreateManyWithoutUsersInput'] | null; // RoleCreateManyWithoutUsersInput
@@ -891,6 +893,7 @@ export interface NexusGenInputs {
     fullname?: string | null; // String
     id?: string | null; // String
     image?: string | null; // String
+    owner?: string; // String
     isOnline?: boolean | null; // Boolean
     messages?: NexusGenInputs['MessageCreateManyWithoutAuthorInput'] | null; // MessageCreateManyWithoutAuthorInput
     roles?: NexusGenInputs['RoleCreateManyWithoutUsersInput'] | null; // RoleCreateManyWithoutUsersInput
@@ -906,6 +909,7 @@ export interface NexusGenInputs {
     fullname?: string | null; // String
     id?: string | null; // String
     image?: string | null; // String
+    owner?: string; // String
     isOnline?: boolean | null; // Boolean
     messages?: NexusGenInputs['MessageCreateManyWithoutAuthorInput'] | null; // MessageCreateManyWithoutAuthorInput
     roles?: NexusGenInputs['RoleCreateManyWithoutUsersInput'] | null; // RoleCreateManyWithoutUsersInput
@@ -922,6 +926,7 @@ export interface NexusGenInputs {
     fullname?: string | null; // String
     id?: string | null; // String
     image?: string | null; // String
+    owner?: string; // String
     isOnline?: boolean | null; // Boolean
     roles?: NexusGenInputs['RoleCreateManyWithoutUsersInput'] | null; // RoleCreateManyWithoutUsersInput
     social?: string | null; // String
@@ -938,6 +943,7 @@ export interface NexusGenInputs {
     fullname?: NexusGenEnums['OrderByArg'] | null; // OrderByArg
     id?: NexusGenEnums['OrderByArg'] | null; // OrderByArg
     image?: NexusGenEnums['OrderByArg'] | null; // OrderByArg
+    owner?: NexusGenEnums['OrderByArg'] | null; // OrderByArg
     isOnline?: NexusGenEnums['OrderByArg'] | null; // OrderByArg
     social?: NexusGenEnums['OrderByArg'] | null; // OrderByArg
     username?: NexusGenEnums['OrderByArg'] | null; // OrderByArg
@@ -953,6 +959,7 @@ export interface NexusGenInputs {
     fullname?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
     id?: NexusGenInputs['StringFilter'] | null; // StringFilter
     image?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
+    owner?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
     isOnline?: NexusGenInputs['BooleanFilter'] | null; // BooleanFilter
     messages?: NexusGenInputs['MessageFilter'] | null; // MessageFilter
     NOT?: NexusGenInputs['UserScalarWhereInput'][] | null; // [UserScalarWhereInput!]
@@ -967,6 +974,7 @@ export interface NexusGenInputs {
     fullname?: string | null; // String
     id?: string | null; // String
     image?: string | null; // String
+    owner?: string; // String
     isOnline?: boolean | null; // Boolean
     social?: string | null; // String
     username?: string | null; // String
@@ -1027,6 +1035,7 @@ export interface NexusGenInputs {
     fullname?: string | null; // String
     id?: string | null; // String
     image?: string | null; // String
+    owner?: string; // String
     isOnline?: boolean | null; // Boolean
     messages?: NexusGenInputs['MessageUpdateManyWithoutAuthorInput'] | null; // MessageUpdateManyWithoutAuthorInput
     roles?: NexusGenInputs['RoleUpdateManyWithoutUsersInput'] | null; // RoleUpdateManyWithoutUsersInput
@@ -1042,6 +1051,7 @@ export interface NexusGenInputs {
     fullname?: string | null; // String
     id?: string | null; // String
     image?: string | null; // String
+    owner?: string; // String
     isOnline?: boolean | null; // Boolean
     messages?: NexusGenInputs['MessageUpdateManyWithoutAuthorInput'] | null; // MessageUpdateManyWithoutAuthorInput
     roles?: NexusGenInputs['RoleUpdateManyWithoutUsersInput'] | null; // RoleUpdateManyWithoutUsersInput
@@ -1057,6 +1067,7 @@ export interface NexusGenInputs {
     fullname?: string | null; // String
     id?: string | null; // String
     image?: string | null; // String
+    owner?: string; // String
     isOnline?: boolean | null; // Boolean
     messages?: NexusGenInputs['MessageUpdateManyWithoutAuthorInput'] | null; // MessageUpdateManyWithoutAuthorInput
     roles?: NexusGenInputs['RoleUpdateManyWithoutUsersInput'] | null; // RoleUpdateManyWithoutUsersInput
@@ -1072,6 +1083,7 @@ export interface NexusGenInputs {
     fullname?: string | null; // String
     id?: string | null; // String
     image?: string | null; // String
+    owner?: string; // String
     isOnline?: boolean | null; // Boolean
     messages?: NexusGenInputs['MessageUpdateManyWithoutAuthorInput'] | null; // MessageUpdateManyWithoutAuthorInput
     roles?: NexusGenInputs['RoleUpdateManyWithoutUsersInput'] | null; // RoleUpdateManyWithoutUsersInput
@@ -1088,6 +1100,7 @@ export interface NexusGenInputs {
     fullname?: string | null; // String
     id?: string | null; // String
     image?: string | null; // String
+    owner?: string; // String
     isOnline?: boolean | null; // Boolean
     roles?: NexusGenInputs['RoleUpdateManyWithoutUsersInput'] | null; // RoleUpdateManyWithoutUsersInput
     social?: string | null; // String
@@ -1125,6 +1138,7 @@ export interface NexusGenInputs {
     fullname?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
     id?: NexusGenInputs['StringFilter'] | null; // StringFilter
     image?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
+    owner?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
     isOnline?: NexusGenInputs['BooleanFilter'] | null; // BooleanFilter
     messages?: NexusGenInputs['MessageFilter'] | null; // MessageFilter
     NOT?: NexusGenInputs['UserWhereInput'][] | null; // [UserWhereInput!]
@@ -1431,6 +1445,7 @@ export interface NexusGenFieldTypes {
     fullname: string | null; // String
     id: string; // String!
     image: string | null; // String
+    owner: string; // String
     isOnline: boolean; // Boolean!
     roles: NexusGenRootTypes['Role'][]; // [Role!]!
     social: string | null; // String

@@ -4,8 +4,10 @@ import { useLazyQuery } from '@apollo/react-hooks'
 import { useKeyboardShortcut } from 'hooks'
 
 import { AppContext } from 'context'
+import { UserContext } from 'context/UserContext'
 import { COMPANY_NAME } from 'utils/config'
 import { GET_CHANNELS } from 'apis/Channel'
+import { canManageChannel } from 'utils/permission'
 
 import Topic from './Topic/Topic'
 // import Search from './Search/Search'
@@ -17,10 +19,12 @@ import ChatHeaderPlaceholder from './ChatHeader.placeholder'
 import * as S from './ChatHeader.styled'
 
 const ChatHeader = () => {
+  const { user } = useContext(UserContext)
   const {
     query: { community: communityUrl, channel: channelUrl },
     push,
   } = useRouter()
+  const canCreateChannel = user && canManageChannel(user)
 
   const {
     appState: { channelsLoaded },
@@ -130,12 +134,13 @@ const ChatHeader = () => {
           </S.ChannelInfo>
         )}
       </S.Info>
+      {canCreateChannel && (
       <S.ChatActions>
         {/*
         <Search />
         */}
         <More />
-      </S.ChatActions>
+      </S.ChatActions>)}
     </S.Container>
   )
 }

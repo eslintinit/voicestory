@@ -19,8 +19,8 @@ const CommunitiesPage = () => {
   const { user } = useContext(UserContext)
   const router = useRouter()
 
-  // const canCreateCommunity = user && canManageCommunity(user)
-  const canCreateCommunity = true
+  const canCreateCommunity = user && canManageCommunity(user)
+  // const canCreateCommunity = true
   const toCreateCommunity = () =>
     router.push(
       `/[company]/communities/new`,

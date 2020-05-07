@@ -274,48 +274,50 @@ export default ({ newRole }) => {
           onSubmit={onSubmit}
         >
           {({ isSubmitting }) => (
-            <Form style={{ paddingBottom: 76, paddingTop: 73 }}>
-              <Field
-                type="text"
-                name="title"
-                label="Role name"
-                placeholder="Enter role name"
-                component={Input}
-              />
-              <Field label="Role color" name="color" component={ColorInput} />
-              <S.SectionTitle>General permissions</S.SectionTitle>
-              {permissions.map((permission) => (
+            <S.FormContainer>
+              <Form style={{ paddingBottom: 60, paddingTop: 73 }}>
                 <Field
-                  key={permission.key}
                   type="text"
-                  name={permission.key}
-                  label={permission.label}
-                  tip={permission.tip}
-                  component={ToggleInput}
+                  name="title"
+                  label="Role name"
+                  placeholder="Enter role name"
+                  component={Input}
                 />
-              ))}
-              <S.Footer>
-                <ButtonPrimary
-                  type="submit"
-                  name="button"
-                  disabled={isSubmitting}
-                  style={{ marginRight: 10 }}
-                >
-                  {selectedRole === null ? 'Create' : 'Save'}
-                </ButtonPrimary>
-                {selectedRole === null && (
-                  <ButtonSubtle
+                <Field label="Role color" name="color" component={ColorInput} />
+                <S.SectionTitle>General permissions</S.SectionTitle>
+                {permissions.map((permission) => (
+                  <Field
+                    key={permission.key}
+                    type="text"
+                    name={permission.key}
+                    label={permission.label}
+                    tip={permission.tip}
+                    component={ToggleInput}
+                  />
+                ))}
+                <S.Footer>
+                  <ButtonPrimary
                     type="submit"
                     name="button"
-                    onClick={() => {
-                      setRole(roles[0])
-                    }}
+                    disabled={isSubmitting}
+                    style={{ marginRight: 10 }}
                   >
-                    Cancel
-                  </ButtonSubtle>
-                )}
-              </S.Footer>
-            </Form>
+                    {selectedRole === null ? 'Create' : 'Save'}
+                  </ButtonPrimary>
+                  {selectedRole === null && (
+                    <ButtonSubtle
+                      type="submit"
+                      name="button"
+                      onClick={() => {
+                        setRole(roles[0])
+                      }}
+                    >
+                      Cancel
+                    </ButtonSubtle>
+                  )}
+                </S.Footer>
+              </Form>
+            </S.FormContainer>
           )}
         </Formik>
       </S.Body>

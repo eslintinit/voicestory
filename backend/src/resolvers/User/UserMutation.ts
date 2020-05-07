@@ -87,6 +87,36 @@ export const logout = mutationField('logout', {
   },
 })
 
+export const block = mutationField('block', {
+  type: 'User',
+  args: {
+    id: stringArg(),
+  },
+  resolve: (_parent, { id }, ctx) => {
+    return ctx.prisma.user.update({
+      where: { id },
+      data: {
+        blocked: "1",
+      },
+    })
+  },
+})
+
+export const unblock = mutationField('unblock', {
+  type: 'User',
+  args: {
+    id: stringArg(),
+  },
+  resolve: (_parent, { id }, ctx) => {
+    return ctx.prisma.user.update({
+      where: { id },
+      data: {
+        blocked: "0",
+      },
+    })
+  },
+})
+
 /// Why is This mutationField? when it searches user ??? ?
 // export const users = mutationField('users', {
 // type: 'User',

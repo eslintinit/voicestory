@@ -10,6 +10,16 @@ const UserFragment = gql`
     social
     image
     isOnline
+    owner
+    blockedCommunities
+    blockedChannels
+    blocked
+    roles {
+      id
+      permissions
+      title
+      color
+    }
   }
 `
 
@@ -17,6 +27,12 @@ export const GET_ME = gql`
   query me {
     me {
       ...UserFragment
+      roles {
+        id
+        permissions
+        title
+        color
+      }
     }
   }
   ${UserFragment}
@@ -106,6 +122,30 @@ export const USER_WENT_OFFLINE = gql`
       id
       username
       isOnline
+    }
+  }
+`
+
+export const BLOCK = gql`
+  mutation block(
+    $id: String
+  ) {
+    block(
+      id: $id
+    ) {
+      id
+    }
+  }
+`
+
+export const UNBLOCK = gql`
+  mutation unblock(
+    $id: String
+  ) {
+    unblock(
+      id: $id
+    ) {
+      id
     }
   }
 `

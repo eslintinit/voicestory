@@ -24,6 +24,8 @@ export const Mutation = {
 
   users: { UserMutation },
   login: { UserMutation },
+  block: { UserMutation },
+  unblock: { UserMutation },
   UserMutation,
 
   createCommunity: { CommunityMutation },

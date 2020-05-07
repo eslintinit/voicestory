@@ -1,6 +1,6 @@
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = "postgresql://postgres:postgres@localhost:5432/voicestory"
 }
 
 generator client {
@@ -15,6 +15,10 @@ model User {
   image                   String?
   bio                     String?
   social                  String?
+  blockedCommunities      String?         
+  blockedChannels         String?         
+  blocked                 String          @default("0")
+  owner                   String          @default("0")
   isOnline                Boolean         @default(false)
   communitiesOwned        Community[]     @relation(name: "UserCommunityAuthor")
   communitiesFollowed     Community[]     @relation(name: "UserCommunityMember", references: [url])
