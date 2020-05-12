@@ -60,7 +60,7 @@ export const InputWrapper = styled.div`
   line-height: 22px;
   box-sizing: border-box;
   max-height: 60px;
-  overflow: auto;
+  overflow: visible;
 `
 
 export const AddAttachmentIcon = styled.svg`
@@ -85,9 +85,8 @@ export const Attachment = styled.img`
   border-radius: 6px;
 `
 
-export const Input = styled.input.attrs({
+export const Input = styled.div.attrs({
   id: 'vs-input',
-  type: 'text',
   placeholder: `What's happening?`,
 })`
   width: 100%;
@@ -96,6 +95,11 @@ export const Input = styled.input.attrs({
   color: ${(props) => props.theme.chatText};
   line-height: 26px;
   border: none;
+  :empty:before{
+    content: attr(placeholder);
+    pointer-events: none;
+    display: block; 
+  }
 `
 
 export const Actions = styled.div`

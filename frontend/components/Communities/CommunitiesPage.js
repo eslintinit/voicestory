@@ -1,23 +1,29 @@
 import { useRouter } from 'next/router'
-import { useState, useContext } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import { UserContext } from 'context/UserContext'
 import { useEscapeToClose, useKeyboardShortcut } from 'hooks'
-import { useQuery } from '@apollo/react-hooks'
+import { useQuery, useLazyQuery } from '@apollo/react-hooks'
 
 import { COMPANY_NAME } from 'utils/config'
 import { canManageCommunity } from 'utils/permission'
 
 import { PlusIcon } from 'components/UI/Icons'
-import { GET_COMMUNITIES_CLIENT } from '../../apis/Community'
+import { GET_COMMUNITIES_CLIENT, SEARCH_COMMUNITIES } from '../../apis/Community'
 import Search from './Search'
 import CommunitiesList from './CommunitiesList'
 import * as S from './CommunitiesPage.styled'
 
 const CommunitiesPage = () => {
+  const [filteredCommunities, setFilteredCommunities] = useState([])
   const [searchString, setSearchString] = useState('')
   const [isSearch, setSearch] = useState(false)
   const { user } = useContext(UserContext)
   const router = useRouter()
+
+  // const [
+  //   searchCommunities,
+  //   { data: { communities = [] } = {}, loading: communitiesLoading },
+  // ] = useLazyQuery(SEARCH_COMMUNITIES)
 
   const canCreateCommunity = user && canManageCommunity(user)
   // const canCreateCommunity = true
@@ -51,20 +57,46 @@ const CommunitiesPage = () => {
       ),
   })
 
-  const { data: { communities = [] } = {}, refetch } = useQuery(
-    GET_COMMUNITIES_CLIENT,
+  // useEffect(() => {
+  //   searchCommunities({ variables: { searchString } })
+  // }, [])
+
+  const { data: { searchCommunities = [] } = {}, refetch } = useQuery(
+    SEARCH_COMMUNITIES,
     {
-      variables: { searchString },
+      variables: { searchString: '' },
       pollInterval: 25000, // auto refetch after 20 sec
     },
   )
 
-  communities.forEach((el) => {
-    if (el.isFollowed) {
-      communities.splice(communities.indexOf(el), 1)
-      communities.unshift(el)
+  useEffect(() => {
+    // console.log(searchCommunities)
+    // setFilteredCommunities(communities)
+
+    if (searchString === '') {
+      setFilteredCommunities(searchCommunities)
+      return
     }
-  })
+
+    setFilteredCommunities(
+      searchCommunities.filter(
+        (community) =>
+          community.name.includes(searchString) ||
+          community.description.includes(searchString),
+      ),
+    )
+  }, [searchCommunities.length, searchString])
+
+  // let communitiesParsed = filteredCommunities.forEach((el) => {
+  //   if (el.isFollowed) {
+  //     filteredCommunities.splice(filteredCommunities.indexOf(el), 1)
+  //     filteredCommunities.unshift(el)
+  //   }
+  // })
+
+  // if (communitiesLoading) {
+  //   return <div />
+  // }
 
   return (
     <S.Container>
@@ -72,12 +104,12 @@ const CommunitiesPage = () => {
         <S.Header>
           <S.Heading>Communities</S.Heading>
           <S.Actions>
-            {/* <Search
+            <Search
               isSearch={isSearch}
               setSearch={setSearch}
               searchString={searchString}
               setSearchString={setSearchString}
-            /> */}
+            />
 
             {canCreateCommunity && (
               <S.PlusIconWrapper onClick={toCreateCommunity}>
@@ -87,7 +119,7 @@ const CommunitiesPage = () => {
           </S.Actions>
         </S.Header>
         <CommunitiesList
-          communities={communities}
+          communities={filteredCommunities}
           searchString={searchString}
         />
       </S.CommunitiesWrapper>

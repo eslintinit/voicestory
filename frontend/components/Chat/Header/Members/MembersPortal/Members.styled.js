@@ -11,7 +11,7 @@ const openMenu = keyframes`
 `
 
 export const Wrapper = styled.div`
-  width: 537px;
+  width: calc(25% - 2px);
   height: calc(100% - 42px);
   border-left: 1px solid ${(props) => props.theme.chatHeaderBorder};
   outline: none;

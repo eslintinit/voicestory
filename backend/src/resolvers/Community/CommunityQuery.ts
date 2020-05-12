@@ -158,26 +158,26 @@ import { getUserId, isEmpty } from '../../utils'
 //     name
 //   }
 // }
-// export const searchCommunities = queryField('searchCommunities', {
-//   type: 'Community',
-//   list: true,
-//   args: { searchString: stringArg({ nullable: true }) },
-//   resolve: (parent, { searchString }, ctx) => {
-//     return ctx.prisma.community.findMany({
-//       where: {
-//         AND: [
-//           { url: { not: 'direct' } },
-//           {
-//             OR: [
-//               { name: { contains: searchString } },
-//               { description: { contains: searchString } },
-//             ],
-//           },
-//         ],
-//       },
-//     })
-//   },
-// })
+export const searchCommunities = queryField('searchCommunities', {
+  type: 'Community',
+  list: true,
+  args: { searchString: stringArg({ nullable: true }) },
+  resolve: (parent, { searchString }, ctx) => {
+    return ctx.prisma.community.findMany({
+      where: {
+        AND: [
+          { url: { not: 'direct' } },
+          {
+            OR: [
+              { name: { contains: searchString } },
+              { description: { contains: searchString } },
+            ],
+          },
+        ],
+      },
+    })
+  },
+})
 
 // Redo to Return only  NoN Private Communities
 

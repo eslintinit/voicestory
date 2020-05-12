@@ -18,7 +18,8 @@ const Layout = ({ children, hideLayout }) => {
         {/* Done for members portal. Let's find a more elegent solution later */}
         <div
           id="portal-root"
-          style={{ width: '538px', minWidth: '538px', display: 'none' }}
+          // style={{ width: '538px', minWidth: '538px', display: 'none' }}
+          style={{ width: '25%', minWidth: '25%', display: 'none' }}
         />
       </S.Content>
       <ShortcutsWindow />

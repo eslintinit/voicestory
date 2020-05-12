@@ -19,7 +19,7 @@ const SearchInput = ({ show, close, value, onChange }) => {
       <S.SearchInput
         value={value}
         onChange={onChange}
-        placeholder="Search Book by Title, Author, ISBN or Topic"
+        placeholder="Search communities..."
         autoFocus
       />
       <S.CloseWrapper onClick={close}>
