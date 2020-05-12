@@ -1,7 +1,6 @@
 import { useEffect, useState, useContext } from 'react'
 import React from 'react';
 import ReactDOM from 'react-dom';
-import createReactClass from 'create-react-class'
 import { UserContext } from 'context/UserContext'
 import { useRouter } from 'next/router'
 import { useEscapeToClose, useKeyboardShortcut } from 'hooks'
