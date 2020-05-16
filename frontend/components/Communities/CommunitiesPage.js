@@ -81,8 +81,8 @@ const CommunitiesPage = () => {
     setFilteredCommunities(
       searchCommunities.filter(
         (community) =>
-          community.name.includes(searchString) ||
-          community.description.includes(searchString),
+          community.name.toLowerCase().includes(searchString.toLowerCase()) ||
+          community.description.toLowerCase().includes(searchString.toLowerCase()),
       ),
     )
   }, [searchCommunities.length, searchString])

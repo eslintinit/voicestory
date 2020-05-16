@@ -8,6 +8,7 @@ import { useMutation, useLazyQuery } from '@apollo/react-hooks'
 import useSound from 'use-sound'
 import dynamic from 'next/dynamic'
 import { MentionsInput, Mention } from 'react-mentions'
+import { isBlocked, isBlockedFromChannel, isBlockedFromCommunity } from 'utils/permission'
 
 import useDarkMode from 'use-dark-mode'
 import { themeDark, themeWhite } from 'styles/themes'
@@ -207,7 +208,11 @@ const ChatInput = () => {
   //     }).catch((err) => callback([]));
   // }
   const neverMatchingRegex = /($a)/
-  
+
+  if(isBlocked(loggedUser) || isBlockedFromChannel(loggedUser, channelUrl, communityUrl) || isBlockedFromCommunity(loggedUser, communityUrl)) {
+    return <div />
+  }
+
   return (
     <S.ChatInputWrapper>
       <S.AddButton>

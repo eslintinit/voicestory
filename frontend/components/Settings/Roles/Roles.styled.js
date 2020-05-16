@@ -49,8 +49,10 @@ export const Actions = styled.div``;
 export const Body = styled.div`
   padding: 0 24px;
   width: calc(100% - 48px);
-  min-height: calc(100% - 149px);
-  height: calc(100% - 150px);
+  min-height: 545px;
+  height: 545px;
+  // min-height: calc(100% - 149px);
+  // height: calc(100% - 150px);
   overflow: scroll;
   ::-webkit-scrollbar {
     width: 0px;
