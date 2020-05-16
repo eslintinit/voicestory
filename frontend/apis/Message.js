@@ -7,13 +7,31 @@ const MessageFragment = gql`
     createdAt
     author {
       id
-      username
       fullname
+      username
+      bio
+      email
+      social
       image
+      isOnline
       owner
       blockedCommunities
       blockedChannels
       blocked
+      communitiesOwned {
+        id
+        url
+      }
+      communitiesFollowed {
+        id
+        url
+      }
+      roles {
+        id
+        permissions
+        title
+        color
+      }
     }
   }
 `

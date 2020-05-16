@@ -117,6 +117,105 @@ export const unblock = mutationField('unblock', {
   },
 })
 
+export const blockFromChannel = mutationField('blockFromChannel', {
+  type: 'User',
+  args: {
+    id: stringArg(),
+    channelUrl: stringArg(),
+    communityUrl: stringArg(),
+  },
+  resolve: async (_parent, { id, channelUrl, communityUrl }, ctx) => {
+    let user = await ctx.prisma.user.findOne({
+      where: { id },
+    });
+
+    let blockedChannels = user.blockedChannels !== null ? user.blockedChannels.split('$$$') : [];
+    blockedChannels = blockedChannels.includes(`${communityUrl}>>>${channelUrl}`) ? blockedChannels : [ ...blockedChannels, `${communityUrl}>>>${channelUrl}` ];
+
+    let res = await ctx.prisma.user.update({
+      where: { id },
+      data: {
+        blockedChannels: blockedChannels.join('$$$'),
+      },
+    })
+    return res;
+  },
+})
+
+export const unblockFromChannel = mutationField('unblockFromChannel', {
+  type: 'User',
+  args: {
+    id: stringArg(),
+    channelUrl: stringArg(),
+    communityUrl: stringArg(),
+  },
+  resolve: async (_parent, { id, channelUrl, communityUrl }, ctx) => {
+    let user = await ctx.prisma.user.findOne({
+      where: { id },
+    });
+
+    let blockedChannels = user.blockedChannels !== null ? user.blockedChannels.split('$$$') : [];
+    blockedChannels = blockedChannels.filter(b => b !== `${communityUrl}>>>${channelUrl}`);
+
+    let res = await ctx.prisma.user.update({
+      where: { id },
+      data: {
+        blockedChannels: blockedChannels.join('$$$'),
+      },
+    })
+    return res;
+  },
+})
+
+export const blockFromCommunity = mutationField('blockFromCommunity', {
+  type: 'User',
+  args: {
+    id: stringArg(),
+    communityUrl: stringArg(),
+  },
+  resolve: async (_parent, { id, communityUrl }, ctx) => {
+    let user = await ctx.prisma.user.findOne({
+      where: { id },
+    });
+
+    let blockedCommunities = user.blockedCommunities !== null ? user.blockedCommunities.split('$$$') : [];
+    blockedCommunities = blockedCommunities.includes(communityUrl) ? blockedCommunities : [ ...blockedCommunities, communityUrl ];
+
+    let res = await ctx.prisma.user.update({
+      where: { id },
+      data: {
+        blockedCommunities: blockedCommunities.join('$$$'),
+      },
+    })
+    return res;
+  },
+})
+
+export const unblockFromCommunity = mutationField('unblockFromCommunity', {
+  type: 'User',
+  args: {
+    id: stringArg(),
+    communityUrl: stringArg(),
+  },
+  resolve: async (_parent, { id, communityUrl }, ctx) => {
+    let user = await ctx.prisma.user.findOne({
+      where: { id },
+    });
+
+    let blockedCommunities = user.blockedCommunities !== null ? user.blockedCommunities.split('$$$') : [];
+    blockedCommunities = blockedCommunities.filter(b => b !== communityUrl);
+
+    let res = await ctx.prisma.user.update({
+      where: { id },
+      data: {
+        blockedCommunities: blockedCommunities.join('$$$'),
+      },
+    })
+    return res;
+  },
+})
+
+
 /// Why is This mutationField? when it searches user ??? ?
 // export const users = mutationField('users', {
 // type: 'User',

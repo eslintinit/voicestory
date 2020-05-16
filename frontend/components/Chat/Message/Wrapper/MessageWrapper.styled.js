@@ -9,6 +9,9 @@ export const Container = styled.div`
   position: relative;
   cursor: inherit;
   word-wrap: break-word;
+  :hover {
+    background-color: ${(props) => props.theme.messageActionBGHover};
+  }
   opacity: ${(props) => (props.isDeleted ? '0.4' : '1')};
   ${(props) =>
     props.child &&

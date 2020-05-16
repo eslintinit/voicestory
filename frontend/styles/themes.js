@@ -5,7 +5,7 @@ export const themeWhite = {
   tabDividerColor: '#dde0e2',
   activeTabText: '#080808',
 
-  chatBG: '#fff',
+  chatBG: '#ffffff',
   chatText: '#131313',
   chatAuthor: '#1d1c1d',
   chatDate: '#6A696A',
@@ -13,7 +13,7 @@ export const themeWhite = {
   chatTopicBorder: '#cacaca',
   chatHeaderBorder: '#e8e8e8',
   reactionBG: '#f6f6f6',
-  reactionBGHover: '#fff',
+  reactionBGHover: '#ffffff',
   messageActionBG: '#FFFFFF',
   messageActionBGHover: '#fbfbfb',
   messageActionBorder: '1px solid #D2D2D2',
@@ -21,7 +21,7 @@ export const themeWhite = {
   replyText: '#424242',
   replyIcon: '#666566',
 
-  channelActive: '#000',
+  channelActive: '#000000',
   channelUnread: '#969696',
   channelRead: '#969696',
 
@@ -30,14 +30,14 @@ export const themeWhite = {
   placeholderTabsBG: '#ffffff',
   placeholderTabsFG: '#f8fafc',
 
-  popupBG: '#fff',
+  popupBG: '#ffffff',
   popupBorder: '#EFEFEF',
   profilePopupBorder: '#EFEFEF',
   searchModalBG: '#69a9ff',
-  searchModalListBG: '#fff',
-  searchModalInput: '#fff',
-  searchModalSearchIcon: '#fff',
-  searchModalCloseIcon: '#fff',
+  searchModalListBG: '#ffffff',
+  searchModalInput: '#ffffff',
+  searchModalSearchIcon: '#ffffff',
+  searchModalCloseIcon: '#ffffff',
   notificationBGHover: '#F8F8F8',
   notificationDate: '#616061',
 
@@ -64,14 +64,14 @@ export const themeWhite = {
   communityFollowButton: '#d6d9dc',
 
   // old:
-  background: '#fff',
-  textColor: '#000',
+  background: '#ffffff',
+  textColor: '#000000',
   navColorBG: '#16123e',
-  inputsBackground: '#fff',
+  inputsBackground: '#ffffff',
   placeholderTextColor: '#e8e8e8',
-  rightMembersColorBG: '#fff',
+  rightMembersColorBG: '#ffffff',
   shadowForRightMembers: 0.06,
-  notificationsBG: '#fff',
+  notificationsBG: '#ffffff',
   bgMoreItemsHover: '#fbfbfb',
   btnsFolowColor: '#d6d9dc',
   textNotifDialogs: '#616061',
@@ -86,11 +86,11 @@ export const themeDark = {
   tabBG: '#202225',
   tabBGHover: '#272a2d',
   tabDividerColor: '#343637',
-  activeTabText: '#fff',
+  activeTabText: '#ffffff',
 
   chatBG: '#2f3136',
-  chatText: '#fff',
-  chatAuthor: '#fff',
+  chatText: '#ffffff',
+  chatAuthor: '#ffffff',
   chatDate: '#94979B',
   chatTopicText: '#95989C',
   chatTopicBorder: '#95989C',
@@ -104,7 +104,7 @@ export const themeDark = {
   replyText: '#fdfdfd',
   replyIcon: '#E7E7E7',
 
-  channelActive: '#fff',
+  channelActive: '#ffffff',
   channelUnread: '#95989C',
   channelRead: '#95989c',
 
@@ -118,9 +118,9 @@ export const themeDark = {
   profilePopupBorder: '#37393E',
   searchModalBG: '#69a9ff',
   searchModalListBG: '#37393E',
-  searchModalInput: '#fff',
-  searchModalSearchIcon: '#fff',
-  searchModalCloseIcon: '#fff',
+  searchModalInput: '#ffffff',
+  searchModalSearchIcon: '#ffffff',
+  searchModalCloseIcon: '#ffffff',
   notificationBGHover: '#3F4147',
   notificationDate: '#919498',
 
@@ -130,8 +130,8 @@ export const themeDark = {
   buttonSubtleBorder: 'none',
   buttonSubtleBGHover: '#3F4147',
   buttonSubtleBGActive: '#3F4147',
-  buttonOutlineBGHover: '#000',
-  buttonOutlineBGActive: '#111',
+  buttonOutlineBGHover: '#000000',
+  buttonOutlineBGActive: '#111111',
   buttonOutlineBorder: '#757575',
 
   checkboxBG: '#606060',
@@ -139,7 +139,7 @@ export const themeDark = {
 
   iconColor: '#95989C',
 
-  titleColor: '#fff',
+  titleColor: '#ffffff',
   subtitleColor: '#939393',
 
   communityBorder: '#37393E',
@@ -148,18 +148,18 @@ export const themeDark = {
 
   // old:
   background: '#2f3136',
-  textColor: '#fff',
+  textColor: '#ffffff',
   navColorBG: '#202225',
   inputsBackground: '#7b7b7b',
-  placeholderTextColor: '#000',
+  placeholderTextColor: '#000000',
   rightMembersColorBG: '#202225',
   shadowForRightMembers: 1,
   notificationsBG: '#202225',
   bgMoreItemsHover: '#25282b',
   btnsFolowColor: '#3c3f48',
-  textNotifDialogs: '#fff',
+  textNotifDialogs: '#ffffff',
   bgNotifDialogs: '#898789',
   textColorNotifications: '#919498',
-  textDialogsColor: '#fff',
+  textDialogsColor: '#ffffff',
   border: '#505050',
 }

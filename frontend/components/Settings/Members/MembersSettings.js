@@ -31,27 +31,67 @@ const Members = () => {
   }, [])
 
   const [attachRoleToUser] = useMutation(ATTACH_ROLE_TO_USER, {
-    update(cache, { data: { attachRoleToUser: user } }) {
-      const { users } = cache.readQuery({ query: SEARCH_USERS })
+    update: (cache, { data: { attachRoleToUser: user } }) => {
+      const { users } = cache.readQuery({ 
+        query: SEARCH_USERS, 
+        variables: { searchString: filterString } 
+      })
+      // console.log(users.filter(u => u.id !== user.id).concat([user]));
       cache.writeQuery({
         query: SEARCH_USERS,
-        data: { users: users.concat([user]) },
+        variables: { searchString: filterString },
+        data: { users: [ ...users.filter(u => u.id !== user.id), user] },
       })
+      setFilteredUsers([ ...users.filter(u => u.id !== user.id), user])
     },
   })
 
   const [deattachRoleToUser] = useMutation(DEATTACH_ROLE_TO_USER, {
-    update(cache, { data: { deattachRoleToUser: user } }) {
-      const { users } = cache.readQuery({ query: SEARCH_USERS })
+    update: (cache, { data: { deattachRoleToUser: user } }) => {
+      const { users } = cache.readQuery({ 
+        query: SEARCH_USERS, 
+        variables: { searchString: filterString } 
+      })
+      // console.log(users.filter(u => u.id !== user.id).concat([user]));
       cache.writeQuery({
         query: SEARCH_USERS,
-        data: { users: users.concat([user]) },
+        variables: { searchString: filterString },
+        data: { users: [ ...users.filter(u => u.id !== user.id), user] },
       })
+      setFilteredUsers([ ...users.filter(u => u.id !== user.id), user])
     },
   })
 
-  const [block] = useMutation(BLOCK, {})
-  const [unblock] = useMutation(UNBLOCK, {})
+  const [block] = useMutation(BLOCK, {
+    update: (cache, { data: { block: user } }) => {
+      const { users } = cache.readQuery({ 
+        query: SEARCH_USERS, 
+        variables: { searchString: filterString } 
+      })
+      // console.log(users.filter(u => u.id !== user.id).concat([user]));
+      cache.writeQuery({
+        query: SEARCH_USERS,
+        variables: { searchString: filterString },
+        data: { users: [ ...users.filter(u => u.id !== user.id), user] },
+      })
+      setFilteredUsers([ ...users.filter(u => u.id !== user.id), user])
+    },
+  })
+  const [unblock] = useMutation(UNBLOCK, {
+    update: (cache, { data: { unblock: user } }) => {
+      const { users } = cache.readQuery({ 
+        query: SEARCH_USERS, 
+        variables: { searchString: filterString } 
+      })
+      // console.log(users.filter(u => u.id !== user.id).concat([user]));
+      cache.writeQuery({
+        query: SEARCH_USERS,
+        variables: { searchString: filterString },
+        data: { users: [ ...users.filter(u => u.id !== user.id), user] },
+      })
+      setFilteredUsers([ ...users.filter(u => u.id !== user.id), user])
+    },
+  })
 
   useEffect(() => {
     if (filterString === '') {

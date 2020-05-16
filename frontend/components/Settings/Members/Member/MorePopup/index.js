@@ -13,7 +13,28 @@ export default ({ show, close, me, user, roles, toggleUserBlock, toggleUserRole 
       label: role.title,
       active:
         user.roles.filter((userRole) => userRole.id === role.id).length === 1,
-      onClick: () => toggleUserRole(user, role),
+      onClick: () => {
+        // console.log(user.roles);
+        // console.log(user.roles.filter((userRole) => userRole.id === role.id));
+        // alert(user.roles.length + role.id)
+        if(user.roles.filter((userRole) => userRole.id === role.id).length === 0) {
+          // alert('Activating Role, Current roles: ' + user.roles.length);
+          if(user.roles.length) {
+            alert('Only 1 role can be assigned to member at a time.')
+            return false
+          }
+          else {
+            toggleUserRole(user, role)
+            return true
+          }
+        }
+        else {
+          // alert('Deactivating Role.')
+          toggleUserRole(user, role)
+          return true
+        }
+        
+      },
     }))
   }
   
@@ -40,7 +61,7 @@ export default ({ show, close, me, user, roles, toggleUserBlock, toggleUserRole 
       label: `${user.blocked === '1' ? 'Unblock' : 'Block'} ${user.fullname}`,
       onClick: () => {
         toggleUserBlock(user);
-        close();
+        // close();
       }
         // router.push(
         //   `/[company]/settings/roles/new`,

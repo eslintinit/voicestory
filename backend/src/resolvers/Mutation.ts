@@ -26,6 +26,10 @@ export const Mutation = {
   login: { UserMutation },
   block: { UserMutation },
   unblock: { UserMutation },
+  blockFromChannel: { UserMutation },
+  unblockFromChannel: { UserMutation },
+  blockFromCommunity: { UserMutation },
+  unblockFromCommunity: { UserMutation },
   UserMutation,
 
   createCommunity: { CommunityMutation },

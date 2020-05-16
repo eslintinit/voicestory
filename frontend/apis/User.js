@@ -134,6 +134,31 @@ export const BLOCK = gql`
       id: $id
     ) {
       id
+      fullname
+      username
+      bio
+      email
+      social
+      image
+      isOnline
+      owner
+      blockedCommunities
+      blockedChannels
+      blocked
+      communitiesOwned {
+        id
+        url
+      }
+      communitiesFollowed {
+        id
+        url
+      }
+      roles {
+        id
+        permissions
+        title
+        color
+      }
     }
   }
 `
@@ -146,6 +171,163 @@ export const UNBLOCK = gql`
       id: $id
     ) {
       id
+      fullname
+      username
+      bio
+      email
+      social
+      image
+      isOnline
+      owner
+      blockedCommunities
+      blockedChannels
+      blocked
+      communitiesOwned {
+        id
+        url
+      }
+      communitiesFollowed {
+        id
+        url
+      }
+      roles {
+        id
+        permissions
+        title
+        color
+      }
+    }
+  }
+`
+
+export const BLOCK_FROM_CHANNEL = gql`
+  mutation blockFromChannel($id: String, $channelUrl: String, $communityUrl: String) {
+    blockFromChannel(id: $id, channelUrl: $channelUrl, communityUrl: $communityUrl) {
+      id
+      fullname
+      username
+      bio
+      email
+      social
+      image
+      isOnline
+      owner
+      blockedCommunities
+      blockedChannels
+      blocked
+      communitiesOwned {
+        id
+        url
+      }
+      communitiesFollowed {
+        id
+        url
+      }
+      roles {
+        id
+        permissions
+        title
+        color
+      }
+    }
+  }
+`
+
+export const UNBLOCK_FROM_CHANNEL = gql`
+  mutation unblockFromChannel($id: String, $channelUrl: String, $communityUrl: String) {
+    unblockFromChannel(id: $id, channelUrl: $channelUrl, communityUrl: $communityUrl) {
+      id
+      fullname
+      username
+      bio
+      email
+      social
+      image
+      isOnline
+      owner
+      blockedCommunities
+      blockedChannels
+      blocked
+      communitiesOwned {
+        id
+        url
+      }
+      communitiesFollowed {
+        id
+        url
+      }
+      roles {
+        id
+        permissions
+        title
+        color
+      }
+    }
+  }
+`
+
+export const BLOCK_FROM_COMMUNITY = gql`
+  mutation blockFromCommunity($id: String, $communityUrl: String) {
+    blockFromCommunity(id: $id, communityUrl: $communityUrl) {
+      id
+      fullname
+      username
+      bio
+      email
+      social
+      image
+      isOnline
+      owner
+      blockedCommunities
+      blockedChannels
+      blocked
+      communitiesOwned {
+        id
+        url
+      }
+      communitiesFollowed {
+        id
+        url
+      }
+      roles {
+        id
+        permissions
+        title
+        color
+      }
+    }
+  }
+`
+
+export const UNBLOCK_FROM_COMMUNITY = gql`
+  mutation unblockFromCommunity($id: String, $communityUrl: String) {
+    unblockFromCommunity(id: $id, communityUrl: $communityUrl) {
+      id
+      fullname
+      username
+      bio
+      email
+      social
+      image
+      isOnline
+      owner
+      blockedCommunities
+      blockedChannels
+      blocked
+      communitiesOwned {
+        id
+        url
+      }
+      communitiesFollowed {
+        id
+        url
+      }
+      roles {
+        id
+        permissions
+        title
+        color
+      }
     }
   }
 `

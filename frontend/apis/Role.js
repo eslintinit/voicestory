@@ -69,10 +69,17 @@ export const ATTACH_ROLE_TO_USER = gql`
   mutation attachRoleToUser($userId: String!, $roleId: String!) {
     attachRoleToUser(userId: $userId, roleId: $roleId) {
       id
+      fullname
       username
+      bio
+      email
       social
       image
       isOnline
+      owner
+      blockedCommunities
+      blockedChannels
+      blocked
       communitiesOwned {
         id
         url
@@ -95,10 +102,17 @@ export const DEATTACH_ROLE_TO_USER = gql`
   mutation deattachRoleToUser($userId: String!, $roleId: String!) {
     deattachRoleToUser(userId: $userId, roleId: $roleId) {
       id
+      fullname
       username
+      bio
+      email
       social
       image
       isOnline
+      owner
+      blockedCommunities
+      blockedChannels
+      blocked
       communitiesOwned {
         id
         url

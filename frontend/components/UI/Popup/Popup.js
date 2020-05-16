@@ -14,6 +14,25 @@ const CheckboxItem = ({ item }) => {
   )
 }
 
+// const CheckboxItem = ({ item }) => {
+//   const [active, setActive] = useState(item.active)
+
+//   const checkboxToggle = () => {
+//     if(item.onClick())
+//       setActive(!active)
+//   }
+
+//   return (
+//     <S.Item onClick={checkboxToggle}>
+//       <span style={{ display: 'flex', alignItems: 'center' }}>
+//         {item.icon}
+//         {item.label}
+//       </span>
+//       <Checkbox checked={active} />
+//     </S.Item>
+//   )
+// }
+
 export default ({ opened, close, items = [], style = {} }) => {
   useEffect(() => {
     const listener = document.body.addEventListener('click', (event) => {

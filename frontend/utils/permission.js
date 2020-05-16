@@ -73,3 +73,27 @@ export const canEditMessage = (user, message) => {
 
   return hasPermission
 }
+
+export const isBlocked = (user) => {
+  if (isEmpty(user)) return false
+  if (isOwner(user)) return false
+  if (user.blocked === '1') return true
+  return false
+}
+
+export const isBlockedFromChannel = (user, channelUrl, communityUrl) => {
+  if (isEmpty(user)) return false
+  if (isOwner(user)) return false
+  let blockedChannels = user.blockedChannels !== null ? user.blockedChannels.split('$$$') : [];
+  if (blockedChannels.includes(`${communityUrl}>>>${channelUrl}`)) return true
+  return false
+}
+
+export const isBlockedFromCommunity = (user, communityUrl) => {
+  if (isEmpty(user)) return false
+  if (isOwner(user)) return false
+  let blockedCommunities = user.blockedCommunities !== null ? user.blockedCommunities.split('$$$') : [];
+  if (blockedCommunities.includes(communityUrl)) return true
+  return false
+}
+

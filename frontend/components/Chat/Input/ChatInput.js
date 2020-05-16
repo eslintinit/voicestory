@@ -11,6 +11,9 @@ import { MentionsInput, Mention } from 'react-mentions'
 
 import useDarkMode from 'use-dark-mode'
 import { themeDark, themeWhite } from 'styles/themes'
+import Emoji from './Emoji'
+
+import emojis from 'utils/emojis'
 
 import { GET_CHANNELS } from 'apis/Channel'
 import { SEND_MESSAGE } from 'apis/Message'
@@ -18,46 +21,6 @@ import { COMPANY_NAME } from 'utils/config'
 
 import plusIcon from 'public/icons/plus.svg'
 import * as S from './ChatInput.styled'
-
-
-
-// const ContentEditable = createReactClass({
-//   render: function(){
-    
-
-//     return <S.Input 
-//       onInput={this.emitChange} 
-//       onBlur={this.emitChange}
-//       onKeyPress={this.keyPress}
-//       contentEditable
-//       dangerouslySetInnerHTML={{__html: this.props.html}} />;
-//   },
-//   shouldComponentUpdate: function(nextProps){
-//     return nextProps.html !== ReactDOM.findDOMNode(this).innerHTML;
-//   },
-//   keyPress: function(e){
-//     alert(e.keyCode);
-//     // force set last html for copy and paste events
-//     this.lastHtml = ReactDOM.findDOMNode(this).innerHTML;
-//     this.props.onPress(e);
-//     var key = e.charCode ? e.charCode : e.keyCode ? e.keyCode : 0;
-//     if(key == 13) {
-//       // do something with this.lastHtml
-//       alert(this.lastHtml);
-//     }
-//   },
-//   emitChange: function(){
-//     var html = ReactDOM.findDOMNode(this).innerHTML;
-//     if (this.props.onChange && html !== this.lastHtml) {
-//       this.props.onChange({
-//         target: {
-//           value: html
-//         }
-//       });
-//     }
-//     this.lastHtml = html;
-//   }
-// });
 
 const DynamicTypingStatus = dynamic(
   () => import('./TypingStatus/TypingStatus'),
@@ -218,7 +181,33 @@ const ChatInput = () => {
   }
 
   const selectedChannel = channels.find((channel) => channel.url === channelUrl)
-
+  const queryEmojis = async (query, callback) => {
+    
+    const results = emojis.filter(e => e.slug.includes(query)).slice(0, 50)
+    callback(results.map(({ character }) => ({ id: character })))
+  }
+  // const queryEmojis = async (query, callback) => {
+  //   const url = new URL('https://emoji.getdango.com/api/emoji')
+  //   url.searchParams.append('q', query)
+  //   const { results } = await fetch(url).then(res => res.json())
+  //   callback(results.map(({ text }) => ({ id: text })))
+  // }
+  // const queryEmojis = async (query, callback) => {
+  //   const url = new URL('https://emoji-api.com/emojis')
+  //   url.searchParams.append('search', query)
+  //   url.searchParams.append('access_key', "6a5aeee6e087d21c9ea05bebc146791cb60e3dc4")
+  //   fetch(url).then(res => res.json())
+  //     .then(({ results }) => {
+  //       if(typeof results !== 'undefined') {
+  //         callback(results.map(({ character }) => ({ id: character })))
+  //       }
+  //       else {
+  //         callback([]);
+  //       }          
+  //     }).catch((err) => callback([]));
+  // }
+  const neverMatchingRegex = /($a)/
+  
   return (
     <S.ChatInputWrapper>
       <S.AddButton>
@@ -237,9 +226,18 @@ const ChatInput = () => {
               // data={[]}
               displayTransform={(id, display) => `@${display}`}
               appendSpaceOnAdd={true}
+              style={defaultMentionStyle}
+            />
+            <Mention
+              trigger=":"
+              markup="__id__"
+              regex={neverMatchingRegex}
+              data={queryEmojis}
+              style={defaultMentionStyle}
             />
           </MentionsInput>
           }
+          <Emoji body={body} setBody={setBody} />
           {/* <ContentEditable
             html={body}
             onChange={onChange}
