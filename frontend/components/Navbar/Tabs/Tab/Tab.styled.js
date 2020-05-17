@@ -34,6 +34,10 @@ export const CommunityName = styled.span`
   white-space: nowrap;
   line-height: 17px;
   margin-top: 2px;
+  width: 90px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `
 
 export const Tab = styled.div`
@@ -41,11 +45,7 @@ export const Tab = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: ${(props) => {
-    const calculatedSize = 824 / props.numberOfCommunities
-    if (props.numberOfCommunities > 5) return `${calculatedSize}px`
-    return '135px'
-  }};
+  width: 150px;
   height: 100%;
   background: ${(props) => props.theme.tabBG};
   position: relative;

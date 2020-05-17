@@ -2,6 +2,7 @@ import { useRouter } from 'next/router'
 import { useQuery, writeQuery } from '@apollo/react-hooks'
 import { useContext, useState, useEffect } from 'react'
 import { useKeyboardShortcut } from 'hooks'
+import HorizontalScroll from 'react-scroll-horizontal'
 
 import { COMPANY_NAME } from 'utils/config'
 import { GET_COMMUNITIES } from 'apis/Community'
@@ -97,35 +98,68 @@ const Tabs = () => {
       eventType: 'keydown',
     },
   )
+  // console.log(communities.length);
+  if(data && data.communities.length !== 0) {
+    return communities.length > 5 ? (
+      <S.Tabs style={{ width: "824px" }}>
+        <HorizontalScroll reverseScroll={true}>
+          {/* see if there are followed communities  if not return all */}
+          {communities.map((community, index) => {
+            const active = community.url === selectedCommunityUrl
+            // Done for styles
+            const nextActive =
+              index < data.communities.length - 1
+                ? data.communities[index + 1].url === selectedCommunityUrl
+                : false
+            return (
+              <Tab
+                community={community}
+                active={active}
+                index={index}
+                key={community.id}
+                nextActive={nextActive}
+                fistCommunity={
+                  followedCommunities.length !== 0 ? followedCommunities[0].url : ''
+                }
+                numberOfCommunities={followedCommunities.length}
+              />
+            )
+          })}
+        </HorizontalScroll>
+      </S.Tabs>
+    ) : (
+      <S.Tabs>
+        {/* see if there are followed communities  if not return all */}
+        {communities.map((community, index) => {
+          const active = community.url === selectedCommunityUrl
+          // Done for styles
+          const nextActive =
+            index < data.communities.length - 1
+              ? data.communities[index + 1].url === selectedCommunityUrl
+              : false
+          return (
+            <Tab
+              community={community}
+              active={active}
+              index={index}
+              key={community.id}
+              nextActive={nextActive}
+              fistCommunity={
+                followedCommunities.length !== 0 ? followedCommunities[0].url : ''
+              }
+              numberOfCommunities={followedCommunities.length}
+            />
+          )
+        })}
+      </S.Tabs>
+    )
+  }
+  else {
+    return (
+      ''
+    )
+  }
 
-  return data && data.communities.length !== 0 ? (
-    <S.Tabs>
-      {/* see if there are followed communities  if not return all */}
-      {communities.map((community, index) => {
-        const active = community.url === selectedCommunityUrl
-        // Done for styles
-        const nextActive =
-          index < data.communities.length - 1
-            ? data.communities[index + 1].url === selectedCommunityUrl
-            : false
-        return (
-          <Tab
-            community={community}
-            active={active}
-            index={index}
-            key={community.id}
-            nextActive={nextActive}
-            fistCommunity={
-              followedCommunities.length !== 0 ? followedCommunities[0].url : ''
-            }
-            numberOfCommunities={followedCommunities.length}
-          />
-        )
-      })}
-    </S.Tabs>
-  ) : (
-    ''
-  )
 }
 
 export default Tabs

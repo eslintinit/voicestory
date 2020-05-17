@@ -5,6 +5,7 @@ import Popup from 'reactjs-popup'
 import { useState, useEffect } from 'react'
 import { UNFOLLOW_COMMUNITY, CommunityFragment } from 'apis/Community'
 import { COMPANY_NAME } from 'utils/config'
+// import { COMPANY_NAME } from 'styles/themes'
 
 import closeSVG from 'public/icons/close.svg'
 import * as S from './Tab.styled'
@@ -12,6 +13,7 @@ import * as S from './Tab.styled'
 const Card = ({ name }) => (
   <div className="card">
     <div className="header">{name}</div>
+    {/* <S.CommunityPopupCard>{name}</S.CommunityPopupCard> */}
   </div>
 )
 const Tab = ({

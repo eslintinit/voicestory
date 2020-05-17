@@ -6,7 +6,6 @@ export const Tabs = styled.div`
   flex-direction: row;
 
   max-width: 824px;
-  overflow-x: hidden;
 
   padding: 0 11px;
   margin-left: -4px;
