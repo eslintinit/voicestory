@@ -341,3 +341,21 @@ export const ReactionIcon = styled.svg`
   margin-right: 4px;
   cursor: pointer;
 `
+
+export const OnlineStatus = styled.i`
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border: 2px solid #616061;
+  border-radius: 50%;
+  margin-left: 10px;
+  box-sizing: content-box;
+  ${(props) =>
+    props.online &&
+    `
+    width: 10px;
+    height: 10px;
+    background: #007a5a;
+    border: none;
+  `}
+`

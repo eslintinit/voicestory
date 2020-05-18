@@ -4,7 +4,7 @@ import { UserContext } from 'context/UserContext'
 import { AppContext } from 'context'
 import { COMPANY_NAME } from 'utils/config'
 import useDarkMode from 'use-dark-mode'
-import { isOwner } from 'utils/permission'
+import { isOwner, isBlocked } from 'utils/permission'
 
 import Toggle from 'components/UI/Toggle/Toggle'
 import {

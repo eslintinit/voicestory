@@ -5,6 +5,7 @@ import { useMutation, useQuery } from '@apollo/react-hooks'
 import {
   GET_COMMUNITIES_CLIENT,
   GET_COMMUNITIES,
+  SEARCH_COMMUNITIES
 } from '../../../../apis/Community'
 
 import { COMPANY_NAME } from 'utils/config'
@@ -17,19 +18,23 @@ import {
 import Checkbox from 'components/UI/Checkbox/CommunityCheckbox'
 import * as S from './Community.styled'
 
-export default ({ community }) => {
+export default ({ community, setFilteredCommunities, searchString }) => {
   const router = useRouter()
   const { user } = useContext(UserContext)
 
   const [followCommunity] = useMutation(FOLLOW_COMMUNITY, {
-    update(cache, { data: { followCommunity: community } }) {
-      const fragment = CommunityFragment
-      const cachedCommunity = cache.readFragment({
-        fragment,
-        __typename: 'Community',
+    update: (cache, { data: { followCommunity: community } }) => {
+      const { searchCommunities } = cache.readQuery({
+        query: SEARCH_COMMUNITIES,
+        variables: { searchString },
       })
-      const updatedCommunity = { ...cachedCommunity }
-      return cache.writeFragment({ fragment, updatedCommunity })
+      searchCommunities[searchCommunities.findIndex(c => c.id === community.id)] = community;
+      cache.writeQuery({
+        query: SEARCH_COMMUNITIES,
+        variables: { searchString },
+        data: { searchCommunities },
+      })
+      setFilteredCommunities(searchCommunities)
 
       // MANUALLY UPDATE THE STATE, TRY AND RESOLVE
       // https://www.apollographql.com/docs/link/links/state/#updating-the-cache
@@ -44,15 +49,26 @@ export default ({ community }) => {
     },
   })
   const [unfollowCommunity] = useMutation(UNFOLLOW_COMMUNITY, {
-    update(cache, { data: { unfollowCommunity: community } }) {
-      const fragment = CommunityFragment
-      const cachedCommunity = cache.readFragment({
-        fragment,
-        __typename: 'Community',
+    update: (cache, { data: { unfollowCommunity: community } }) => {
+      const { searchCommunities } = cache.readQuery({
+        query: SEARCH_COMMUNITIES,
+        variables: { searchString },
       })
-      const updatedCommunity = { ...cachedCommunity }
+      searchCommunities[searchCommunities.findIndex(c => c.id === community.id)] = community;
+      cache.writeQuery({
+        query: SEARCH_COMMUNITIES,
+        variables: { searchString },
+        data: { searchCommunities },
+      })
+      setFilteredCommunities(searchCommunities)
+      // const fragment = CommunityFragment
+      // const cachedCommunity = cache.readFragment({
+      //   fragment,
+      //   __typename: 'Community',
+      // })
+      // const updatedCommunity = { ...cachedCommunity }
 
-      return cache.writeFragment({ fragment, updatedCommunity })
+      // return cache.writeFragment({ fragment, updatedCommunity })
     },
   })
 

@@ -1,4 +1,4 @@
-import { queryField, stringArg, idArg } from 'nexus'
+import { queryField, stringArg, intArg, idArg } from 'nexus'
 import { getUserId, isEmpty } from '../../utils'
 
 // export const me = queryField('communities', {
@@ -161,8 +161,10 @@ import { getUserId, isEmpty } from '../../utils'
 export const searchCommunities = queryField('searchCommunities', {
   type: 'Community',
   list: true,
-  args: { searchString: stringArg({ nullable: true }) },
-  resolve: (parent, { searchString }, ctx) => {
+  args: { 
+    searchString: stringArg({ nullable: true }),
+  },
+  resolve: async (parent, { searchString }, ctx) => {
     return ctx.prisma.community.findMany({
       where: {
         AND: [
@@ -175,7 +177,7 @@ export const searchCommunities = queryField('searchCommunities', {
           },
         ],
       },
-    })
+    });
   },
 })
 

@@ -20,6 +20,7 @@ const ChannelMembersFragment = gql`
         image
         username
         fullname
+        isOnline
       }
     }
   }

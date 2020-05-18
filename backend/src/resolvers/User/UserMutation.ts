@@ -25,6 +25,7 @@ export const login = mutationField('login', {
         where: { username },
         data: {
           image: twitterProfile.photos[0].value,
+          isOnline: true
         },
       })
 
@@ -47,16 +48,17 @@ export const login = mutationField('login', {
             username: twitterProfile.username,
             fullname: twitterProfile.displayName,
             image: twitterProfile.photos[0].value,
-            email,
+            email: email,
             social: 'twitter',
+            isOnline: true,
             /* communitiesFollowed: { connect: { url: 'general' } }, */
           },
         })
 
-        await context.prisma.community.update({
-          where: { url: 'general' },
-          data: { members: { connect: { email } } },
-        })
+        // await context.prisma.community.update({
+        //   where: { url: 'general' },
+        //   data: { members: { connect: { email: email } } },
+        // })
 
         return {
           token: sign({ userId: user.id }, process.env['APP_SECRET']),

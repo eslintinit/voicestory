@@ -44,7 +44,7 @@ const CreateCommunity = () => {
     name: yup
       .string()
       .max(22, 'Must be shorter than 22 characters')
-      .matches(/^[^.]+$/, 'Must contain no dots')
+      .matches(/^[a-zA-Z0-9]+$/, 'Should contain only alphanumarics')
       .required('Name is required'),
   })
 

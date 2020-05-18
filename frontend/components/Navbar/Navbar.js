@@ -4,6 +4,7 @@ import { useKeyboardShortcut, useDoubleKeyPress } from 'hooks'
 import { useContext } from 'react'
 import { UserContext } from 'context/UserContext'
 import Cookies from 'js-cookie'
+import { isOwner, isBlocked } from 'utils/permission'
 
 // Commented yet because it's causing console error
 import useSound from 'use-sound'
@@ -46,16 +47,22 @@ const Navbar = () => {
     window.parent.postMessage({ message: 'close-widget' }, '*')
   }
 
-  if(user && user.blocked === '1') { 
-    console.log(user);
-    Cookies.remove('token')
-    if (window) {
-      window.localStorage.setItem('logout', Date.now())
-      localStorage.removeItem('user')
-    }
-    location.reload()
-    closeWidget()
+  if(user && isBlocked(user) && !isOwner(user)) {
+    setTimeout(() => {
+      alert('Your account has been suspended.')
+      logout()
+    }, 3000);
   }
+  // if(user && user.blocked === '1') { 
+  //   console.log(user);
+  //   Cookies.remove('token')
+  //   if (window) {
+  //     window.localStorage.setItem('logout', Date.now())
+  //     localStorage.removeItem('user')
+  //   }
+  //   location.reload()
+  //   closeWidget()
+  // }
 
   useDoubleKeyPress({
     key: 'Enter',
@@ -80,6 +87,7 @@ const Navbar = () => {
   )
 
   const toCommunities = () => {
+    document.getElementById('portal-root').style.display = 'none';
     push(`/[company]/communities`, `/${COMPANY_NAME()}/communities`, {
       shallow: true,
     })

@@ -6,11 +6,11 @@ import Community from './Community'
 import * as S from './CommunitiesList.styled'
 import { GET_COMMUNITIES } from '../../../apis/Community'
 
-const CommunitiesList = ({ communities, searchString }) => {
+const CommunitiesList = ({ communities, setFilteredCommunities, searchString }) => {
   return (
     <S.CommunitiesList>
       {communities.map((community) => (
-        <Community community={community} key={community.id} />
+        <Community community={community} setFilteredCommunities={setFilteredCommunities} searchString={searchString} key={community.id} />
       ))}
     </S.CommunitiesList>
   )

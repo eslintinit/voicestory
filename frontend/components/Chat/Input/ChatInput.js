@@ -116,7 +116,7 @@ const ChatInput = () => {
         padding: '5px 15px',
         borderBottom: '0px solid rgba(0,0,0,0.15)',
         color: theme.activeTabText,
-        minWidth: '200px',
+        minWidth: '300px',
         '&focused': {
           backgroundColor: theme.tabBGHover,
         },
@@ -154,9 +154,18 @@ const ChatInput = () => {
       })
     } else if (body !== '') {
       // playSoundSendMessage()
+      let bodyFiltered = body;
+      bodyFiltered = (bodyFiltered.split('~~~1').map(x => !x.includes('@') ? x : `${x.split('@')[0]}@${x.split('@')[1].split('~~~')[0]}` ).join(''))
+      bodyFiltered = (bodyFiltered.split('~~~0').map(x => !x.includes('@') ? x : `${x.split('@')[0]}@${x.split('@')[1].split('~~~')[0]}` ).join(''))
+      // let splitBody = body.split('~~~1');
+      // if(splitBody.length > 1) {
+      //   for (let i=0; i<splitBody.length; i++) {
+      //     splitBody[i] = !splitBody[i].includes('@') ? splitBody[i] : `${splitBody[i].split('@')[0]}@${splitBody[i].split('@')[1].split('~~~')[0]}` 
+      //   }
+      // }
       sendMessage({
         variables: {
-          body,
+          body: bodyFiltered,
           communityUrl,
           channelUrl,
         },
@@ -227,11 +236,31 @@ const ChatInput = () => {
           <MentionsInput id="vs-input" placeholder="What's happening?" onKeyDown={onKeyDown} value={body} onChange={onChange} style={defaultMentionStyle}>
             <Mention
               trigger="@"
-              data={selectedChannel.community.members.map(m => ({ id: m.id, display: m.fullname }))}
+              data={selectedChannel.community.members.map(m => ({ id: m.id, display: [m.fullname, m.image, m.username, (m.isOnline === true ? '1' : '0')].join('~~~') }))}
               // data={[]}
-              displayTransform={(id, display) => `@${display}`}
+              displayTransform={(id, display) => `@${display.split('~~~')[0]}`}
+              // onAdd={(id, display) => {
+              //   return `@${display.split('~~~')[0]}`;
+              //   console.log(document.getElementById('vs-input').value)
+              // }}
               appendSpaceOnAdd={true}
               style={defaultMentionStyle}
+              renderSuggestion={(
+                suggestion,
+                search,
+                highlightedDisplay,
+                index,
+                focused
+              ) => (
+                <div className={`user ${focused ? 'focused' : ''}`}>
+                  {/* {console.log(suggestion.display)} */}
+                  <img style={{ width: "25px", height: "25px", display: "block", float: "left", marginTop: "-1px", borderRadius: "2px", marginRight: "5px" }} src={suggestion.display.split('~~~')[1]} />
+                  {suggestion.display.split('~~~')[0]}
+                  <span style={{ color: "#7d7d7d", marginLeft: "5px" }}>@{suggestion.display.split('~~~')[2]}</span>
+                  <S.OnlineStatus online={suggestion.display.split('~~~')[3] === '1'}></S.OnlineStatus>
+                </div>
+              )}
+    
             />
             <Mention
               trigger=":"

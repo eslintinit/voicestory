@@ -120,6 +120,7 @@ const CommunitiesPage = () => {
         </S.Header>
         <CommunitiesList
           communities={filteredCommunities}
+          setFilteredCommunities={setFilteredCommunities}
           searchString={searchString}
         />
       </S.CommunitiesWrapper>

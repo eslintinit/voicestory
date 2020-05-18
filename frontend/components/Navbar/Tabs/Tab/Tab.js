@@ -6,13 +6,20 @@ import { useState, useEffect } from 'react'
 import { UNFOLLOW_COMMUNITY, CommunityFragment } from 'apis/Community'
 import { COMPANY_NAME } from 'utils/config'
 // import { COMPANY_NAME } from 'styles/themes'
+import useDarkMode from 'use-dark-mode'
+import { themeWhite, themeDark } from 'styles/themes'
 
 import closeSVG from 'public/icons/close.svg'
 import * as S from './Tab.styled'
 
-const Card = ({ name }) => (
+const Card = ({ isDarkMode, name }) => (
   <div className="card">
-    <div className="header">{name}</div>
+    <div className="header" style={{ 
+      borderRadius: "2px", 
+      backgroundColor: isDarkMode ? themeDark.navbarContainerBG : themeWhite.navbarContainerBG, 
+      color: "#7d7d7d",
+      padding: "5px",
+    }}>{name}</div>
     {/* <S.CommunityPopupCard>{name}</S.CommunityPopupCard> */}
   </div>
 )
@@ -25,6 +32,7 @@ const Tab = ({
   fistCommunity,
 }) => {
   const router = useRouter()
+  const { value: isDarkMode } = useDarkMode(false)
   const { community: selectedCommunity } = router.query
   const [communityLoaded, setCommunityLoaded] = useState(false)
 
@@ -99,8 +107,9 @@ const Tab = ({
       on="hover"
       arrow={false}
       mouseEnterDelay={1500}
+      contentStyle={{ padding: "0px", textAlign: "center", marginTop: "5px", background: "transparent", border: "0px" }}
     >
-      <Card name={community.name} />
+      <Card isDarkMode={isDarkMode} name={community.name} />
     </Popup>
   )
 }
