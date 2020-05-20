@@ -3,7 +3,7 @@ import { useLazyQuery, useMutation } from '@apollo/react-hooks'
 import { useRouter } from 'next/router'
 import Cookies from 'js-cookie'
 import { COMPANY_NAME } from 'utils/config'
-import { GET_ME, LOGOUT } from 'apis/User'
+import { GET_ME, LOGOUT, ONLINE } from 'apis/User'
 import { AppContext } from './AppContext'
 
 const UserContext = createContext()
@@ -15,6 +15,7 @@ const UserProvider = ({ children }) => {
     dispatch,
   } = useContext(AppContext)
   const [logoutUser] = useMutation(LOGOUT)
+  const [onlineUser] = useMutation(ONLINE)
 
   const { back, push } = useRouter()
 
@@ -61,6 +62,14 @@ const UserProvider = ({ children }) => {
     }
     location.reload()
   }
+  
+  const online = async () => {
+    try {
+      await onlineUser({})
+    } catch (error) {
+      // return alert(error)
+    }
+  }
 
   useEffect(() => {
     if (!user) {
@@ -78,6 +87,9 @@ const UserProvider = ({ children }) => {
       logout()
     } else {
       localStorage.setItem('user', JSON.stringify(user))
+      setInterval(async () => {
+        await online();
+      }, 3000);
     }
   }, [user])
 

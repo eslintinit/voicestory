@@ -24,6 +24,7 @@ export const Mutation = {
 
   users: { UserMutation },
   login: { UserMutation },
+  online: { UserMutation },
   block: { UserMutation },
   unblock: { UserMutation },
   blockFromChannel: { UserMutation },

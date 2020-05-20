@@ -1029,6 +1029,8 @@ input StringFilter {
 
 type Subscription {
   newMessage(channelUrl: String, communityUrl: String): Message!
+  userWentOnline(tenant: String): User!
+  userWentOffline(tenant: String): User!
 }
 
 type TwitterPayload {
@@ -1055,6 +1057,7 @@ type User {
   blocked: String!
   owner: String!
   isOnline: Boolean!
+  lastSeenAt: String!
   roles: [Role!]!
   social: String
   username: String!
@@ -1099,6 +1102,7 @@ input UserCreateWithoutChannelsInput {
   blocked: String
   owner: String
   isOnline: Boolean
+  lastSeenAt: String
   messages: MessageCreateManyWithoutAuthorInput
   roles: RoleCreateManyWithoutUsersInput
   social: String
@@ -1119,6 +1123,7 @@ input UserCreateWithoutCommunitiesFollowedInput {
   blocked: String
   owner: String
   isOnline: Boolean
+  lastSeenAt: String
   messages: MessageCreateManyWithoutAuthorInput
   roles: RoleCreateManyWithoutUsersInput
   social: String
@@ -1139,6 +1144,7 @@ input UserCreateWithoutCommunitiesOwnedInput {
   blocked: String
   owner: String
   isOnline: Boolean
+  lastSeenAt: String
   messages: MessageCreateManyWithoutAuthorInput
   roles: RoleCreateManyWithoutUsersInput
   social: String
@@ -1159,6 +1165,7 @@ input UserCreateWithoutFilesInput {
   blocked: String
   owner: String
   isOnline: Boolean
+  lastSeenAt: String
   messages: MessageCreateManyWithoutAuthorInput
   roles: RoleCreateManyWithoutUsersInput
   social: String
@@ -1180,6 +1187,7 @@ input UserCreateWithoutMessagesInput {
   blocked: String
   owner: String
   isOnline: Boolean
+  lastSeenAt: String
   roles: RoleCreateManyWithoutUsersInput
   social: String
   username: String!
@@ -1218,6 +1226,7 @@ input UserScalarWhereInput {
   blocked: StringFilter
   owner: StringFilter
   isOnline: BooleanFilter
+  lastSeenAt: StringFilter
   messages: MessageFilter
   NOT: [UserScalarWhereInput!]
   OR: [UserScalarWhereInput!]
@@ -1237,6 +1246,7 @@ input UserUpdateManyDataInput {
   blocked: String
   owner: String
   isOnline: Boolean
+  lastSeenAt: String
   social: String
   username: String
 }
@@ -1304,6 +1314,7 @@ input UserUpdateWithoutChannelsDataInput {
   blocked: String
   owner: String
   isOnline: Boolean
+  lastSeenAt: String
   messages: MessageUpdateManyWithoutAuthorInput
   roles: RoleUpdateManyWithoutUsersInput
   social: String
@@ -1324,6 +1335,7 @@ input UserUpdateWithoutCommunitiesFollowedDataInput {
   blocked: String
   owner: String
   isOnline: Boolean
+  lastSeenAt: String
   messages: MessageUpdateManyWithoutAuthorInput
   roles: RoleUpdateManyWithoutUsersInput
   social: String
@@ -1344,6 +1356,7 @@ input UserUpdateWithoutCommunitiesOwnedDataInput {
   blocked: String
   owner: String
   isOnline: Boolean
+  lastSeenAt: String
   messages: MessageUpdateManyWithoutAuthorInput
   roles: RoleUpdateManyWithoutUsersInput
   social: String
@@ -1364,6 +1377,7 @@ input UserUpdateWithoutFilesDataInput {
   blocked: String
   owner: String
   isOnline: Boolean
+  lastSeenAt: String
   messages: MessageUpdateManyWithoutAuthorInput
   roles: RoleUpdateManyWithoutUsersInput
   social: String
@@ -1385,6 +1399,7 @@ input UserUpdateWithoutMessagesDataInput {
   blocked: String
   owner: String
   isOnline: Boolean
+  lastSeenAt: String
   roles: RoleUpdateManyWithoutUsersInput
   social: String
   username: String
@@ -1437,6 +1452,7 @@ input UserWhereInput {
   blocked: StringFilter
   owner: StringFilter
   isOnline: BooleanFilter
+  lastSeenAt: StringFilter
   messages: MessageFilter
   NOT: [UserWhereInput!]
   OR: [UserWhereInput!]

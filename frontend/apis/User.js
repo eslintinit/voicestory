@@ -10,6 +10,7 @@ const UserFragment = gql`
     social
     image
     isOnline
+    lastSeenAt
     owner
     blockedCommunities
     blockedChannels
@@ -106,6 +107,19 @@ export const LOGOUT = gql`
   }
 `
 
+export const ONLINE = gql`
+  mutation online {
+    online {
+      id
+      isOnline
+      user {
+        ...UserFragment
+      }
+    }
+  }
+  ${UserFragment}
+`
+
 export const USER_WENT_ONLINE = gql`
   subscription userWentOnline($tenant: String!) {
     userWentOnline(tenant: $tenant) {
@@ -141,6 +155,7 @@ export const BLOCK = gql`
       social
       image
       isOnline
+      lastSeenAt
       owner
       blockedCommunities
       blockedChannels
@@ -178,6 +193,7 @@ export const UNBLOCK = gql`
       social
       image
       isOnline
+      lastSeenAt
       owner
       blockedCommunities
       blockedChannels
@@ -211,6 +227,7 @@ export const BLOCK_FROM_CHANNEL = gql`
       social
       image
       isOnline
+      lastSeenAt
       owner
       blockedCommunities
       blockedChannels
@@ -244,6 +261,7 @@ export const UNBLOCK_FROM_CHANNEL = gql`
       social
       image
       isOnline
+      lastSeenAt
       owner
       blockedCommunities
       blockedChannels
@@ -277,6 +295,7 @@ export const BLOCK_FROM_COMMUNITY = gql`
       social
       image
       isOnline
+      lastSeenAt
       owner
       blockedCommunities
       blockedChannels
@@ -310,6 +329,7 @@ export const UNBLOCK_FROM_COMMUNITY = gql`
       social
       image
       isOnline
+      lastSeenAt
       owner
       blockedCommunities
       blockedChannels

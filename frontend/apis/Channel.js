@@ -21,6 +21,7 @@ const ChannelMembersFragment = gql`
         username
         fullname
         isOnline
+        lastSeenAt
       }
     }
   }

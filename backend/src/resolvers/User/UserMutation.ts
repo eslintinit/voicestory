@@ -1,6 +1,13 @@
 import { mutationField, stringArg } from 'nexus'
 import { sign } from 'jsonwebtoken'
 import { getTenant, getUserId } from '../../utils'
+import * as moment from 'moment'
+
+const asyncForEach = async (array, callback) => {
+  for (let index = 0; index < array.length; index++) {
+    await callback(array[index], index, array)
+  }
+}
 
 export const login = mutationField('login', {
   type: 'AuthPayload',
@@ -27,6 +34,10 @@ export const login = mutationField('login', {
           image: twitterProfile.photos[0].value,
           isOnline: true
         },
+      })
+      context.pubsub.publish('USER_WENT_ONLINE', {
+        user,
+        tenant: await getTenant(context),
       })
 
       const data = {
@@ -59,7 +70,11 @@ export const login = mutationField('login', {
         //   where: { url: 'general' },
         //   data: { members: { connect: { email: email } } },
         // })
-
+        
+        context.pubsub.publish('USER_WENT_ONLINE', {
+          user,
+          tenant: await getTenant(context),
+        })
         return {
           token: sign({ userId: user.id }, process.env['APP_SECRET']),
           user,
@@ -86,6 +101,58 @@ export const logout = mutationField('logout', {
       })
       return user
     } catch (error) {}
+  },
+})
+
+export const online = mutationField('online', {
+  type: 'OnlinePayload',
+  // args: {
+  //   username: stringArg({ nullable: false }),
+  // },
+  resolve: async (_parent, args, context) => {
+    
+    let offlinedUsers = await context.prisma.user.findMany({
+      where: { 
+        isOnline: true,
+        lastSeenAt: { lte: moment().subtract(10, "seconds").toISOString() } 
+      }
+    })
+
+    await asyncForEach(offlinedUsers, async (offlinedUser, offlinedUserIndex) => {
+      offlinedUser = await context.prisma.user.update({
+        where: { id: offlinedUser.id },
+        data: { 
+          isOnline: false        },
+      })
+      context.pubsub.publish('USER_WENT_OFFLINE', {
+        user: offlinedUser,
+        tenant: await getTenant(context),
+      })
+    })
+
+    // console.log(offlinedUsers);
+
+    const userId = await getUserId(context)
+    const lastSeenAt = moment().toISOString()
+    const user = await context.prisma.user.update({
+      where: { id: userId },
+      data: { 
+        isOnline: true,
+        lastSeenAt
+      },
+    })
+    context.pubsub.publish('USER_WENT_ONLINE', {
+      user,
+      tenant: await getTenant(context),
+    })
+
+    const data = {
+      id: user.id,
+      isOnline: true,
+      user,
+    }
+    // console.log(user.username, ' is online')
+    return data
   },
 })
 

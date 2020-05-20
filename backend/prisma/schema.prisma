@@ -20,6 +20,7 @@ model User {
   blocked                 String          @default("0")
   owner                   String          @default("0")
   isOnline                Boolean         @default(false)
+  lastSeenAt              DateTime        @default(now())
   communitiesOwned        Community[]     @relation(name: "UserCommunityAuthor")
   communitiesFollowed     Community[]     @relation(name: "UserCommunityMember", references: [url])
   channels                Channel[]       @relation(name: "UserChannelAuthor")

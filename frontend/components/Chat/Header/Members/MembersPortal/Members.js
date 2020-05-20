@@ -4,7 +4,7 @@ import { useLazyQuery } from '@apollo/react-hooks'
 import { useEscapeToClose } from 'hooks'
 import { COMPANY_NAME } from 'utils/config'
 import { GET_COMMUNITY } from 'apis/Community'
-// import { USER_WENT_ONLINE, USER_WENT_OFFLINE } from 'apis/User'
+import { USER_WENT_ONLINE, USER_WENT_OFFLINE } from 'apis/User'
 import { UserIcon, CloseIcon } from 'components/UI/Icons'
 import PortalWrapper from 'components/UI/PortalWrapper'
 
@@ -26,49 +26,49 @@ const Members = ({ show, onClose }) => {
     if (channelUrl) {
       getMembers({ variables: { url: communityUrl } })
     }
-  }, [channelUrl])
+  }, [channelUrl, communityUrl])
 
-  // useEffect(() => {
-  //   if (subscribeToMore) {
-  //     subscribeToMore({
-  //       document: USER_WENT_ONLINE,
-  //       variables: {
-  //         channelUrl: `${communityUrl}/${channelUrl}`,
-  //         tenant: COMPANY_NAME(),
-  //       },
-  //       updateQuery: (prev, { subscriptionData }) => {
-  //         if (!subscriptionData.data) return prev
-  //         const { user } = subscriptionData.data
-  //         const userData = prev.members.filter(
-  //           (member) => member.username === user.username
-  //         )[0]
-  //         userData.isOnline = user.isOnline
-  //         return {
-  //           ...prev,
-  //         }
-  //       },
-  //     })
-  //     subscribeToMore({
-  //       document: USER_WENT_OFFLINE,
-  //       variables: {
-  //         channelUrl: `${communityUrl}/${channelUrl}`,
-  //         tenant: COMPANY_NAME(),
-  //       },
-  //       updateQuery: (prev, { subscriptionData }) => {
-  //         if (!subscriptionData.data) return prev
-  //         const { user } = subscriptionData.data
+  useEffect(() => {
+    if (subscribeToMore) {
+      subscribeToMore({
+        document: USER_WENT_ONLINE,
+        variables: {
+          channelUrl: `${communityUrl}/${channelUrl}`,
+          tenant: COMPANY_NAME(),
+        },
+        updateQuery: (prev, { subscriptionData }) => {
+          if (!subscriptionData.data) return prev
+          const { user } = subscriptionData.data
+          const userData = prev.members.filter(
+            (member) => member.username === user.username
+          )[0]
+          userData.isOnline = user.isOnline
+          return {
+            ...prev,
+          }
+        },
+      })
+      subscribeToMore({
+        document: USER_WENT_OFFLINE,
+        variables: {
+          channelUrl: `${communityUrl}/${channelUrl}`,
+          tenant: COMPANY_NAME(),
+        },
+        updateQuery: (prev, { subscriptionData }) => {
+          if (!subscriptionData.data) return prev
+          const { user } = subscriptionData.data
 
-  //         const userData = prev.members.filter(
-  //           (member) => member.username === user.username
-  //         )[0]
-  //         userData.isOnline = user.isOnline
-  //         return {
-  //           ...prev,
-  //         }
-  //       },
-  //     })
-  //   }
-  // }, [subscribeToMore])
+          const userData = prev.members.filter(
+            (member) => member.username === user.username
+          )[0]
+          userData.isOnline = user.isOnline
+          return {
+            ...prev,
+          }
+        },
+      })
+    }
+  }, [subscribeToMore])
 
   if (error) {
     return <div />

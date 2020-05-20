@@ -76,6 +76,7 @@ export const ATTACH_ROLE_TO_USER = gql`
       social
       image
       isOnline
+      lastSeenAt
       owner
       blockedCommunities
       blockedChannels

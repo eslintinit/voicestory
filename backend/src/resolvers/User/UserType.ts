@@ -15,6 +15,7 @@ export const User = objectType({
     t.model.blocked()
     t.model.owner()
     t.model.isOnline()
+    t.model.lastSeenAt()
     t.model.communitiesOwned({ pagination: false })
     t.model.communitiesFollowed({ pagination: false })
     t.model.channels({ pagination: false })

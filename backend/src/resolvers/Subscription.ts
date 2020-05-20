@@ -76,36 +76,36 @@ export const Subscription = objectType({
     /*     }, */
     /*   ), */
     /* }) */
-    /* t.field('userWentOnline', { */
-    /*   type: 'User', */
-    /*   args: { tenant: stringArg() }, */
-    /*   nullable: true, */
-    /*   subscribe: withFilter( */
-    /*     (_parent, { tenant }, ctx) => */
-    /*       ctx.pubsub.asyncIterator('USER_WENT_ONLINE'), */
-    /*     (payload, { tenant }) => { */
-    /*       return payload.tenant === tenant */
-    /*     }, */
-    /*   ), */
-    /*   resolve: (payload) => { */
-    /*     return payload.user */
-    /*   }, */
-    /* }) */
-    /* t.field('userWentOffline', { */
-    /*   type: 'User', */
-    /*   args: { tenant: stringArg() }, */
-    /*   nullable: true, */
-    /*   subscribe: withFilter( */
-    /*     (_parent, { tenant }, ctx) => */
-    /*       ctx.pubsub.asyncIterator('USER_WENT_OFFLINE'), */
-    /*     (payload, { tenant }) => { */
-    /*       return payload.tenant === tenant */
-    /*     }, */
-    /*   ), */
-    /*   resolve: (payload) => { */
-    /*     return payload.user */
-    /*   }, */
-    /* }) */
+     t.field('userWentOnline', { 
+       type: 'User', 
+       args: { tenant: stringArg() }, 
+       nullable: true, 
+       subscribe: withFilter( 
+         (_parent, { tenant }, ctx) => 
+           ctx.pubsub.asyncIterator('USER_WENT_ONLINE'), 
+         (payload, { tenant }) => { 
+           return payload.tenant === tenant 
+         }, 
+       ), 
+       resolve: (payload) => { 
+         return payload.user 
+       }, 
+     }) 
+     t.field('userWentOffline', { 
+       type: 'User', 
+       args: { tenant: stringArg() }, 
+       nullable: true, 
+       subscribe: withFilter( 
+         (_parent, { tenant }, ctx) => 
+           ctx.pubsub.asyncIterator('USER_WENT_OFFLINE'), 
+         (payload, { tenant }) => { 
+           return payload.tenant === tenant 
+         }, 
+       ), 
+       resolve: (payload) => { 
+         return payload.user 
+       }, 
+     }) 
     /* t.field('userTypingStatus', { */
     /*   type: 'TypingStatus', */
     /*   args: { */

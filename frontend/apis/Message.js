@@ -14,6 +14,7 @@ const MessageFragment = gql`
       social
       image
       isOnline
+      lastSeenAt
       owner
       blockedCommunities
       blockedChannels

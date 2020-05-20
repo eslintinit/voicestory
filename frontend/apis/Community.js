@@ -46,6 +46,7 @@ export const GET_COMMUNITY = gql`
         id
         username
         isOnline
+        lastSeenAt
         image
       }
     }

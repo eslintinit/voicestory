@@ -2,13 +2,14 @@ import { useRouter } from 'next/router'
 import { useState, useContext, useEffect } from 'react'
 import { UserContext } from 'context/UserContext'
 import { useEscapeToClose, useKeyboardShortcut } from 'hooks'
-import { useQuery, useLazyQuery } from '@apollo/react-hooks'
+import { useQuery, useLazyQuery, useSubscription } from '@apollo/react-hooks'
 
 import { COMPANY_NAME } from 'utils/config'
 import { canManageCommunity } from 'utils/permission'
 
 import { PlusIcon } from 'components/UI/Icons'
 import { GET_COMMUNITIES_CLIENT, SEARCH_COMMUNITIES } from '../../apis/Community'
+import { USER_WENT_ONLINE, USER_WENT_OFFLINE } from '../../apis/User'
 import Search from './Search'
 import CommunitiesList from './CommunitiesList'
 import * as S from './CommunitiesPage.styled'
@@ -61,13 +62,53 @@ const CommunitiesPage = () => {
   //   searchCommunities({ variables: { searchString } })
   // }, [])
 
-  const { data: { searchCommunities = [] } = {}, refetch } = useQuery(
+  const { subscribeToMore, data: { searchCommunities = [] } = {}, refetch } = useQuery(
     SEARCH_COMMUNITIES,
     {
       variables: { searchString: '' },
       pollInterval: 25000, // auto refetch after 20 sec
     },
   )
+
+  // useEffect(
+  //   () =>
+  //     subscribeToMore({
+  //       document: USER_WENT_ONLINE,
+  //       variables: {
+  //         tanent: "voicestory",
+  //       },
+  //       updateQuery: (
+  //         { searchCommunities: oldSearchCommunities = [] },
+  //         { subscriptionData: { data: { username, isOnline } = {} } = {} },
+  //       ) => ({
+  //         searchCommunities: [ ...oldSearchCommunities.map(c => {
+  //           c.members = c.members.map(m => m.username === username ? { ...m, isOnline } : m)
+  //           return c;
+  //         }) ],
+  //       }),
+  //     }),
+  //   [searchCommunities.length, searchString],
+  // )
+
+  // useEffect(
+  //   () =>
+  //     subscribeToMore({
+  //       document: USER_WENT_OFFLINE,
+  //       variables: {
+  //         tanent: "voicestory",
+  //       },
+  //       updateQuery: (
+  //         { searchCommunities: oldSearchCommunities = [] },
+  //         { subscriptionData: { data: { username, isOnline } = {} } = {} },
+  //       ) => ({
+  //         searchCommunities: [ ...oldSearchCommunities.map(c => {
+  //           c.members = c.members.map(m => m.username === username ? { ...m, isOnline } : m)
+  //           return c;
+  //         }) ],
+  //       }),
+  //     }),
+  //   [searchCommunities.length, searchString],
+  // )
 
   useEffect(() => {
     // console.log(searchCommunities)

@@ -9,6 +9,7 @@ import useSound from 'use-sound'
 import dynamic from 'next/dynamic'
 import { MentionsInput, Mention } from 'react-mentions'
 import { isBlocked, isBlockedFromChannel, isBlockedFromCommunity } from 'utils/permission'
+import { USER_WENT_ONLINE, USER_WENT_OFFLINE } from 'apis/User'
 
 import useDarkMode from 'use-dark-mode'
 import { themeDark, themeWhite } from 'styles/themes'
@@ -34,7 +35,7 @@ const ChatInput = () => {
     push,
   } = useRouter()
 
-  const [getChannels, { data: { channels = [] } = {}, loading }] = useLazyQuery(
+  const [getChannels, { data: { channels = [] } = {}, loading, error, subscribeToMore }] = useLazyQuery(
     GET_CHANNELS
   )
 
@@ -125,8 +126,52 @@ const ChatInput = () => {
   };
   // console.log(theme.chatText);
 
-  
+  useEffect(() => {
+    if (subscribeToMore) {
+      subscribeToMore({
+        document: USER_WENT_ONLINE,
+        variables: {
+          channelUrl: `${communityUrl}/${channelUrl}`,
+          tenant: COMPANY_NAME(),
+        },
+        updateQuery: (prev, { subscriptionData }) => {
+          if (!subscriptionData.data) return prev
+          const { user } = subscriptionData.data
+          const userData = prev.filter(
+            (channel) => channel.url === channelUrl && channel.communityUrl === communityUrl
+          )[0].community.members.filter(
+            (member) => member.username === user.username
+          )[0]
+          userData.isOnline = user.isOnline
+          return {
+            ...prev,
+          }
+        },
+      })
+      subscribeToMore({
+        document: USER_WENT_OFFLINE,
+        variables: {
+          channelUrl: `${communityUrl}/${channelUrl}`,
+          tenant: COMPANY_NAME(),
+        },
+        updateQuery: (prev, { subscriptionData }) => {
+          if (!subscriptionData.data) return prev
+          const { user } = subscriptionData.data
 
+          const userData = prev.filter(
+            (channel) => channel.url === channelUrl && channel.communityUrl === communityUrl
+          )[0].community.members.filter(
+            (member) => member.username === user.username
+          )[0]
+          userData.isOnline = user.isOnline
+          return {
+            ...prev,
+          }
+        },
+      })
+    }
+  }, [subscribeToMore])
+  
 
   const [sendMessage] = useMutation(SEND_MESSAGE)
 
