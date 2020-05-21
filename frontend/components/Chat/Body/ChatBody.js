@@ -251,9 +251,10 @@ const ChatBody = () => {
     }
   }
 
+  
   // https://spectrum.chat/apollo/apollo-client/unsubscribe-subscribetomore~b7f64715-1a65-40d5-9147-5a6300de4e30
   useEffect(
-    () =>
+    () => {
       subscribeToMore({
         document: NEW_MESSAGE_SUBSCRIPTION,
         variables: {
@@ -266,16 +267,22 @@ const ChatBody = () => {
         ) => ({
           messages: [...oldMessages, newMessage],
         }),
-      }),
+      })
+      if (chatEndRef && chatEndRef.current) {
+        // TODO: only trigger if chat was scrolled down to the bottom
+        chatEndRef.current.scrollIntoView()
+      }
+
+    },
     [communityUrl, channelUrl],
   )
 
   useEffect(() => {
+    setFilteredMessages(messages)
     if (chatEndRef && chatEndRef.current) {
       // TODO: only trigger if chat was scrolled down to the bottom
       chatEndRef.current.scrollIntoView()
     }
-    setFilteredMessages(messages)
   }, [messages.length])
 
   if (loading) {
@@ -312,7 +319,7 @@ const ChatBody = () => {
           </Fragment>
         )
       })}
-      <div ref={chatEndRef} id="vs-chat-end" alt="Dummy" />
+      <div ref={chatEndRef} id="vs-chat-end" style={{ marginTop: "50px" }} alt="Dummy" />
     </S.Container>
   )
 }

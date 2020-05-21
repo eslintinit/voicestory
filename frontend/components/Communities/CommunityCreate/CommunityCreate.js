@@ -44,7 +44,8 @@ const CreateCommunity = () => {
     name: yup
       .string()
       .max(22, 'Must be shorter than 22 characters')
-      .matches(/^[a-zA-Z0-9]+$/, 'Should contain only alphanumarics')
+      // .matches(/^[a-zA-Z0-9]+$/, 'Should contain only alphanumarics')
+      .matches(/^[a-zA-Z0-9\s]+$/, 'Should contain only alphanumarics')
       .required('Name is required'),
   })
 
@@ -109,7 +110,7 @@ const CreateCommunity = () => {
           initialValues={initialValues}
           validationSchema={validationSchema}
           onSubmit={onSubmit}
-          validateOnChange={false}
+          validateOnChange={true}
         >
           {({ isSubmitting }) => (
             <Form>

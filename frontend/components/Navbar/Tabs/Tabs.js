@@ -41,9 +41,10 @@ const Tabs = () => {
     }
   })
 
-  const communities = !followedCommunities.length
-    ? allCommunities
-    : followedCommunities
+  // const communities = !followedCommunities.length
+  //   ? allCommunities
+  //   : followedCommunities
+  const communities = followedCommunities
 
   const selectedCommunityIndex = communities.findIndex(
     (community) => community.url === selectedCommunityUrl,

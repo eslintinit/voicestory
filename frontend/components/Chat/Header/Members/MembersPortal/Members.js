@@ -39,10 +39,14 @@ const Members = ({ show, onClose }) => {
         updateQuery: (prev, { subscriptionData }) => {
           if (!subscriptionData.data) return prev
           const { user } = subscriptionData.data
-          const userData = prev.members.filter(
-            (member) => member.username === user.username
-          )[0]
-          userData.isOnline = user.isOnline
+          
+          if(typeof prev.members !== 'undefined') {
+            const userData = prev.members.filter(
+              (member) => member.username === user.username
+            )[0]
+            userData.isOnline = user.isOnline
+          }
+          
           return {
             ...prev,
           }
@@ -57,11 +61,14 @@ const Members = ({ show, onClose }) => {
         updateQuery: (prev, { subscriptionData }) => {
           if (!subscriptionData.data) return prev
           const { user } = subscriptionData.data
+          
+          if(typeof prev.members !== 'undefined') {
+            const userData = prev.members.filter(
+              (member) => member.username === user.username
+            )[0]
+            userData.isOnline = user.isOnline
+          }
 
-          const userData = prev.members.filter(
-            (member) => member.username === user.username
-          )[0]
-          userData.isOnline = user.isOnline
           return {
             ...prev,
           }

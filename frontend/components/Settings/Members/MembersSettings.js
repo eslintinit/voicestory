@@ -37,12 +37,13 @@ const Members = () => {
         variables: { searchString: filterString } 
       })
       // console.log(users.filter(u => u.id !== user.id).concat([user]));
+      users[users.findIndex(u => u.id === user.id)] = user;
       cache.writeQuery({
         query: SEARCH_USERS,
         variables: { searchString: filterString },
-        data: { users: [ ...users.filter(u => u.id !== user.id), user] },
+        data: { users },
       })
-      setFilteredUsers([ ...users.filter(u => u.id !== user.id), user])
+      setFilteredUsers(users)
     },
   })
 
@@ -53,12 +54,13 @@ const Members = () => {
         variables: { searchString: filterString } 
       })
       // console.log(users.filter(u => u.id !== user.id).concat([user]));
+      users[users.findIndex(u => u.id === user.id)] = user;
       cache.writeQuery({
         query: SEARCH_USERS,
         variables: { searchString: filterString },
-        data: { users: [ ...users.filter(u => u.id !== user.id), user] },
+        data: { users },
       })
-      setFilteredUsers([ ...users.filter(u => u.id !== user.id), user])
+      setFilteredUsers(users)
     },
   })
 
@@ -69,12 +71,13 @@ const Members = () => {
         variables: { searchString: filterString } 
       })
       // console.log(users.filter(u => u.id !== user.id).concat([user]));
+      users[users.findIndex(u => u.id === user.id)] = user;
       cache.writeQuery({
         query: SEARCH_USERS,
         variables: { searchString: filterString },
-        data: { users: [ ...users.filter(u => u.id !== user.id), user] },
+        data: { users },
       })
-      setFilteredUsers([ ...users.filter(u => u.id !== user.id), user])
+      setFilteredUsers(users)
     },
   })
   const [unblock] = useMutation(UNBLOCK, {
@@ -84,12 +87,13 @@ const Members = () => {
         variables: { searchString: filterString } 
       })
       // console.log(users.filter(u => u.id !== user.id).concat([user]));
+      users[users.findIndex(u => u.id === user.id)] = user;
       cache.writeQuery({
         query: SEARCH_USERS,
         variables: { searchString: filterString },
-        data: { users: [ ...users.filter(u => u.id !== user.id), user] },
+        data: { users },
       })
-      setFilteredUsers([ ...users.filter(u => u.id !== user.id), user])
+      setFilteredUsers(users)
     },
   })
 

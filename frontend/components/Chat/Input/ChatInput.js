@@ -126,51 +126,60 @@ const ChatInput = () => {
   };
   // console.log(theme.chatText);
 
-  useEffect(() => {
-    if (subscribeToMore) {
-      subscribeToMore({
-        document: USER_WENT_ONLINE,
-        variables: {
-          channelUrl: `${communityUrl}/${channelUrl}`,
-          tenant: COMPANY_NAME(),
-        },
-        updateQuery: (prev, { subscriptionData }) => {
-          if (!subscriptionData.data) return prev
-          const { user } = subscriptionData.data
-          const userData = prev.filter(
-            (channel) => channel.url === channelUrl && channel.communityUrl === communityUrl
-          )[0].community.members.filter(
-            (member) => member.username === user.username
-          )[0]
-          userData.isOnline = user.isOnline
-          return {
-            ...prev,
-          }
-        },
-      })
-      subscribeToMore({
-        document: USER_WENT_OFFLINE,
-        variables: {
-          channelUrl: `${communityUrl}/${channelUrl}`,
-          tenant: COMPANY_NAME(),
-        },
-        updateQuery: (prev, { subscriptionData }) => {
-          if (!subscriptionData.data) return prev
-          const { user } = subscriptionData.data
+  // useEffect(() => {
+  //   if (subscribeToMore) {
+  //     subscribeToMore({
+  //       document: USER_WENT_ONLINE,
+  //       variables: {
+  //         channelUrl: `${communityUrl}/${channelUrl}`,
+  //         tenant: COMPANY_NAME(),
+  //       },
+  //       updateQuery: (prev, { subscriptionData }) => {
+  //         if (!subscriptionData.data) return prev
+  //         const { user } = subscriptionData.data
 
-          const userData = prev.filter(
-            (channel) => channel.url === channelUrl && channel.communityUrl === communityUrl
-          )[0].community.members.filter(
-            (member) => member.username === user.username
-          )[0]
-          userData.isOnline = user.isOnline
-          return {
-            ...prev,
-          }
-        },
-      })
-    }
-  }, [subscribeToMore])
+  //         if(typeof prev.channels !== 'undefined') {
+  //           console.log(prev.channels)
+  //           const userData = prev.channels.filter(
+  //             (channel) => channel.url === channelUrl && channel.communityUrl === communityUrl
+  //           )[0].community.members.filter(
+  //             (member) => member.username === user.username
+  //           )[0]
+  //           userData.isOnline = user.isOnline
+  //         }
+
+  //         return {
+  //           ...prev,
+  //         }
+  //       },
+  //     })
+  //     subscribeToMore({
+  //       document: USER_WENT_OFFLINE,
+  //       variables: {
+  //         channelUrl: `${communityUrl}/${channelUrl}`,
+  //         tenant: COMPANY_NAME(),
+  //       },
+  //       updateQuery: (prev, { subscriptionData }) => {
+  //         if (!subscriptionData.data) return prev
+  //         const { user } = subscriptionData.data
+
+  //         if(typeof prev.channels !== 'undefined') {
+  //           console.log(prev.channels)
+  //           const userData = prev.channels.filter(
+  //             (channel) => channel.url === channelUrl && channel.communityUrl === communityUrl
+  //           )[0].community.members.filter(
+  //             (member) => member.username === user.username
+  //           )[0]
+  //           userData.isOnline = user.isOnline
+  //         }
+
+  //         return {
+  //           ...prev,
+  //         }
+  //       },
+  //     })
+  //   }
+  // }, [subscribeToMore])
   
 
   const [sendMessage] = useMutation(SEND_MESSAGE)
@@ -200,8 +209,8 @@ const ChatInput = () => {
     } else if (body !== '') {
       // playSoundSendMessage()
       let bodyFiltered = body;
-      bodyFiltered = (bodyFiltered.split('~~~1').map(x => !x.includes('@') ? x : `${x.split('@')[0]}@${x.split('@')[1].split('~~~')[0]}` ).join(''))
-      bodyFiltered = (bodyFiltered.split('~~~0').map(x => !x.includes('@') ? x : `${x.split('@')[0]}@${x.split('@')[1].split('~~~')[0]}` ).join(''))
+      bodyFiltered = (bodyFiltered.split('~~~1').map(x => !x.includes('@') ? x : `${x.split('@')[0]}<a class="mention">@${x.split('@')[1].split('~~~')[0].replace('[', '').split(']')[0]}</a>` ).join(''))
+      bodyFiltered = (bodyFiltered.split('~~~0').map(x => !x.includes('@') ? x : `${x.split('@')[0]}<a class="mention">@${x.split('@')[1].split('~~~')[0].replace('[', '').split(']')[0]}</a>` ).join(''))
       // let splitBody = body.split('~~~1');
       // if(splitBody.length > 1) {
       //   for (let i=0; i<splitBody.length; i++) {
